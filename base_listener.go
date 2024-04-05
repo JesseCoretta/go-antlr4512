@@ -38,6 +38,12 @@ func (s *BaseRFC4512Listener) EnterObjectClassDescriptions(ctx *ObjectClassDescr
 // ExitObjectClassDescriptions is called when production objectClassDescriptions is exited.
 func (s *BaseRFC4512Listener) ExitObjectClassDescriptions(ctx *ObjectClassDescriptionsContext) {}
 
+// EnterObjectClassLabel is called when production objectClassLabel is entered.
+func (s *BaseRFC4512Listener) EnterObjectClassLabel(ctx *ObjectClassLabelContext) {}
+
+// ExitObjectClassLabel is called when production objectClassLabel is exited.
+func (s *BaseRFC4512Listener) ExitObjectClassLabel(ctx *ObjectClassLabelContext) {}
+
 // EnterObjectClassDescription is called when production objectClassDescription is entered.
 func (s *BaseRFC4512Listener) EnterObjectClassDescription(ctx *ObjectClassDescriptionContext) {}
 
@@ -79,6 +85,12 @@ func (s *BaseRFC4512Listener) EnterAttributeTypeDescriptions(ctx *AttributeTypeD
 
 // ExitAttributeTypeDescriptions is called when production attributeTypeDescriptions is exited.
 func (s *BaseRFC4512Listener) ExitAttributeTypeDescriptions(ctx *AttributeTypeDescriptionsContext) {}
+
+// EnterAttributeTypeLabel is called when production attributeTypeLabel is entered.
+func (s *BaseRFC4512Listener) EnterAttributeTypeLabel(ctx *AttributeTypeLabelContext) {}
+
+// ExitAttributeTypeLabel is called when production attributeTypeLabel is exited.
+func (s *BaseRFC4512Listener) ExitAttributeTypeLabel(ctx *AttributeTypeLabelContext) {}
 
 // EnterAttributeTypeDescription is called when production attributeTypeDescription is entered.
 func (s *BaseRFC4512Listener) EnterAttributeTypeDescription(ctx *AttributeTypeDescriptionContext) {}
@@ -146,6 +158,12 @@ func (s *BaseRFC4512Listener) EnterMatchingRuleDescriptions(ctx *MatchingRuleDes
 // ExitMatchingRuleDescriptions is called when production matchingRuleDescriptions is exited.
 func (s *BaseRFC4512Listener) ExitMatchingRuleDescriptions(ctx *MatchingRuleDescriptionsContext) {}
 
+// EnterMatchingRuleLabel is called when production matchingRuleLabel is entered.
+func (s *BaseRFC4512Listener) EnterMatchingRuleLabel(ctx *MatchingRuleLabelContext) {}
+
+// ExitMatchingRuleLabel is called when production matchingRuleLabel is exited.
+func (s *BaseRFC4512Listener) ExitMatchingRuleLabel(ctx *MatchingRuleLabelContext) {}
+
 // EnterMatchingRuleDescription is called when production matchingRuleDescription is entered.
 func (s *BaseRFC4512Listener) EnterMatchingRuleDescription(ctx *MatchingRuleDescriptionContext) {}
 
@@ -159,6 +177,12 @@ func (s *BaseRFC4512Listener) EnterMatchingRuleUseDescriptions(ctx *MatchingRule
 // ExitMatchingRuleUseDescriptions is called when production matchingRuleUseDescriptions is exited.
 func (s *BaseRFC4512Listener) ExitMatchingRuleUseDescriptions(ctx *MatchingRuleUseDescriptionsContext) {
 }
+
+// EnterMatchingRuleUseLabel is called when production matchingRuleUseLabel is entered.
+func (s *BaseRFC4512Listener) EnterMatchingRuleUseLabel(ctx *MatchingRuleUseLabelContext) {}
+
+// ExitMatchingRuleUseLabel is called when production matchingRuleUseLabel is exited.
+func (s *BaseRFC4512Listener) ExitMatchingRuleUseLabel(ctx *MatchingRuleUseLabelContext) {}
 
 // EnterMatchingRuleUseDescription is called when production matchingRuleUseDescription is entered.
 func (s *BaseRFC4512Listener) EnterMatchingRuleUseDescription(ctx *MatchingRuleUseDescriptionContext) {
@@ -180,6 +204,12 @@ func (s *BaseRFC4512Listener) EnterLDAPSyntaxDescriptions(ctx *LDAPSyntaxDescrip
 // ExitLDAPSyntaxDescriptions is called when production lDAPSyntaxDescriptions is exited.
 func (s *BaseRFC4512Listener) ExitLDAPSyntaxDescriptions(ctx *LDAPSyntaxDescriptionsContext) {}
 
+// EnterLDAPSyntaxLabel is called when production lDAPSyntaxLabel is entered.
+func (s *BaseRFC4512Listener) EnterLDAPSyntaxLabel(ctx *LDAPSyntaxLabelContext) {}
+
+// ExitLDAPSyntaxLabel is called when production lDAPSyntaxLabel is exited.
+func (s *BaseRFC4512Listener) ExitLDAPSyntaxLabel(ctx *LDAPSyntaxLabelContext) {}
+
 // EnterLDAPSyntaxDescription is called when production lDAPSyntaxDescription is entered.
 func (s *BaseRFC4512Listener) EnterLDAPSyntaxDescription(ctx *LDAPSyntaxDescriptionContext) {}
 
@@ -193,6 +223,12 @@ func (s *BaseRFC4512Listener) EnterDITContentRuleDescriptions(ctx *DITContentRul
 // ExitDITContentRuleDescriptions is called when production dITContentRuleDescriptions is exited.
 func (s *BaseRFC4512Listener) ExitDITContentRuleDescriptions(ctx *DITContentRuleDescriptionsContext) {
 }
+
+// EnterDITContentRuleLabel is called when production dITContentRuleLabel is entered.
+func (s *BaseRFC4512Listener) EnterDITContentRuleLabel(ctx *DITContentRuleLabelContext) {}
+
+// ExitDITContentRuleLabel is called when production dITContentRuleLabel is exited.
+func (s *BaseRFC4512Listener) ExitDITContentRuleLabel(ctx *DITContentRuleLabelContext) {}
 
 // EnterDITContentRuleDescription is called when production dITContentRuleDescription is entered.
 func (s *BaseRFC4512Listener) EnterDITContentRuleDescription(ctx *DITContentRuleDescriptionContext) {}
@@ -219,6 +255,12 @@ func (s *BaseRFC4512Listener) EnterDITStructureRuleDescriptions(ctx *DITStructur
 // ExitDITStructureRuleDescriptions is called when production dITStructureRuleDescriptions is exited.
 func (s *BaseRFC4512Listener) ExitDITStructureRuleDescriptions(ctx *DITStructureRuleDescriptionsContext) {
 }
+
+// EnterDITStructureRuleLabel is called when production dITStructureRuleLabel is entered.
+func (s *BaseRFC4512Listener) EnterDITStructureRuleLabel(ctx *DITStructureRuleLabelContext) {}
+
+// ExitDITStructureRuleLabel is called when production dITStructureRuleLabel is exited.
+func (s *BaseRFC4512Listener) ExitDITStructureRuleLabel(ctx *DITStructureRuleLabelContext) {}
 
 // EnterDITStructureRuleDescription is called when production dITStructureRuleDescription is entered.
 func (s *BaseRFC4512Listener) EnterDITStructureRuleDescription(ctx *DITStructureRuleDescriptionContext) {
@@ -257,6 +299,12 @@ func (s *BaseRFC4512Listener) EnterNameFormDescriptions(ctx *NameFormDescription
 
 // ExitNameFormDescriptions is called when production nameFormDescriptions is exited.
 func (s *BaseRFC4512Listener) ExitNameFormDescriptions(ctx *NameFormDescriptionsContext) {}
+
+// EnterNameFormLabel is called when production nameFormLabel is entered.
+func (s *BaseRFC4512Listener) EnterNameFormLabel(ctx *NameFormLabelContext) {}
+
+// ExitNameFormLabel is called when production nameFormLabel is exited.
+func (s *BaseRFC4512Listener) ExitNameFormLabel(ctx *NameFormLabelContext) {}
 
 // EnterNameFormDescription is called when production nameFormDescription is entered.
 func (s *BaseRFC4512Listener) EnterNameFormDescription(ctx *NameFormDescriptionContext) {}
@@ -317,6 +365,12 @@ func (s *BaseRFC4512Listener) EnterDefinitionExtension(ctx *DefinitionExtensionC
 
 // ExitDefinitionExtension is called when production definitionExtension is exited.
 func (s *BaseRFC4512Listener) ExitDefinitionExtension(ctx *DefinitionExtensionContext) {}
+
+// EnterDefinitionLabelDelim is called when production definitionLabelDelim is entered.
+func (s *BaseRFC4512Listener) EnterDefinitionLabelDelim(ctx *DefinitionLabelDelimContext) {}
+
+// ExitDefinitionLabelDelim is called when production definitionLabelDelim is exited.
+func (s *BaseRFC4512Listener) ExitDefinitionLabelDelim(ctx *DefinitionLabelDelimContext) {}
 
 // EnterOIDs is called when production oIDs is entered.
 func (s *BaseRFC4512Listener) EnterOIDs(ctx *OIDsContext) {}

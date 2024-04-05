@@ -1,6 +1,6 @@
 # go-rfc4512-antlr
 
-[![ANTLR4](https://img.shields.io/badge/antlr-blue?label=%E2%92%B6&labelColor=gray&color=magenta&cacheSeconds=86400)](https://www.antlr.org/) [![RFC4512](https://img.shields.io/badge/RFC-4512-blue)](https://datatracker.ietf.org/doc/html/rfc4512) [![Go Reference](https://pkg.go.dev/badge/github.com/JesseCoretta/go-rfc4512-antlr.svg)](https://pkg.go.dev/github.com/JesseCoretta/go-rfc4512-antlr) [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](https://github.com/JesseCoretta/go-rfc4512-antlr/blob/main/LICENSE) [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/JesseCoretta/go-rfc4512-antlr/issues) [![Experimental](https://img.shields.io/badge/experimental-blue?logoColor=blue&label=%F0%9F%A7%AA%20%F0%9F%94%AC&labelColor=blue&color=gray)](https://github.com/JesseCoretta/JesseCoretta/blob/main/EXPERIMENTAL.md)
+[![ANTLR4](https://img.shields.io/badge/antlr-blue?label=%E2%92%B6&labelColor=gray&color=magenta&cacheSeconds=86400)](https://www.antlr.org/) [![RFC4512](https://img.shields.io/badge/RFC-4512-blue)](https://datatracker.ietf.org/doc/html/rfc4512) [![Reference](https://pkg.go.dev/badge/github.com/JesseCoretta/go-rfc4512-antlr.svg)](https://pkg.go.dev/github.com/JesseCoretta/go-rfc4512-antlr) [![License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](https://github.com/JesseCoretta/go-rfc4512-antlr/blob/main/LICENSE) [![Issues](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/JesseCoretta/go-rfc4512-antlr/issues) [![Experimental](https://img.shields.io/badge/experimental-blue?logoColor=blue&label=%F0%9F%A7%AA%20%F0%9F%94%AC&labelColor=blue&color=gray)](https://github.com/JesseCoretta/JesseCoretta/blob/main/EXPERIMENTAL.md)
 
 Package rfc4512antlr implements Sections 2.5 and 4 of RFC 4512 by way of an unmodified ANTLR4-generated codebase.
 
@@ -19,7 +19,32 @@ If alterations are desired, modify the above grammar file and regenerate code as
 ## Features
 
   - Compliant RFC 4512 syntax implementation
+  - Flexible definition label support (e.g.: use of "`attributeType ...`" as well as "`attributeTypes:...`")
   - Extremely forgiving of newlines, hanging indents and line-terminating Bash-style comments of schema definitions
+
+## Field Ordering
+
+Definitions are expected to contain fields ordered as specified in their respective sections within [RFC 4512](https://datatracker.ietf.org/doc/html/rfc4512).
+
+For example, the following definition is poorly formed due to placement of the `X-ORIGIN` extension:
+
+```
+attributeType ( 1.3.6.1.4.1.56521.999.5
+	NAME 'someAttribute'
+	X-ORIGIN 'NOWHERE'
+	SUP name )
+```
+
+The correct ordering would instead be:
+
+```
+attributeType ( 1.3.6.1.4.1.56521.999.5
+	NAME 'someAttribute'
+	SUP name
+	X-ORIGIN 'NOWHERE' )
+```
+
+One example of this in the wild is the `subtreeSpecification` attribute type definition found within [Section 2.3 of RFC 3672](https://datatracker.ietf.org/doc/html/rfc3672#section-2.3) (note `USAGE`). Such occurrences of this condition must be remedied prior to engaging the parser provided by this package.
 
 ## Cyclomatics Notice
 

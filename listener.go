@@ -16,6 +16,9 @@ type RFC4512Listener interface {
 	// EnterObjectClassDescriptions is called when entering the objectClassDescriptions production.
 	EnterObjectClassDescriptions(c *ObjectClassDescriptionsContext)
 
+	// EnterObjectClassLabel is called when entering the objectClassLabel production.
+	EnterObjectClassLabel(c *ObjectClassLabelContext)
+
 	// EnterObjectClassDescription is called when entering the objectClassDescription production.
 	EnterObjectClassDescription(c *ObjectClassDescriptionContext)
 
@@ -36,6 +39,9 @@ type RFC4512Listener interface {
 
 	// EnterAttributeTypeDescriptions is called when entering the attributeTypeDescriptions production.
 	EnterAttributeTypeDescriptions(c *AttributeTypeDescriptionsContext)
+
+	// EnterAttributeTypeLabel is called when entering the attributeTypeLabel production.
+	EnterAttributeTypeLabel(c *AttributeTypeLabelContext)
 
 	// EnterAttributeTypeDescription is called when entering the attributeTypeDescription production.
 	EnterAttributeTypeDescription(c *AttributeTypeDescriptionContext)
@@ -70,11 +76,17 @@ type RFC4512Listener interface {
 	// EnterMatchingRuleDescriptions is called when entering the matchingRuleDescriptions production.
 	EnterMatchingRuleDescriptions(c *MatchingRuleDescriptionsContext)
 
+	// EnterMatchingRuleLabel is called when entering the matchingRuleLabel production.
+	EnterMatchingRuleLabel(c *MatchingRuleLabelContext)
+
 	// EnterMatchingRuleDescription is called when entering the matchingRuleDescription production.
 	EnterMatchingRuleDescription(c *MatchingRuleDescriptionContext)
 
 	// EnterMatchingRuleUseDescriptions is called when entering the matchingRuleUseDescriptions production.
 	EnterMatchingRuleUseDescriptions(c *MatchingRuleUseDescriptionsContext)
+
+	// EnterMatchingRuleUseLabel is called when entering the matchingRuleUseLabel production.
+	EnterMatchingRuleUseLabel(c *MatchingRuleUseLabelContext)
 
 	// EnterMatchingRuleUseDescription is called when entering the matchingRuleUseDescription production.
 	EnterMatchingRuleUseDescription(c *MatchingRuleUseDescriptionContext)
@@ -85,11 +97,17 @@ type RFC4512Listener interface {
 	// EnterLDAPSyntaxDescriptions is called when entering the lDAPSyntaxDescriptions production.
 	EnterLDAPSyntaxDescriptions(c *LDAPSyntaxDescriptionsContext)
 
+	// EnterLDAPSyntaxLabel is called when entering the lDAPSyntaxLabel production.
+	EnterLDAPSyntaxLabel(c *LDAPSyntaxLabelContext)
+
 	// EnterLDAPSyntaxDescription is called when entering the lDAPSyntaxDescription production.
 	EnterLDAPSyntaxDescription(c *LDAPSyntaxDescriptionContext)
 
 	// EnterDITContentRuleDescriptions is called when entering the dITContentRuleDescriptions production.
 	EnterDITContentRuleDescriptions(c *DITContentRuleDescriptionsContext)
+
+	// EnterDITContentRuleLabel is called when entering the dITContentRuleLabel production.
+	EnterDITContentRuleLabel(c *DITContentRuleLabelContext)
 
 	// EnterDITContentRuleDescription is called when entering the dITContentRuleDescription production.
 	EnterDITContentRuleDescription(c *DITContentRuleDescriptionContext)
@@ -102,6 +120,9 @@ type RFC4512Listener interface {
 
 	// EnterDITStructureRuleDescriptions is called when entering the dITStructureRuleDescriptions production.
 	EnterDITStructureRuleDescriptions(c *DITStructureRuleDescriptionsContext)
+
+	// EnterDITStructureRuleLabel is called when entering the dITStructureRuleLabel production.
+	EnterDITStructureRuleLabel(c *DITStructureRuleLabelContext)
 
 	// EnterDITStructureRuleDescription is called when entering the dITStructureRuleDescription production.
 	EnterDITStructureRuleDescription(c *DITStructureRuleDescriptionContext)
@@ -120,6 +141,9 @@ type RFC4512Listener interface {
 
 	// EnterNameFormDescriptions is called when entering the nameFormDescriptions production.
 	EnterNameFormDescriptions(c *NameFormDescriptionsContext)
+
+	// EnterNameFormLabel is called when entering the nameFormLabel production.
+	EnterNameFormLabel(c *NameFormLabelContext)
 
 	// EnterNameFormDescription is called when entering the nameFormDescription production.
 	EnterNameFormDescription(c *NameFormDescriptionContext)
@@ -150,6 +174,9 @@ type RFC4512Listener interface {
 
 	// EnterDefinitionExtension is called when entering the definitionExtension production.
 	EnterDefinitionExtension(c *DefinitionExtensionContext)
+
+	// EnterDefinitionLabelDelim is called when entering the definitionLabelDelim production.
+	EnterDefinitionLabelDelim(c *DefinitionLabelDelimContext)
 
 	// EnterOIDs is called when entering the oIDs production.
 	EnterOIDs(c *OIDsContext)
@@ -199,6 +226,9 @@ type RFC4512Listener interface {
 	// ExitObjectClassDescriptions is called when exiting the objectClassDescriptions production.
 	ExitObjectClassDescriptions(c *ObjectClassDescriptionsContext)
 
+	// ExitObjectClassLabel is called when exiting the objectClassLabel production.
+	ExitObjectClassLabel(c *ObjectClassLabelContext)
+
 	// ExitObjectClassDescription is called when exiting the objectClassDescription production.
 	ExitObjectClassDescription(c *ObjectClassDescriptionContext)
 
@@ -219,6 +249,9 @@ type RFC4512Listener interface {
 
 	// ExitAttributeTypeDescriptions is called when exiting the attributeTypeDescriptions production.
 	ExitAttributeTypeDescriptions(c *AttributeTypeDescriptionsContext)
+
+	// ExitAttributeTypeLabel is called when exiting the attributeTypeLabel production.
+	ExitAttributeTypeLabel(c *AttributeTypeLabelContext)
 
 	// ExitAttributeTypeDescription is called when exiting the attributeTypeDescription production.
 	ExitAttributeTypeDescription(c *AttributeTypeDescriptionContext)
@@ -253,11 +286,17 @@ type RFC4512Listener interface {
 	// ExitMatchingRuleDescriptions is called when exiting the matchingRuleDescriptions production.
 	ExitMatchingRuleDescriptions(c *MatchingRuleDescriptionsContext)
 
+	// ExitMatchingRuleLabel is called when exiting the matchingRuleLabel production.
+	ExitMatchingRuleLabel(c *MatchingRuleLabelContext)
+
 	// ExitMatchingRuleDescription is called when exiting the matchingRuleDescription production.
 	ExitMatchingRuleDescription(c *MatchingRuleDescriptionContext)
 
 	// ExitMatchingRuleUseDescriptions is called when exiting the matchingRuleUseDescriptions production.
 	ExitMatchingRuleUseDescriptions(c *MatchingRuleUseDescriptionsContext)
+
+	// ExitMatchingRuleUseLabel is called when exiting the matchingRuleUseLabel production.
+	ExitMatchingRuleUseLabel(c *MatchingRuleUseLabelContext)
 
 	// ExitMatchingRuleUseDescription is called when exiting the matchingRuleUseDescription production.
 	ExitMatchingRuleUseDescription(c *MatchingRuleUseDescriptionContext)
@@ -268,11 +307,17 @@ type RFC4512Listener interface {
 	// ExitLDAPSyntaxDescriptions is called when exiting the lDAPSyntaxDescriptions production.
 	ExitLDAPSyntaxDescriptions(c *LDAPSyntaxDescriptionsContext)
 
+	// ExitLDAPSyntaxLabel is called when exiting the lDAPSyntaxLabel production.
+	ExitLDAPSyntaxLabel(c *LDAPSyntaxLabelContext)
+
 	// ExitLDAPSyntaxDescription is called when exiting the lDAPSyntaxDescription production.
 	ExitLDAPSyntaxDescription(c *LDAPSyntaxDescriptionContext)
 
 	// ExitDITContentRuleDescriptions is called when exiting the dITContentRuleDescriptions production.
 	ExitDITContentRuleDescriptions(c *DITContentRuleDescriptionsContext)
+
+	// ExitDITContentRuleLabel is called when exiting the dITContentRuleLabel production.
+	ExitDITContentRuleLabel(c *DITContentRuleLabelContext)
 
 	// ExitDITContentRuleDescription is called when exiting the dITContentRuleDescription production.
 	ExitDITContentRuleDescription(c *DITContentRuleDescriptionContext)
@@ -285,6 +330,9 @@ type RFC4512Listener interface {
 
 	// ExitDITStructureRuleDescriptions is called when exiting the dITStructureRuleDescriptions production.
 	ExitDITStructureRuleDescriptions(c *DITStructureRuleDescriptionsContext)
+
+	// ExitDITStructureRuleLabel is called when exiting the dITStructureRuleLabel production.
+	ExitDITStructureRuleLabel(c *DITStructureRuleLabelContext)
 
 	// ExitDITStructureRuleDescription is called when exiting the dITStructureRuleDescription production.
 	ExitDITStructureRuleDescription(c *DITStructureRuleDescriptionContext)
@@ -303,6 +351,9 @@ type RFC4512Listener interface {
 
 	// ExitNameFormDescriptions is called when exiting the nameFormDescriptions production.
 	ExitNameFormDescriptions(c *NameFormDescriptionsContext)
+
+	// ExitNameFormLabel is called when exiting the nameFormLabel production.
+	ExitNameFormLabel(c *NameFormLabelContext)
 
 	// ExitNameFormDescription is called when exiting the nameFormDescription production.
 	ExitNameFormDescription(c *NameFormDescriptionContext)
@@ -333,6 +384,9 @@ type RFC4512Listener interface {
 
 	// ExitDefinitionExtension is called when exiting the definitionExtension production.
 	ExitDefinitionExtension(c *DefinitionExtensionContext)
+
+	// ExitDefinitionLabelDelim is called when exiting the definitionLabelDelim production.
+	ExitDefinitionLabelDelim(c *DefinitionLabelDelimContext)
 
 	// ExitOIDs is called when exiting the oIDs production.
 	ExitOIDs(c *OIDsContext)

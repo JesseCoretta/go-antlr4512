@@ -112,7 +112,10 @@ definitions	: (LineComment
 
 // objectClassDescriptions is a sequence of one (1) or more
 // objectClassDescription instances separated by newlines.
-objectClassDescriptions: ( OCL objectClassDescription SP* (NEWLINE|EOF))+ ;
+objectClassDescriptions	: (objectClassLabel objectClassDescription
+				SP* (NEWLINE|EOF))+
+			;
+objectClassLabel	: OCLabel definitionLabelDelim			  ;
 
 // objectClassDescription conforms to section 4.1.1 of RFC4512.
 objectClassDescription          : openParen SP* LineComment? NEWLINE?
@@ -141,7 +144,10 @@ oCSuperClasses			: SUP (oID|oIDs)				;
 
 // attributeTypeDescriptions is a sequence of one (1) or more
 // attributeTypeDescription instances separated by newlines.
-attributeTypeDescriptions: (ATL attributeTypeDescription SP* (NEWLINE|EOF))+	;
+attributeTypeDescriptions: (attributeTypeLabel attributeTypeDescription
+				SP* (NEWLINE|EOF))+
+			 ;
+attributeTypeLabel	 : ATLabel definitionLabelDelim			  ;
 
 // attributeTypeDescription conforms to section 4.1.2 of RFC4512.
 attributeTypeDescription        : openParen SP* LineComment? NEWLINE?
@@ -194,7 +200,10 @@ aTNoUserModification		: NOMODS				;
 
 // matchingRuleDescriptions is a sequence of one (1) or more
 // matchingRuleDescription instances separated by newlines.
-matchingRuleDescriptions: (MRL matchingRuleDescription SP* (NEWLINE|EOF))+ ;
+matchingRuleDescriptions: (matchingRuleLabel matchingRuleDescription
+				SP* (NEWLINE|EOF))+
+			;
+matchingRuleLabel	: MRLabel definitionLabelDelim			  ;
 
 // matchingRuleDescription conforms to section 4.1.3 of RFC4512.
 matchingRuleDescription		: openParen SP* LineComment? NEWLINE?
@@ -209,7 +218,10 @@ matchingRuleDescription		: openParen SP* LineComment? NEWLINE?
 
 // matchingRuleUseDescriptions is a sequence of one (1) or more
 // matchingRuleUseDescription instances separated by newlines.
-matchingRuleUseDescriptions: (MRUL matchingRuleUseDescription SP* (NEWLINE|EOF))+ ;
+matchingRuleUseDescriptions: (matchingRuleUseLabel matchingRuleUseDescription
+				SP* (NEWLINE|EOF))+
+			   ;
+matchingRuleUseLabel	   : MULabel definitionLabelDelim			  ;
 
 // matchingRuleUseDescription conforms to section 4.1.4 of RFC4512.
 // Note that its numericOID is NOT unique, but rather is identical to
@@ -231,7 +243,8 @@ mRUApplies			: APPLIES (oID|oIDs)				;
 
 // lDAPSyntaxDescriptions is a sequence of one (1) or more
 // lDAPSyntaxDescription instances separated by newlines.
-lDAPSyntaxDescriptions: (LSL lDAPSyntaxDescription SP* (NEWLINE|EOF))+ ;
+lDAPSyntaxDescriptions	: (lDAPSyntaxLabel lDAPSyntaxDescription SP* (NEWLINE|EOF))+ ;
+lDAPSyntaxLabel		: LSLabel definitionLabelDelim				;
 
 // lDAPSyntaxDescription conforms to section 4.1.5 of RFC4512.
 lDAPSyntaxDescription		: openParen SP* LineComment? NEWLINE?
@@ -243,7 +256,10 @@ lDAPSyntaxDescription		: openParen SP* LineComment? NEWLINE?
 
 // dITContentRuleDescriptions is a sequence of one (1) or more
 // dITContentRuleDescription instances separated by newlines.
-dITContentRuleDescriptions: (DCRL dITContentRuleDescription SP* (NEWLINE|EOF))+	;
+dITContentRuleDescriptions: (dITContentRuleLabel dITContentRuleDescription
+				 SP* (NEWLINE|EOF))+
+			  ;
+dITContentRuleLabel	  : DCLabel definitionLabelDelim		;
 
 // dITContentRuleDescription conforms to section 4.1.6 of RFC4512.
 // Note that its numericOID is NOT unique, but rather is identical
@@ -272,9 +288,10 @@ dCRAux				: AUX (oID|oIDs)			;
 
 // dITStructureRuleDescriptions is a sequence of one (1) or more
 // dITStructureRuleDescription instances separated by newlines.
-dITStructureRuleDescriptions: (DSRL dITStructureRuleDescription
+dITStructureRuleDescriptions: (dITStructureRuleLabel dITStructureRuleDescription
 				SP* (NEWLINE|EOF))+
 			    ;
+dITStructureRuleLabel	    : DSLabel definitionLabelDelim		;
 
 // dITStructureRuleDescription conforms to section 4.1.7.1 of RFC4512.
 dITStructureRuleDescription	: openParen SP* LineComment? NEWLINE?
@@ -311,7 +328,8 @@ dSRForm				: FORM oID				;
 
 // nameFormDescriptions is a sequence of one (1) or more
 // nameFormDescription instances separated by newlines.
-nameFormDescriptions: (NFL nameFormDescription SP* (NEWLINE|EOF))+	;
+nameFormDescriptions	: (nameFormLabel nameFormDescription SP* (NEWLINE|EOF))+ ;
+nameFormLabel		: NFLabel definitionLabelDelim				 ;
 
 // nameFormDescription conforms to section 4.1.7.2
 nameFormDescription		: openParen SP* LineComment? NEWLINE?
@@ -376,6 +394,8 @@ definitionExtension	: NEWLINE? ExtensionName (extensionValue|
 				LineComment? )
                         ; 
 
+definitionLabelDelim	: ((SP*':'SP*|SP*'='SP*)|SP+)			;
+
 // oIDs is a sequence of one (1) or more oID instances enclosed within
 // opening and closing parenthesis and delimited via ODelim.
 oIDs			: openParen SP* LineComment? NEWLINE? SP* oID SP*
@@ -390,6 +410,14 @@ attributeDescription	: oID attrOptions?				;
 // oID is either a descriptor (e.g.: cn) OR a numeric OID (e.g.: 2.5.4.3).
 oID		    	: descriptor
 			| numericOID
+			| NFLabel
+			| LSLabel
+			| MRLabel
+			| MULabel
+			| ATLabel
+			| OCLabel
+			| DCLabel
+			| DSLabel
 			;
 
 // openParen is used to mark the beginning of parenthetical encapsulation
@@ -453,13 +481,6 @@ Usage			: 'userApplication'
 MacroSuffix		: ( ':' | '.' ) Digit ( '.' Digit ) *		;
 NumOID			: ('0'|'1'|'2') ( '.' Digit )+  		;
 ExtensionName		: SP+ 'X-' ALPHA (('-'|'_')? ALPHA+)* SP+	;
-/*
-Extension		: 'X-' ( ALPHA | '-' | '_' )+ SP+
-				(QuotedString|'(' SP* QuotedString
-				( SP+ QuotedString )* SP* ')')
-			;
-*/
-
 QuotedDescriptor	: '\'' Descr '\''				;
 QuotedString		: '\'' (Descr|DSTR+) '\''			;
 MinUpperBounds		: '{' Digit '}'					;
@@ -467,16 +488,15 @@ MinUpperBounds		: '{' Digit '}'					;
 Digit			: [0-9]
 		        | [1-9][0-9]+
                         ;
-
-Descr			: ALPHA ( '-'? (ALPHA|[0-9])+ )*						;
-DSRL			: [dD][iI][tT][sS][tT][rR][uU][cC][tT][uU][rR][eE][rR][uU][lL][eE][sS] ':' SP* 	;
-DCRL			: [dD][iI][tT][cC][oO][nN][tT][eE][nN][tT][rR][uU][lL][eE][sS] ':' SP*  	;
-NFL			: [nN][aA][mM][eE][fF][oO][rR][mM][sS] ':' SP*			  		;
-ATL			: [aA][tT][tT][rR][iI][bB][uU][tT][eE][tT][yY][pP][eE][sS] ':' SP*		;
-OCL			: [oO][bB][jJ][eE][cC][tT][cC][lL][aA][sS][sS][eE][sS] ':' SP*			;
-LSL			: [lL][dD][aA][pP][sS][yY][nN][tT][aA][xX][eE][sS] ':' SP*		  	;
-MRL			: [mM][aA][tT][cC][hH][iI][nN][gG][rR][uU][lL][eE][sS] ':' SP*			;
-MRUL			: [mM][aA][tT][cC][hH][iI][nN][gG][rR][uU][lL][eE][uU][sS][eE][sS] ':' SP*  	;
+NFLabel			: 'name'[fF]'orm''s'?				;
+OCLabel			: 'object'[cC]'lass'('es'|'Description')?	;
+ATLabel			: 'attribute'[tT]'ype''s'?			;
+LSLabel			: 'l'[dD][aA][pP][sS]'yntax''es'?		;
+MRLabel			: 'matching'[rR]'ule''s'?			;
+MULabel			: 'matching'[rR]'ule'[uU]'se''s'?		;
+DSLabel			: 'd'[iI][tT][sS]'tructure'[rR]'ule''s'?	;
+DCLabel			: 'd'[iI][tT][cC]'ontent'[rR]'ule''s'?		;
+Descr			: ALPHA ( '-'? (ALPHA|[0-9])+ )*		;
 NOMODS			: SP+ [N][O][-][U][S][E][R][-][M][O][D][I][F][I][C][A][T][I][O][N]		;
 SINGLEVAL		: SP+ [S][I][N][G][L][E][-][V][A][L][U][E]					;
 STRUCTURAL		: SP+ [S][T][R][U][C][T][U][R][A][L]						;
