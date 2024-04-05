@@ -489,7 +489,7 @@ Digit			: [0-9]
 		        | [1-9][0-9]+
                         ;
 NFLabel			: 'name'[fF]'orm''s'?				;
-OCLabel			: 'object'[cC]'lass'('es'|'Description')?	;
+OCLabel			: 'object'[cC]'lass''es'?			;
 ATLabel			: 'attribute'[tT]'ype''s'?			;
 LSLabel			: 'l'[dD][aA][pP][sS]'yntax''es'?		;
 MRLabel			: 'matching'[rR]'ule''s'?			;
