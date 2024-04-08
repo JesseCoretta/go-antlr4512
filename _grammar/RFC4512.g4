@@ -94,7 +94,7 @@ grammar RFC4512;
 
 // Parse is used from a top-level (file) context, parsing any number
 // of definitions.
-parse		: NEWLINE? LineComment? definitions EOF ;
+fileparse	: NEWLINE? LineComment? definitions EOF ;
 
 // Definitions describes a sequence of any type of definition and,
 // optionally, comments.
@@ -120,13 +120,13 @@ objectClassLabel	: OCLabel definitionLabelDelim			  ;
 // objectClassDescription conforms to section 4.1.1 of RFC4512.
 objectClassDescription          : openParen SP* LineComment? NEWLINE?
                                         SP* numericOIDOrMacro SP* LineComment? NEWLINE?
-                                        (definitionName SP* LineComment? NEWLINE?)?
-                                        (definitionDescription SP* LineComment? NEWLINE?)?
-                                        (definitionObsolete SP* LineComment? NEWLINE?)?
-					(oCSuperClasses SP* LineComment? NEWLINE?)?
-                                        (oCKind SP* LineComment? NEWLINE?)?
-					(definitionMust SP* LineComment? NEWLINE?)?
-					(definitionMay SP* LineComment? NEWLINE?)?
+                                        (SP+ 'NAME' SP+ definitionName SP* LineComment? NEWLINE?)?
+                                        (SP+ 'DESC' SP+ definitionDescription SP* LineComment? NEWLINE?)?
+                                        (SP+ definitionObsolete SP* LineComment? NEWLINE?)?
+					(SP+ 'SUP' SP+ oCSuperClasses SP* LineComment? NEWLINE?)?
+                                        (SP+ oCKind SP* LineComment? NEWLINE?)?
+					(SP+ 'MUST' SP+ definitionMust SP* LineComment? NEWLINE?)?
+					(SP+ 'MAY' SP+ definitionMay SP* LineComment? NEWLINE?)?
                                         definitionExtensions? SP* LineComment? NEWLINE?
 						SP* LineComment? closeParen LineComment?
                                 ;
@@ -134,13 +134,13 @@ objectClassDescription          : openParen SP* LineComment? NEWLINE?
 // oCKind implements the "kind" of object class. This concept is covered
 // in Section 2.4.
 oCKind				: (structuralKind|auxiliaryKind|abstractKind)	;
-abstractKind			: ABSTRACT					;
-structuralKind			: STRUCTURAL					;
-auxiliaryKind			: AUXILIARY					;
+abstractKind			: 'ABSTRACT'					;
+structuralKind			: 'STRUCTURAL'					;
+auxiliaryKind			: 'AUXILIARY'					;
 
 // oCSuperClasses defines one (1) or more superior object classes of the
 // bearing object class.
-oCSuperClasses			: SUP (oID|oIDs)				;
+oCSuperClasses			: (oID|oIDs)					;
 
 // attributeTypeDescriptions is a sequence of one (1) or more
 // attributeTypeDescription instances separated by newlines.
@@ -152,17 +152,17 @@ attributeTypeLabel	 : ATLabel definitionLabelDelim			  ;
 // attributeTypeDescription conforms to section 4.1.2 of RFC4512.
 attributeTypeDescription        : openParen SP* LineComment? NEWLINE?
                                         SP* numericOIDOrMacro SP* LineComment? NEWLINE?
-                                        (definitionName SP* LineComment? NEWLINE?)?
-                                        (definitionDescription SP* LineComment? NEWLINE?)?
-                                        (definitionObsolete SP* LineComment? NEWLINE?)?
-                                        (aTSuperType SP* LineComment? NEWLINE?)?
-                                        (aTEquality SP* LineComment? NEWLINE?)?
-                                        (aTOrdering SP* LineComment? NEWLINE?)?
-                                        (aTSubstring SP* LineComment? NEWLINE?)?
-                                        ( definitionSyntax minimumUpperBounds? SP* LineComment? NEWLINE?)?
-                                        ((aTSingleValue|aTCollective) SP* LineComment? NEWLINE?)?
-                                        (aTNoUserModification SP* LineComment? NEWLINE?)?
-                                        (aTUsage SP* LineComment? NEWLINE?)?
+                                        (SP+ 'NAME' SP+ definitionName SP* LineComment? NEWLINE?)?
+                                        (SP+ 'DESC' SP+ definitionDescription SP* LineComment? NEWLINE?)?
+                                        (SP+ definitionObsolete SP* LineComment? NEWLINE?)?
+                                        (SP+ 'SUP' SP+ aTSuperType SP* LineComment? NEWLINE?)?
+                                        (SP+ 'EQUALITY' SP+ aTEquality SP* LineComment? NEWLINE?)?
+                                        (SP+ 'ORDERING' SP+ aTOrdering SP* LineComment? NEWLINE?)?
+                                        (SP+ 'SUBSTR''ING'? SP+ aTSubstring SP* LineComment? NEWLINE?)?
+                                        (SP+ 'SYNTAX' SP+ definitionSyntax minimumUpperBounds? SP* LineComment? NEWLINE?)?
+                                        (SP+ (aTSingleValue|aTCollective) SP* LineComment? NEWLINE?)?
+                                        (SP+ aTNoUserModification SP* LineComment? NEWLINE?)?
+                                        (SP+ 'USAGE' SP+ aTUsage SP* LineComment? NEWLINE?)?
                                         definitionExtensions? SP* LineComment? NEWLINE?
 						SP* LineComment? closeParen LineComment?
                                 ;
@@ -172,31 +172,39 @@ attributeTypeDescription        : openParen SP* LineComment? NEWLINE?
 minimumUpperBounds		: MinUpperBounds			;
 
 // aTEquality defines the equality matchingRule of the attributeType.
-aTEquality			: EQUALITY oID				;
+aTEquality			: oID					;
 
 // aTOrdering defines the ordering matchingRule of the attributeType.
-aTOrdering			: ORDERING oID				;
+aTOrdering			: oID					;
 
 // aTSubstring defines the substring matchingRule of the attributeType.
-aTSubstring			: SUBSTR oID				;
+aTSubstring			: oID					;
 
 // aTSuperType defines the super type of the attributeType.
-aTSuperType			: SUP oID				;
+aTSuperType			: oID					;
 
 // aTUsage defines the usage of the attributeType.  See Usage lexer rule.
-aTUsage				: USAGE Usage				;
+aTUsage				: userApplication
+				| directoryOperation
+				| distributedOperation
+				| dSAOperation
+				;
+userApplication			: 'userApplication'			;
+directoryOperation		: 'directoryOperation'			;
+distributedOperation		: 'distributedOperation'		;
+dSAOperation			: 'dSAOperation'			;
 
 // aTSingleValue, if present, indicates the attributeType is single-valued.
 // Single-valued attributes CANNOT be collective.
-aTSingleValue			: SINGLEVAL				;
+aTSingleValue			: 'SINGLE-VALUE'			;
 
 // aTCollective, if present, indicates the attributeType is collective.
 // Collective attributes CANNOT be single-valued.
-aTCollective			: COLLECTIVE				;
+aTCollective			: 'COLLECTIVE'				;
 
 // aTNoUserModification, if present, indicates values of this attributeType
 // cannot be set nor modified by users.
-aTNoUserModification		: NOMODS				;
+aTNoUserModification		: 'NO-USER-MODIFICATION'		;
 
 // matchingRuleDescriptions is a sequence of one (1) or more
 // matchingRuleDescription instances separated by newlines.
@@ -208,10 +216,10 @@ matchingRuleLabel	: MRLabel definitionLabelDelim			  ;
 // matchingRuleDescription conforms to section 4.1.3 of RFC4512.
 matchingRuleDescription		: openParen SP* LineComment? NEWLINE?
                                         SP* numericOIDOrMacro SP* LineComment? NEWLINE?
-                                        (definitionName SP* LineComment? NEWLINE?)?
-                                        (definitionDescription SP* LineComment? NEWLINE?)?
-                                        (definitionObsolete SP* LineComment? NEWLINE?)?
-                                        (definitionSyntax SP* LineComment? NEWLINE?)?
+                                        (SP+ 'NAME' SP+ definitionName SP* LineComment? NEWLINE?)?
+                                        (SP+ 'DESC' SP+ definitionDescription SP* LineComment? NEWLINE?)?
+                                        (SP+ definitionObsolete SP* LineComment? NEWLINE?)?
+                                        (SP+ 'SYNTAX' SP+ definitionSyntax SP* LineComment? NEWLINE?)?
                                         definitionExtensions? SP* LineComment? NEWLINE?
 						SP* LineComment? closeParen LineComment?
 				;
@@ -229,17 +237,17 @@ matchingRuleUseLabel	   : MULabel definitionLabelDelim			  ;
 // upon which a matchingRuleUse is based.
 matchingRuleUseDescription	: openParen SP* LineComment? NEWLINE?
                                         SP* numericOIDOrMacro SP* LineComment? NEWLINE?
-                                        (definitionName SP* LineComment? NEWLINE?)?
-                                        (definitionDescription SP* LineComment? NEWLINE?)?
-                                        (definitionObsolete SP* LineComment? NEWLINE?)?
-					(mRUApplies SP* LineComment? NEWLINE?)?
+                                        (SP+ 'NAME' SP+ definitionName SP* LineComment? NEWLINE?)?
+                                        (SP+ 'DESC' SP+ definitionDescription SP* LineComment? NEWLINE?)?
+                                        (SP+ definitionObsolete SP* LineComment? NEWLINE?)?
+					(SP+ 'APPLIES' SP+ mRUApplies SP* LineComment? NEWLINE?)?
                                         definitionExtensions? SP* LineComment? NEWLINE?
 						SP* LineComment? closeParen LineComment?
 				;
 
 // mRUApplies contains attributeType OID instances which identify users of the
 // matchingRule in question.
-mRUApplies			: APPLIES (oID|oIDs)				;
+mRUApplies			: (oID|oIDs)					;
 
 // lDAPSyntaxDescriptions is a sequence of one (1) or more
 // lDAPSyntaxDescription instances separated by newlines.
@@ -249,7 +257,7 @@ lDAPSyntaxLabel		: LSLabel definitionLabelDelim				;
 // lDAPSyntaxDescription conforms to section 4.1.5 of RFC4512.
 lDAPSyntaxDescription		: openParen SP* LineComment? NEWLINE?
                                         SP* numericOIDOrMacro SP* LineComment? NEWLINE?
-                                        (definitionDescription SP* LineComment? NEWLINE?)?
+                                        (SP+ 'DESC' SP+ definitionDescription SP* LineComment? NEWLINE?)?
                                         definitionExtensions? SP* LineComment? NEWLINE?
 						SP* LineComment? closeParen LineComment?
 				;
@@ -267,24 +275,24 @@ dITContentRuleLabel	  : DCLabel definitionLabelDelim		;
 // instance upon which a dITContentRule is based.
 dITContentRuleDescription	: openParen SP* LineComment? NEWLINE?
                                         SP* numericOIDOrMacro SP* LineComment? NEWLINE?
-                                        (definitionName SP* LineComment? NEWLINE?)?
-					(definitionDescription SP* LineComment? NEWLINE?)?
-                                        (definitionObsolete SP* LineComment? NEWLINE?)?
-					(dCRAux SP* LineComment? NEWLINE?)?
-					(definitionMust SP* LineComment? NEWLINE?)?
-					(definitionMay SP* LineComment? NEWLINE?)?
-					(dCRNot SP* LineComment? NEWLINE?)?
+                                        (SP+ 'NAME' SP+ definitionName SP* LineComment? NEWLINE?)?
+					(SP+ 'DESC' SP+ definitionDescription SP* LineComment? NEWLINE?)?
+                                        (SP+ definitionObsolete SP* LineComment? NEWLINE?)?
+					(SP+ 'AUX' SP+ dCRAux SP* LineComment? NEWLINE?)?
+					(SP+ 'MUST' SP+ definitionMust SP* LineComment? NEWLINE?)?
+					(SP+ 'MAY' SP+ definitionMay SP* LineComment? NEWLINE?)?
+					(SP+ 'NOT' SP+ dCRNot SP* LineComment? NEWLINE?)?
 					definitionExtensions? SP* LineComment?
 						NEWLINE? SP* LineComment? closeParen
 				;
 
 // dCRNot is a sequence of one (1) or more attributeType OIDs which the
 // dITContentRule forbids being present for the applicable DIT entry.
-dCRNot				: NOT (oID|oIDs)			;
+dCRNot				: (oID|oIDs)				;
 
 // dCRAux is a sequence of one (1) or more auxiliary objectClasses which
 // the dITContentRule allows to be present upon qualifying DIT entries.
-dCRAux				: AUX (oID|oIDs)			;
+dCRAux				: (oID|oIDs)				;
 
 // dITStructureRuleDescriptions is a sequence of one (1) or more
 // dITStructureRuleDescription instances separated by newlines.
@@ -296,11 +304,11 @@ dITStructureRuleLabel	    : DSLabel definitionLabelDelim		;
 // dITStructureRuleDescription conforms to section 4.1.7.1 of RFC4512.
 dITStructureRuleDescription	: openParen SP* LineComment? NEWLINE?
                                         SP* structureRule SP* LineComment? NEWLINE?
-                                        (definitionName SP* LineComment? NEWLINE?)?
-                                        (definitionDescription SP* LineComment? NEWLINE?)?
-                                        (definitionObsolete SP* LineComment? NEWLINE?)?
-					dSRForm SP* LineComment? NEWLINE?
-					(dSRSuperRules SP* LineComment? NEWLINE?)?
+                                        (SP+ 'NAME' SP+ definitionName SP* LineComment? NEWLINE?)?
+                                        (SP+ 'DESC' SP+ definitionDescription SP* LineComment? NEWLINE?)?
+                                        (SP+ definitionObsolete SP* LineComment? NEWLINE?)?
+					SP+ 'FORM' SP+ dSRForm SP* LineComment? NEWLINE?
+					(SP+ 'SUP' SP+ dSRSuperRules SP* LineComment? NEWLINE?)?
                                         definitionExtensions? SP* LineComment? NEWLINE?
 						SP* LineComment? closeParen LineComment?
                                 ;
@@ -315,7 +323,7 @@ structureRules			: openParen SP* LineComment? NEWLINE? SP* LineComment?
 
 // dSRSuperRules defines one (1) or more structureRule instances to which
 // the bearing dITStructureRule is subordinate.
-dSRSuperRules			: SUP (structureRule|structureRules)	;
+dSRSuperRules			: (structureRule|structureRules)	;
 
 // structuralRule defines the numeric rule number for the bearing
 // dITStructureRule instance.  Instances of this type are also
@@ -324,7 +332,7 @@ structureRule			: number				;
 
 // dSRForm defines the OID of the associated nameForm instance of the
 // bearing dITStructureRule.
-dSRForm				: FORM oID				;
+dSRForm				: oID				;
 
 // nameFormDescriptions is a sequence of one (1) or more
 // nameFormDescription instances separated by newlines.
@@ -334,12 +342,12 @@ nameFormLabel		: NFLabel definitionLabelDelim				 ;
 // nameFormDescription conforms to section 4.1.7.2
 nameFormDescription		: openParen SP* LineComment? NEWLINE?
                                         SP* numericOIDOrMacro SP* LineComment? NEWLINE?
-                                        (definitionName SP* LineComment? NEWLINE?)?
-                                        (definitionDescription SP* LineComment? NEWLINE?)?
-                                        (definitionObsolete SP* LineComment? NEWLINE?)?
-					nFStructuralOC SP* LineComment? NEWLINE?
-					definitionMust SP* LineComment? NEWLINE?
-					(definitionMay SP* LineComment? NEWLINE?)?
+                                        (SP+ 'NAME' SP+ definitionName SP* LineComment? NEWLINE?)?
+                                        (SP+ 'DESC' SP+ definitionDescription SP* LineComment? NEWLINE?)?
+                                        (SP+ definitionObsolete SP* LineComment? NEWLINE?)?
+					SP+ 'OC' SP+ nFStructuralOC SP* LineComment? NEWLINE?
+					SP+ 'MUST' SP+ definitionMust SP* LineComment? NEWLINE?
+					(SP+ 'MAY' SP+ definitionMay SP* LineComment? NEWLINE?)?
                                         definitionExtensions? SP* LineComment? NEWLINE?
 						SP* LineComment? closeParen LineComment?
                                 ;
@@ -347,34 +355,34 @@ nameFormDescription		: openParen SP* LineComment? NEWLINE?
 // nFStructuralOC defines the OID of the structural objectClass held by
 // entries whose DNs are controlled by way of a dITStructureRule that
 // bears a nameForm.
-nFStructuralOC		: OC oID					;
+nFStructuralOC		: oID					;
 
 // parser rules that are found in more than
 // one schema definition type.
-definitionObsolete	: OBSOLETE					;
+definitionObsolete	: 'OBSOLETE'					;
 
 // definitionSyntax is used by attributeType and matchingRule definition
 // instances.  It defines the numericOID of the LDAPSyntax associated
 // with the definition.
-definitionSyntax	: SYNTAX numericOID				;
+definitionSyntax	: numericOID					;
 
 // definitionMust is used by objectClass, dITContentRule and nameForm
 // definitions. It is used to define the required attributeTypes for
 // use in entries under the governance of the given definition.
-definitionMust		: MUST (oID|oIDs)				;
+definitionMust		: (oID|oIDs)					;
 
 // definitionMay is used by objectClass, dITContentRule and nameForm
 // definitions. It is used to define the allowed attributeTypes for
 // use in entries under the governance of the given definition.
-definitionMay		: MAY (oID|oIDs)				;
+definitionMay		: (oID|oIDs)					;
 
 // definitionDescription is optionally used in any definition type to
 // further describe the nature and use of the definition.
-definitionDescription	: DESC (QuotedString|QuotedDescriptor)		;
+definitionDescription	: (QuotedString|QuotedDescriptor)		;
 
 // definitionName contains one (1) or more quoted descriptors, each being
 // a declared name by which the bearing definition is known.
-definitionName		: NAME (QuotedDescriptor|
+definitionName		: (QuotedDescriptor|
 				openParen SP* LineComment? NEWLINE? SP*
 				LineComment? QuotedDescriptor SP* LineComment? NEWLINE?
 				( SP+ QuotedDescriptor )* SP* LineComment? NEWLINE?
@@ -410,14 +418,6 @@ attributeDescription	: oID attrOptions?				;
 // oID is either a descriptor (e.g.: cn) OR a numeric OID (e.g.: 2.5.4.3).
 oID		    	: descriptor
 			| numericOID
-			| NFLabel
-			| LSLabel
-			| MRLabel
-			| MULabel
-			| ATLabel
-			| OCLabel
-			| DCLabel
-			| DSLabel
 			;
 
 // openParen is used to mark the beginning of parenthetical encapsulation
@@ -455,7 +455,23 @@ attrOptions		: ( ';' descriptor )+				;
 
 // descriptor is a "name", such as that held by an attributeType or
 // matchingRule.  The name must conform to: ALPHA ('-'? (ALPHA|DIGIT)+)*
-descriptor		: Descr						;
+// as shown in the 'descr' ABNF production of RFC 4512.
+//
+// The alternative "special keywords" are used as a workaround to migitate
+// ANTLR's tendency to interpolate tokens rather than accepting them as
+// coincidental literal values.  One example of this is the OCLabel, which
+// is the literal string 'objectClass' that is used in more than one context
+// in any given schema.
+descriptor		: Descr
+			| NFLabel
+			| LSLabel
+			| MRLabel
+			| MULabel
+			| ATLabel
+			| OCLabel
+			| DCLabel
+			| DSLabel
+			;
 
 // extensionValue allows a quotedString.  Note QuotedDescriptor is
 // included only to mitigate the overlapping nature of the two forms
@@ -467,24 +483,15 @@ extensionValue		: (QuotedString|QuotedDescriptor)		;
 
 // RULES ///////////////////////////////
 
-// delimiter of oIDs
-OpenParenthesis		: '(' SP*	;
-CloseParenthesis	: SP* ')'	;
-ODelim			: NEWLINE? SP* '$' SP* NEWLINE?;
-
-Usage			: 'userApplication'
-			| 'directoryOperation'
-			| 'distributedOperation'
-			| 'dSAOperation'
-			;
-
-MacroSuffix		: ( ':' | '.' ) Digit ( '.' Digit ) *		;
+OpenParenthesis		: '(' SP*					;
+CloseParenthesis	: SP* ')'					;
+ODelim			: NEWLINE? SP* '$' SP* NEWLINE?			;
+MacroSuffix		: ( ':' | '.' ) Digit ( '.' Digit )*		;
 NumOID			: ('0'|'1'|'2') ( '.' Digit )+  		;
 ExtensionName		: SP+ 'X-' ALPHA (('-'|'_')? ALPHA+)* SP+	;
 QuotedDescriptor	: '\'' Descr '\''				;
 QuotedString		: '\'' (Descr|DSTR+) '\''			;
 MinUpperBounds		: '{' Digit '}'					;
-
 Digit			: [0-9]
 		        | [1-9][0-9]+
                         ;
@@ -497,37 +504,15 @@ MULabel			: 'matching'[rR]'ule'[uU]'se''s'?		;
 DSLabel			: 'd'[iI][tT][sS]'tructure'[rR]'ule''s'?	;
 DCLabel			: 'd'[iI][tT][cC]'ontent'[rR]'ule''s'?		;
 Descr			: ALPHA ( '-'? (ALPHA|[0-9])+ )*		;
-NOMODS			: SP+ [N][O][-][U][S][E][R][-][M][O][D][I][F][I][C][A][T][I][O][N]		;
-SINGLEVAL		: SP+ [S][I][N][G][L][E][-][V][A][L][U][E]					;
-STRUCTURAL		: SP+ [S][T][R][U][C][T][U][R][A][L]						;
-COLLECTIVE		: SP+ [C][O][L][L][E][C][T][I][V][E]						;
-AUXILIARY		: SP+ [A][U][X][I][L][I][A][R][Y]						;
-ABSTRACT		: SP+ [A][B][S][T][R][A][C][T]							;
-OBSOLETE		: SP+ [O][B][S][O][L][E][T][E]							;
-ORDERING		: SP+ [O][R][D][E][R][I][N][G] SP+						;
-EQUALITY		: SP+ [E][Q][U][A][L][I][T][Y] SP+						;
-APPLIES			: SP+ [A][P][P][L][I][E][S] SP+							;
-SYNTAX			: SP+ [S][Y][N][T][A][X] SP+							;
-SUBSTR			: SP+ [S][U][B][S][T][R]([I][N][G])? SP+					;
-USAGE			: SP+ [U][S][A][G][E] SP+							;
-DESC			: SP+ [D][E][S][C] SP+								;
-NAME			: SP+ [N][A][M][E] SP+								;
-FORM			: SP+ [F][O][R][M] SP+								;
-MUST			: SP+ [M][U][S][T] SP+								;
-MAY			: SP+ [M][A][Y] SP+								;
-NOT			: SP+ [N][O][T] SP+								;
-SUP			: SP+ [S][U][P] SP+								;
-AUX			: SP+ [A][U][X] SP+								;
-OC			: SP+ [O][C] SP+								;
-SP			: [ \t]										;
+SP			: [ \t]						;
 
 // FRAGMENTS ///////////////////////////
 
-fragment DSTR		: ( QS | QQ | QUTF8 )					;
-fragment ALPHA		: ( 'a'..'z' | 'A'..'Z' )				;
+fragment DSTR		: ( QS | QQ | QUTF8 )				;
+fragment ALPHA		: ( 'a'..'z' | 'A'..'Z' )			;
 
-fragment QUTF8		: ( QUTF1 | UTFMB )					;
-fragment UTFMB		: ( UTF2 | UTF3 | UTF4 )				;
+fragment QUTF8		: ( QUTF1 | UTFMB )				;
+fragment UTFMB		: ( UTF2 | UTF3 | UTF4 )			;
 
 fragment UTF4		: '\u00f0' ( '\u0090' .. '\u00bf' ) UTF0 UTF0
 			| ( '\u00f1' .. '\u00f3' ) UTF0 UTF0 UTF0
@@ -554,4 +539,5 @@ fragment QS		: '\u005c' '\u0035' ('\u0043'|'\u0063')		; // ESC 5[C|c]
 fragment UTF0		: ( '\u0080' .. '\u00bf' )			; // UTF 0 production
 
 NEWLINE			: '\n'+						;
+
 LineComment		: '#' ~[\r\n]* [\r\n]? -> skip			;

@@ -1,4 +1,4 @@
-package rfc4512antlr
+package antlr4512
 
 import (
 	"testing"

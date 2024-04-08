@@ -22,7 +22,7 @@ If alterations are desired, modify the above grammar file and regenerate code as
   - Flexible definition label support (e.g.: use of "`attributeType ...`" as well as "`attributeTypes:...`")
   - Extremely forgiving of newlines, hanging indents and line-terminating Bash-style comments of schema definitions
 
-## Field Ordering
+## Field Definition Ordering
 
 Definitions are expected to contain fields ordered as specified in their respective sections within [RFC 4512](https://datatracker.ietf.org/doc/html/rfc4512).
 

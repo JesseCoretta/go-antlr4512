@@ -1,14 +1,14 @@
 // Code generated from RFC4512.g4 by ANTLR 4.13.1. DO NOT EDIT.
 
-package rfc4512antlr // RFC4512
+package antlr4512 // RFC4512
 import "github.com/antlr4-go/antlr/v4"
 
 // RFC4512Listener is a complete listener for a parse tree produced by RFC4512Parser.
 type RFC4512Listener interface {
 	antlr.ParseTreeListener
 
-	// EnterParse is called when entering the parse production.
-	EnterParse(c *ParseContext)
+	// EnterFileparse is called when entering the fileparse production.
+	EnterFileparse(c *FileparseContext)
 
 	// EnterDefinitions is called when entering the definitions production.
 	EnterDefinitions(c *DefinitionsContext)
@@ -63,6 +63,18 @@ type RFC4512Listener interface {
 
 	// EnterATUsage is called when entering the aTUsage production.
 	EnterATUsage(c *ATUsageContext)
+
+	// EnterUserApplication is called when entering the userApplication production.
+	EnterUserApplication(c *UserApplicationContext)
+
+	// EnterDirectoryOperation is called when entering the directoryOperation production.
+	EnterDirectoryOperation(c *DirectoryOperationContext)
+
+	// EnterDistributedOperation is called when entering the distributedOperation production.
+	EnterDistributedOperation(c *DistributedOperationContext)
+
+	// EnterDSAOperation is called when entering the dSAOperation production.
+	EnterDSAOperation(c *DSAOperationContext)
 
 	// EnterATSingleValue is called when entering the aTSingleValue production.
 	EnterATSingleValue(c *ATSingleValueContext)
@@ -217,8 +229,8 @@ type RFC4512Listener interface {
 	// EnterExtensionValue is called when entering the extensionValue production.
 	EnterExtensionValue(c *ExtensionValueContext)
 
-	// ExitParse is called when exiting the parse production.
-	ExitParse(c *ParseContext)
+	// ExitFileparse is called when exiting the fileparse production.
+	ExitFileparse(c *FileparseContext)
 
 	// ExitDefinitions is called when exiting the definitions production.
 	ExitDefinitions(c *DefinitionsContext)
@@ -273,6 +285,18 @@ type RFC4512Listener interface {
 
 	// ExitATUsage is called when exiting the aTUsage production.
 	ExitATUsage(c *ATUsageContext)
+
+	// ExitUserApplication is called when exiting the userApplication production.
+	ExitUserApplication(c *UserApplicationContext)
+
+	// ExitDirectoryOperation is called when exiting the directoryOperation production.
+	ExitDirectoryOperation(c *DirectoryOperationContext)
+
+	// ExitDistributedOperation is called when exiting the distributedOperation production.
+	ExitDistributedOperation(c *DistributedOperationContext)
+
+	// ExitDSAOperation is called when exiting the dSAOperation production.
+	ExitDSAOperation(c *DSAOperationContext)
 
 	// ExitATSingleValue is called when exiting the aTSingleValue production.
 	ExitATSingleValue(c *ATSingleValueContext)

@@ -1,6 +1,6 @@
 // Code generated from RFC4512.g4 by ANTLR 4.13.1. DO NOT EDIT.
 
-package rfc4512antlr // RFC4512
+package antlr4512 // RFC4512
 import "github.com/antlr4-go/antlr/v4"
 
 // BaseRFC4512Listener is a complete listener for a parse tree produced by RFC4512Parser.
@@ -20,11 +20,11 @@ func (s *BaseRFC4512Listener) EnterEveryRule(ctx antlr.ParserRuleContext) {}
 // ExitEveryRule is called when any rule is exited.
 func (s *BaseRFC4512Listener) ExitEveryRule(ctx antlr.ParserRuleContext) {}
 
-// EnterParse is called when production parse is entered.
-func (s *BaseRFC4512Listener) EnterParse(ctx *ParseContext) {}
+// EnterFileparse is called when production fileparse is entered.
+func (s *BaseRFC4512Listener) EnterFileparse(ctx *FileparseContext) {}
 
-// ExitParse is called when production parse is exited.
-func (s *BaseRFC4512Listener) ExitParse(ctx *ParseContext) {}
+// ExitFileparse is called when production fileparse is exited.
+func (s *BaseRFC4512Listener) ExitFileparse(ctx *FileparseContext) {}
 
 // EnterDefinitions is called when production definitions is entered.
 func (s *BaseRFC4512Listener) EnterDefinitions(ctx *DefinitionsContext) {}
@@ -133,6 +133,30 @@ func (s *BaseRFC4512Listener) EnterATUsage(ctx *ATUsageContext) {}
 
 // ExitATUsage is called when production aTUsage is exited.
 func (s *BaseRFC4512Listener) ExitATUsage(ctx *ATUsageContext) {}
+
+// EnterUserApplication is called when production userApplication is entered.
+func (s *BaseRFC4512Listener) EnterUserApplication(ctx *UserApplicationContext) {}
+
+// ExitUserApplication is called when production userApplication is exited.
+func (s *BaseRFC4512Listener) ExitUserApplication(ctx *UserApplicationContext) {}
+
+// EnterDirectoryOperation is called when production directoryOperation is entered.
+func (s *BaseRFC4512Listener) EnterDirectoryOperation(ctx *DirectoryOperationContext) {}
+
+// ExitDirectoryOperation is called when production directoryOperation is exited.
+func (s *BaseRFC4512Listener) ExitDirectoryOperation(ctx *DirectoryOperationContext) {}
+
+// EnterDistributedOperation is called when production distributedOperation is entered.
+func (s *BaseRFC4512Listener) EnterDistributedOperation(ctx *DistributedOperationContext) {}
+
+// ExitDistributedOperation is called when production distributedOperation is exited.
+func (s *BaseRFC4512Listener) ExitDistributedOperation(ctx *DistributedOperationContext) {}
+
+// EnterDSAOperation is called when production dSAOperation is entered.
+func (s *BaseRFC4512Listener) EnterDSAOperation(ctx *DSAOperationContext) {}
+
+// ExitDSAOperation is called when production dSAOperation is exited.
+func (s *BaseRFC4512Listener) ExitDSAOperation(ctx *DSAOperationContext) {}
 
 // EnterATSingleValue is called when production aTSingleValue is entered.
 func (s *BaseRFC4512Listener) EnterATSingleValue(ctx *ATSingleValueContext) {}
