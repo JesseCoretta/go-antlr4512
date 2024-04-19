@@ -73,31 +73,11 @@ var testSyntaxes []string = []string{
 }
 
 func TestParseLDAPSyntax(t *testing.T) {
-
-	//var lsc int
-	for _, label := range []string{
-		`ldapSyntax `,
-		`ldapsyntax `,
-		`ldapSyntax:`,
-		`ldapsyntax:`,
-		`ldapSyntax=`,
-		`ldapsyntax=`,
-		`ldapSyntaxes `,
-		`ldapsyntaxes `,
-		`ldapSyntaxes:`,
-		`ldapsyntaxes:`,
-		`ldapSyntaxes=`,
-		`ldapsyntaxes=`,
-	} {
-		for _, ls := range testSyntaxes {
-			if _, err := ParseInstance(label + ls); err != nil {
-				t.Errorf("%s failed: %v", t.Name(), err)
-				return
-			}
-			//lsc++
-			//t.Logf("%s\n", i.P.LDAPSyntaxDescriptions().GetText())
+	for _, def := range testSyntaxes {
+		_, err := ParseLDAPSyntax(def)
+		if err != nil {
+			t.Errorf("%s failed: %v", t.Name(), err)
+			return
 		}
 	}
-
-	//t.Logf("Parsed %d ldapSyntax definitions\n", lsc)
 }

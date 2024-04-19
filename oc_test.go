@@ -3,8 +3,9 @@ package antlr4512
 import (
 	"testing"
 )
+
 func TestObjectClass(t *testing.T) {
-        for _, oc := range []string{
+	for _, oc := range []string{
 		`( 2.5.6.0 NAME 'top' ABSTRACT MUST objectClass X-ORIGIN 'RFC4512' )`,
 		`( 2.5.6.1 NAME 'alias' SUP top STRUCTURAL MUST aliasedObjectName X-ORIGIN 'RFC4512' )`,
 		`( 2.5.20.1 NAME 'subschema' AUXILIARY MAY ( dITStructureRules $ nameForms $ dITContentRules $ objectClasses $ attributeTypes $ matchingRules $ matchingRuleUse ) X-ORIGIN 'RFC4512' )`,
@@ -38,13 +39,11 @@ func TestObjectClass(t *testing.T) {
 		`( 0.9.2342.19200300.100.4.17 NAME 'domainRelatedObject' SUP top AUXILIARY MUST associatedDomain X-ORIGIN 'RFC4524' )`,
 		`( 0.9.2342.19200300.100.4.18 NAME 'friendlyCountry' SUP country STRUCTURAL MUST co X-ORIGIN 'RFC4524' )`,
 		`( 0.9.2342.19200300.100.4.14 NAME 'rFC822localPart' SUP domain STRUCTURAL MAY ( cn $ description $ destinationIndicator $ facsimileTelephoneNumber $ internationaliSDNNumber $ physicalDeliveryOfficeName $ postalAddress $ postalCode $ postOfficeBox $ preferredDeliveryMethod $ registeredAddress $ seeAlso $ sn $ street $ telephoneNumber $ teletexTerminalIdentifier $ telexNumber $ x121Address ) X-ORIGIN 'RFC4524' )`,
-        } {
-                p, err := ParseInstance(oc)
-                if err != nil {
-                        t.Errorf("%s failed: %v", t.Name(), err)
-                        return
-                }
-		_ = p.P.ObjectClassDescription().GetText()
-		
-        }
+	} {
+		_, err := ParseObjectClass(oc)
+		if err != nil {
+			t.Errorf("%s failed: %v", t.Name(), err)
+			return
+		}
+	}
 }

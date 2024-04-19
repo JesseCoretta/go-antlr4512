@@ -50,31 +50,12 @@ var testMatchingRules []string = []string{
 	`( 1.3.6.1.1.16.3 NAME 'uuidOrderingMatch' SYNTAX 1.3.6.1.1.16.1 X-ORIGIN 'RFC4530' )`,
 }
 
-func TestParseMatchingRules(t *testing.T) {
-
-	//var msc int
-	for _, label := range []string{
-		`matchingRule:`,
-		`matchingrule:`,
-		`matchingRule=`,
-		`matchingrule=`,
-		`matchingRule `,
-		`matchingrule `,
-		`matchingRules:`,
-		`matchingrules:`,
-		`matchingRules=`,
-		`matchingrules=`,
-		`matchingRules `,
-		`matchingrules `,
-	} {
-		for _, mr := range testMatchingRules {
-			if _, err := ParseInstance(label + mr); err != nil {
-				t.Errorf("%s failed: %v", t.Name(), err)
-				return
-			}
-			//msc++
-			//t.Logf("%s\n", i.P.MatchingRuleDescriptions().GetText())
+func TestParseMatchingRule(t *testing.T) {
+	for _, def := range testMatchingRules {
+		_, err := ParseMatchingRule(def)
+		if err != nil {
+			t.Errorf("%s failed: %v", t.Name(), err)
+			return
 		}
 	}
-	//t.Logf("Parsed %d matchingRule definitions\n", msc)
 }
