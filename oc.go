@@ -31,11 +31,12 @@ func ParseObjectClass(raw string) (oc ObjectClass, err error) {
 }
 
 func (r *ObjectClass) process(ctx IObjectClassDescriptionContext) (err error) {
-
 	for k, ct := 0, ctx.GetChildCount(); k < ct && err == nil; k++ {
 		switch tv := ctx.GetChild(k).(type) {
-		case *NumericOIDOrMacroContext,
-			*OpenParenContext,
+		case *NumericOIDOrMacroContext:
+                        r.OID, r.Macro, err = numOIDContext(tv)
+
+		case *OpenParenContext,
 			*CloseParenContext:
 			err = r.setCritical(tv)
 

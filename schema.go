@@ -19,8 +19,8 @@ type Schema struct {
 /*
 NewSchema initializes and returns a new empty instance of *Schema.
 */
-func NewSchema() *Schema {
-	return &Schema{
+func NewSchema() Schema {
+	return Schema{
 		LS: make(LDAPSyntaxes, 0),
 		OM: make(Macros, 0),
 		MR: make(MatchingRules, 0),

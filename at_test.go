@@ -1,8 +1,25 @@
 package antlr4512
 
 import (
+	"fmt"
 	"testing"
 )
+
+func ExampleParseAttributeType() {
+	var raw string = `( 2.5.4.3 NAME ( 'cn' 'commonName' )
+		DESC 'RFC4519: common name(s) for which the entity is known by'
+		SUP name
+		X-ORIGIN 'RFC4519' )`
+
+	at, err := ParseAttributeType(raw)
+	if err != nil {
+		fmt.Errorf("%v", err)
+		return
+	}
+
+	fmt.Printf("%s\n", at.OID)
+	// Output: 2.5.4.3
+}
 
 func TestAttrOpts(t *testing.T) {
 	for _, at := range []string{

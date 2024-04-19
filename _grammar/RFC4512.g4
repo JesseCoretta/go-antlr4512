@@ -131,7 +131,7 @@ attributeTypeLabel	    	: ATLabel definitionLabelDelim				;
 nameFormLabel		    	: NFLabel definitionLabelDelim				;
 definitionLabelDelim	    	: ((SP*':'SP*|SP*'='SP*)|SP+) 				;
 
-kind				: (structuralKind|auxiliaryKind|abstractKind)		;
+kind				: SP+ (structuralKind|auxiliaryKind|abstractKind)	;
 abstractKind			: 'ABSTRACT'						;
 structuralKind			: 'STRUCTURAL'						;
 auxiliaryKind			: 'AUXILIARY'						;

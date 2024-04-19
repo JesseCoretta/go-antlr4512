@@ -1,8 +1,24 @@
 package antlr4512
 
 import (
+	"fmt"
 	"testing"
 )
+
+func ExampleParseObjectClass() {
+        var raw string = `( 2.5.6.0
+		NAME 'top'
+		ABSTRACT MUST objectClass X-ORIGIN 'RFC4512' )`
+
+        oc, err := ParseObjectClass(raw)
+        if err != nil {
+                fmt.Errorf("%v", err)
+                return
+        }
+
+        fmt.Printf("%s\n", oc.OID)
+        // Output: 2.5.6.0
+}
 
 func TestObjectClass(t *testing.T) {
 	for _, oc := range []string{
