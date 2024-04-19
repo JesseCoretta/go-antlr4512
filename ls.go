@@ -48,6 +48,10 @@ func (r *LDAPSyntax) process(ctx ILDAPSyntaxDescriptionContext) (err error) {
 		}
 	}
 
+	if len(r.OID) == 0 {
+		err = errorf("No OID literal for %T", r)
+	}
+
 	return
 }
 

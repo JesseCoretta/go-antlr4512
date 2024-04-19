@@ -1,6 +1,6 @@
-# go-rfc4512-antlr
+# go-antlr4512
 
-[![ANTLR4](https://img.shields.io/badge/antlr-blue?label=%E2%92%B6&labelColor=gray&color=magenta&cacheSeconds=86400)](https://www.antlr.org/) [![RFC4512](https://img.shields.io/badge/RFC-4512-blue)](https://datatracker.ietf.org/doc/html/rfc4512) [![Reference](https://pkg.go.dev/badge/github.com/JesseCoretta/go-rfc4512-antlr.svg)](https://pkg.go.dev/github.com/JesseCoretta/go-rfc4512-antlr) [![License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](https://github.com/JesseCoretta/go-rfc4512-antlr/blob/main/LICENSE) [![Issues](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/JesseCoretta/go-rfc4512-antlr/issues) [![Experimental](https://img.shields.io/badge/experimental-blue?logoColor=blue&label=%F0%9F%A7%AA%20%F0%9F%94%AC&labelColor=blue&color=gray)](https://github.com/JesseCoretta/JesseCoretta/blob/main/EXPERIMENTAL.md)
+[![ANTLR4](https://img.shields.io/badge/antlr-blue?label=%E2%92%B6&labelColor=gray&color=magenta&cacheSeconds=86400)](https://www.antlr.org/) [![RFC4512](https://img.shields.io/badge/RFC-4512-blue)](https://datatracker.ietf.org/doc/html/rfc4512) [![Reference](https://pkg.go.dev/badge/github.com/JesseCoretta/go-antlr4512.svg)](https://pkg.go.dev/github.com/JesseCoretta/go-antlr4512) [![License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](https://github.com/JesseCoretta/go-antlr4512/blob/main/LICENSE) [![Issues](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/JesseCoretta/go-antlr4512/issues) [![Experimental](https://img.shields.io/badge/experimental-blue?logoColor=blue&label=%F0%9F%A7%AA%20%F0%9F%94%AC&labelColor=blue&color=gray)](https://github.com/JesseCoretta/JesseCoretta/blob/main/EXPERIMENTAL.md)
 
 Package antlr4512 implements Sections 2.5 and 4 of RFC 4512 by way of an unmodified ANTLR4-generated target.
 
@@ -35,6 +35,7 @@ If alterations are desired, modify the above grammar file and regenerate code as
     - Helper functions for those with minimal ANTLR experience:
       - `ParseLDAPSyntax`
       - `ParseMatchingRule`
+      - `ParseMatchingRuleUse`
       - `ParseAttributeType`
       - `ParseObjectClass`
       - `ParseDITContentRule`

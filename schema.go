@@ -33,6 +33,10 @@ func NewSchema() Schema {
 	}
 }
 
+/*
+Macros contains a manifest of name to oid/name pairs, each describing
+a resolution path for oid/name into a distinct OID reference.
+*/
 type Macros map[string]string
 
 func (r *Schema) IsZero() bool {
@@ -194,6 +198,8 @@ func (r *Schema) processSchemaDefinitions(defs IDefinitionsContext) (err error) 
 			err = r.processLSs(tv)
 		case *MatchingRuleDescriptionsContext:
 			err = r.processMRs(tv)
+		case *MatchingRuleUseDescriptionsContext:
+			err = r.processMUs(tv)
 		case *AttributeTypeDescriptionsContext:
 			err = r.processATs(tv)
 		case *ObjectClassDescriptionsContext:
@@ -285,6 +291,27 @@ func (r *Schema) processMRs(x *MatchingRuleDescriptionsContext) (err error) {
 	}
 
 	return
+}
+
+/*
+processMUs returns an error instance following an attempt to parse all [MatchingRuleUse]
+definitions found within the input at [MatchingRuleUseDescriptionsContext].
+*/
+func (r *Schema) processMUs(x *MatchingRuleUseDescriptionsContext) (err error) {
+        _z := x.AllMatchingRuleUseDescription()
+        if len(r.MU) == 0 {
+                r.MU = make(MatchingRuleUses, 0)
+        }
+
+        for j := 0; j < len(_z); j++ {
+                var def MatchingRuleUse
+                if err = def.process(_z[j]); err != nil {
+                        break
+                }
+                r.MU = append(r.MU, def)
+        }
+
+        return
 }
 
 /*

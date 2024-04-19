@@ -71,6 +71,10 @@ func (r *DITContentRule) process(ctx IDITContentRuleDescriptionContext) (err err
 		}
 	}
 
+	if len(r.OID) == 0 && len(r.Macro) == 0 {
+		err = errorf("No macro or OID literal for %T", r)
+	}
+
 	return
 }
 

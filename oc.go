@@ -76,6 +76,10 @@ func (r *ObjectClass) process(ctx IObjectClassDescriptionContext) (err error) {
 		r.Kind = `STRUCTURAL`
 	}
 
+	if len(r.OID) == 0 && len(r.Macro) == 0 {
+		err = errorf("No macro or OID literal for %T", r)
+	}
+
 	return
 }
 

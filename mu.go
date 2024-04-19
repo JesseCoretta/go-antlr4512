@@ -29,6 +29,9 @@ Generally, these [MatchingRuleUse] instances are created -- by the DSA -- based
 on equivalent [MatchingRule] instances, and only manifest when the number of
 "applied" [AttributeType] users is greater than zero (0) for the relevant
 [MatchingRule].
+
+In short, one generally need only load ldapSyntax, matchingRule and attributeType
+definitions to initialize or extend matchingRuleUse instances.
 */
 func ParseMatchingRuleUse(raw string) (mu MatchingRuleUse, err error) {
 	var i Instance

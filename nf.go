@@ -69,6 +69,10 @@ func (r *NameForm) process(ctx INameFormDescriptionContext) (err error) {
 		}
 	}
 
+	if len(r.OID) == 0 && len(r.Macro) == 0 {
+		err = errorf("No macro or OID literal for %T", r)
+	}
+
 	return
 }
 

@@ -48,6 +48,10 @@ func readFile(f string) (raw []byte, err error) {
 	return
 }
 
+/*
+processObjectIdentifiers returns an instance of error following an attempt to resolve
+the macro held by a definition into a complete numeric OID.
+*/
 func (r *Schema) processObjectIdentifiers(ctx []IObjectIdentifierContext) (err error) {
 	for i := 0; i < len(ctx) && err == nil; i++ {
 		oioids := ctx[i].AllObjectIdentifierOIDOrName()
@@ -67,6 +71,9 @@ func (r *Schema) processObjectIdentifiers(ctx []IObjectIdentifierContext) (err e
 					r.OM[txt.GetText()] = resl +
 						repAll(mc.MacroSuffix().GetText(), `:`, `.`)
 				}
+			} else {
+				err = errorf("Empty OID/Macro context")
+				break
 			}
 		}
 	}
