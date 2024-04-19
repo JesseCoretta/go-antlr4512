@@ -121,7 +121,7 @@ When used within an attributeType in place of the numeric OID:
       SINGLE-VALUE )
 ```
 
-When using macros, a reference to a macro must only be made after the needed macro has been properly defined. Failure to follow this rule will result in OID resolutions during the parsing process.
+When using macros, a reference to a macro must only be made _after_ the needed macro has been properly defined. Failure to follow this requirement will result in botched OID resolutions during the parsing process.
 
 Note that macros can only be used for the following definition types:
 
@@ -140,11 +140,16 @@ objectidentifier nisAttrs nisSchema:1
 
 Use of nesting requires dependency macros are defined prior to being referenced by other subordinate macros.
 
-## Verification
+## Minimal Verification
 
 The parser provided by this package is only capable of the most basic verification checks. For example, beyond the basic required contexts of RFC 4512 Section 4 -- such as a `nameForm`'s `OC` and `MUST` fields -- this package does not perform any in-depth analysis upon the respective values.
 
-The intent of this package is mainly focused on easy tokenization, not proper presentation. Very few checks are performed upon individual definition field values. No validity of matchingRule combinations found within attributeType definitions is confirmed. An OID erroneously shared by multiple definitions is not mitigated and will not raise an error.
+The intent of this package is mainly focused on easy tokenization. Very few checks are performed upon individual tokens. To offer some examples, this means:
+
+  - No validity of `matchingRule` combinations found within `attributeType` definitions is confirmed
+  - An OID erroneously shared by multiple definitions is not mitigated and will not raise an error
+  - References to dependent definitions (e.g.: `name` and `cn`) are not verified presence-wise
+  - Bogus OIDs may be produced when bogus macros are used; macros themselves are unverified
 
 The only restrictions imposed during the parsing process come from ANTLR itself; for instance, unexpected tokens or invalid token contents. Token placement and content is defined based upon a reasonable implementation of RFC 4512. Beyond this, all bets are off.
 
