@@ -41,6 +41,8 @@ Only files with a suffix of ".schema" will be eligible for processing.
 func readFile(f string) (raw []byte, err error) {
 	if hasSfx(f, `.schema`) {
 		raw, err = os.ReadFile(f)
+	} else {
+		err = errorf("Filename '%s' does not end in '.schema'; will not parse", f)
 	}
 
 	return

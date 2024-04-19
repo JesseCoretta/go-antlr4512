@@ -13,8 +13,15 @@ type DITStructureRule struct {
 	Extensions map[string][]string
 }
 
+/*
+DITStructureRules is an instance of slices of [DITStructureRule] instances.
+*/
 type DITStructureRules []DITStructureRule
 
+/*
+ParseDITStructureRule processes raw into an instance of [DITStructureRule],
+which is returned alongside an error.
+*/
 func ParseDITStructureRule(raw string) (oc DITStructureRule, err error) {
 	var i Instance
 	if i, err = ParseInstance(raw); err != nil {

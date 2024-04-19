@@ -16,8 +16,15 @@ type ObjectClass struct {
 	Extensions   map[string][]string
 }
 
+/*
+ObjectClasses is an instance of slices of [ObjectClass] instances.
+*/
 type ObjectClasses []ObjectClass
 
+/*
+ParseObjectClass processes raw into an instance of [ObjectClass],
+which is returned alongside an error.
+*/
 func ParseObjectClass(raw string) (oc ObjectClass, err error) {
 	var i Instance
 	if i, err = ParseInstance(raw); err != nil {
@@ -34,7 +41,7 @@ func (r *ObjectClass) process(ctx IObjectClassDescriptionContext) (err error) {
 	for k, ct := 0, ctx.GetChildCount(); k < ct && err == nil; k++ {
 		switch tv := ctx.GetChild(k).(type) {
 		case *NumericOIDOrMacroContext:
-                        r.OID, r.Macro, err = numOIDContext(tv)
+			r.OID, r.Macro, err = numOIDContext(tv)
 
 		case *OpenParenContext,
 			*CloseParenContext:
@@ -65,11 +72,14 @@ func (r *ObjectClass) process(ctx IObjectClassDescriptionContext) (err error) {
 		}
 	}
 
+	if len(r.Kind) == 0 {
+		r.Kind = `STRUCTURAL`
+	}
+
 	return
 }
 
 func (r *ObjectClass) setMisc(ctx any) (err error) {
-
 	switch tv := ctx.(type) {
 	case *NameContext:
 		r.Name, err = nameContext(tv.Names())

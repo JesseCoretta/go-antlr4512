@@ -12,8 +12,24 @@ type MatchingRuleUse struct {
 	Extensions map[string][]string
 }
 
+/*
+MatchingRuleUses is an instance of slices of [MatchingRuleUse] instances.
+*/
 type MatchingRuleUses []MatchingRuleUse
 
+/*
+ParseMatchingRuleUse processes raw into an instance of [MatchingRuleUse]. Note
+that it is unusual for this function to be used and exists mainly for the sake
+of completeness.
+
+A [MatchingRuleUse] instance is simply a manifest of attributeType instances
+which utilize a given [MatchingRule] for EQUALITY, SUBSTR and ORDERING fields.
+
+Generally, these [MatchingRuleUse] instances are created -- by the DSA -- based
+on equivalent [MatchingRule] instances, and only manifest when the number of
+"applied" [AttributeType] users is greater than zero (0) for the relevant
+[MatchingRule].
+*/
 func ParseMatchingRuleUse(raw string) (mu MatchingRuleUse, err error) {
 	var i Instance
 	if i, err = ParseInstance(raw); err != nil {

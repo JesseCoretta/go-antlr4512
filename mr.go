@@ -12,8 +12,15 @@ type MatchingRule struct {
 	Extensions map[string][]string
 }
 
+/*
+MatchingRules is an instance of slices of [MatchingRule] instances.
+*/
 type MatchingRules []MatchingRule
 
+/*
+ParseMatchingRule processes raw into an instance of [MatchingRule],
+which is returned alongside an error.
+*/
 func ParseMatchingRule(raw string) (mr MatchingRule, err error) {
 	var i Instance
 	if i, err = ParseInstance(raw); err != nil {

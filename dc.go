@@ -16,8 +16,15 @@ type DITContentRule struct {
 	Extensions map[string][]string
 }
 
+/*
+DITContentRules is an instance of slices of [DITContentRule] instances.
+*/
 type DITContentRules []DITContentRule
 
+/*
+ParseDITContentRule processes raw into an instance of [DITContentRule],
+which is returned alongside an error.
+*/
 func ParseDITContentRule(raw string) (oc DITContentRule, err error) {
 	var i Instance
 	if i, err = ParseInstance(raw); err != nil {

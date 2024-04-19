@@ -9,8 +9,15 @@ type LDAPSyntax struct {
 	Extensions map[string][]string
 }
 
+/*
+LDAPSyntaxes is an instance of slices of [LDAPSyntax] instances.
+*/
 type LDAPSyntaxes []LDAPSyntax
 
+/*
+ParseLDAPSyntax processes raw into an instance of [LDAPSyntax],
+which is returned alongside an error.
+*/
 func ParseLDAPSyntax(raw string) (ls LDAPSyntax, err error) {
 	var i Instance
 	if i, err = ParseInstance(raw); err != nil {

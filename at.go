@@ -22,8 +22,15 @@ type AttributeType struct {
 	Extensions map[string][]string
 }
 
+/*
+AttributeTypes is an instance of slices of [AttributeType] instances.
+*/
 type AttributeTypes []AttributeType
 
+/*
+ParseAttributeType processes raw into an instance of [AttributeType],
+which is returned alongside an error.
+*/
 func ParseAttributeType(raw string) (at AttributeType, err error) {
 	var i Instance
 	if i, err = ParseInstance(raw); err != nil {

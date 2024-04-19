@@ -15,8 +15,15 @@ type NameForm struct {
 	Extensions map[string][]string
 }
 
+/*
+NameForms is an instance of slices of [NameForm] instances.
+*/
 type NameForms []NameForm
 
+/*
+ParseNameForm processes raw into an instance of [NameForm],
+which is returned alongside an error.
+*/
 func ParseNameForm(raw string) (nf NameForm, err error) {
 	var i Instance
 	if i, err = ParseInstance(raw); err != nil {

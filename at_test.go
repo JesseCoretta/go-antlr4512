@@ -13,7 +13,7 @@ func ExampleParseAttributeType() {
 
 	at, err := ParseAttributeType(raw)
 	if err != nil {
-		fmt.Errorf("%v", err)
+		fmt.Printf("%v", err)
 		return
 	}
 
