@@ -63,7 +63,7 @@ For example, consider the following `nameForm` instance derived from Section 2.7
 
 ```
  nameForm ( 1.3.6.1.4.1.56521.101.2.7.1
-	NAME `nRootArcForm`
+	NAME 'nRootArcForm'
 	DESC 'root arc name form for a number form RDN'
 	OC rootArc
 	MUST n )
@@ -139,3 +139,14 @@ objectidentifier nisAttrs nisSchema:1
 ```
 
 Use of nesting requires dependency macros are defined prior to being referenced by other subordinate macros.
+
+## Verification
+
+The parser provided by this package is only capable of the most basic verification checks. For example, beyond the basic required contexts of RFC 4512 Section 4 -- such as a `nameForm`'s `OC` and `MUST` fields -- this package does not perform any in-depth analysis upon the respective values.
+
+The intent of this package is mainly focused on easy tokenization, not proper presentation. Very few checks are performed upon individual definition field values. No validity of matchingRule combinations found within attributeType definitions is confirmed. An OID erroneously shared by multiple definitions is not mitigated and will not raise an error.
+
+The only restrictions imposed during the parsing process come from ANTLR itself; for instance, unexpected tokens or invalid token contents. Token placement and content is defined based upon a reasonable implementation of RFC 4512. Beyond this, all bets are off.
+
+If it is desirable to enhance the capabilities of a parser solution, the user is advised to consider manual implementation of the necessary checks and balances, or use an external solution such as [`go-schemax`](https://github.com/JesseCoretta/go-schemax).
+

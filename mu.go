@@ -75,6 +75,12 @@ func (r *MatchingRuleUse) process(ctx IMatchingRuleUseDescriptionContext) (err e
 		}
 	}
 
+	if len(r.OID) == 0 {
+		err = errorf("Missing numeric OID for %T", r)
+	} else if len(r.Applies) == 0 {
+		err = errorf("Missing applied OIDs for %T", r)
+	}
+
 	return
 }
 

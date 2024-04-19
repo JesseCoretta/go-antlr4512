@@ -298,20 +298,20 @@ processMUs returns an error instance following an attempt to parse all [Matching
 definitions found within the input at [MatchingRuleUseDescriptionsContext].
 */
 func (r *Schema) processMUs(x *MatchingRuleUseDescriptionsContext) (err error) {
-        _z := x.AllMatchingRuleUseDescription()
-        if len(r.MU) == 0 {
-                r.MU = make(MatchingRuleUses, 0)
-        }
+	_z := x.AllMatchingRuleUseDescription()
+	if len(r.MU) == 0 {
+		r.MU = make(MatchingRuleUses, 0)
+	}
 
-        for j := 0; j < len(_z); j++ {
-                var def MatchingRuleUse
-                if err = def.process(_z[j]); err != nil {
-                        break
-                }
-                r.MU = append(r.MU, def)
-        }
+	for j := 0; j < len(_z); j++ {
+		var def MatchingRuleUse
+		if err = def.process(_z[j]); err != nil {
+			break
+		}
+		r.MU = append(r.MU, def)
+	}
 
-        return
+	return
 }
 
 /*

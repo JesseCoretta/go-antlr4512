@@ -64,6 +64,8 @@ func (r *MatchingRule) process(ctx IMatchingRuleDescriptionContext) (err error) 
 
 	if len(r.OID) == 0 {
 		err = errorf("No OID literal for %T", r)
+	} else if len(r.Syntax) == 0 {
+		err = errorf("No numeric OID for syntax found within %T", r)
 	}
 
 	return

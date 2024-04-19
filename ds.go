@@ -64,6 +64,10 @@ func (r *DITStructureRule) process(ctx IDITStructureRuleDescriptionContext) (err
 		}
 	}
 
+	if len(r.Form) == 0 {
+		err = errorf("No nameForm reference set for %T", r)
+	}
+
 	return
 }
 
