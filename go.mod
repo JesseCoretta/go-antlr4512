@@ -1,4 +1,4 @@
-module github.com/JesseCoretta/go-rfc4512-antlr
+module github.com/JesseCoretta/go-antlr4512
 
 go 1.21.5
 
