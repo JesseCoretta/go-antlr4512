@@ -41,7 +41,8 @@ If alterations are desired, modify the above grammar file and regenerate code as
       - `ParseDITContentRule`
       - `ParseNameForm`
       - `ParseDITStructureRule`
-    - `Schema.UpdateMatchingRuleUses` method is extended for simple auto-generation of `matchingRuleUse` instances
+    - Extra methods
+      - `Schema.UpdateMatchingRuleUses`, for simple auto-generation of `matchingRuleUse` instances
   - Simple, easily understood type instances
     - Values are confined to primitive instances, easily read
     - No unnecessary pointers, no private fields
