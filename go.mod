@@ -1,6 +1,6 @@
 module github.com/JesseCoretta/go-antlr4512
 
-go 1.21.5
+go 1.21
 
 require github.com/antlr4-go/antlr/v4 v4.13.0
 
