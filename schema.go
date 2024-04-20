@@ -39,6 +39,9 @@ a resolution path for oid/name into a distinct OID reference.
 */
 type Macros map[string]string
 
+/*
+IsZero returns a Boolean value indicative of receiver nilness.
+*/
 func (r *Schema) IsZero() bool {
 	return r == nil
 }

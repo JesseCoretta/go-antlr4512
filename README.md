@@ -41,6 +41,7 @@ If alterations are desired, modify the above grammar file and regenerate code as
       - `ParseDITContentRule`
       - `ParseNameForm`
       - `ParseDITStructureRule`
+    - `Schema.UpdateMatchingRuleUses` method is extended for simple auto-generation of `matchingRuleUse` instances
   - Simple, easily understood type instances
     - Values are confined to primitive instances, easily read
     - No unnecessary pointers, no private fields
@@ -154,4 +155,17 @@ The intent of this package is mainly focused on easy tokenization. Very few chec
 The only restrictions imposed during the parsing process come from ANTLR itself; for instance, unexpected tokens or invalid token contents. Token placement and content is defined based upon a reasonable implementation of RFC 4512. Beyond this, all bets are off.
 
 If it is desirable to enhance the capabilities of a parser solution, the user is advised to consider manual implementation of the necessary checks and balances, or use an external solution such as [`go-schemax`](https://github.com/JesseCoretta/go-schemax).
+
+## File and Definition Parsing Order
+
+Although this package does not perform in-depth verification on individual references, it is important that files -- and more importantly, their contents -- are parsed in a manner that honors reference dependencies, such as those used for super types, super classes and super rules.
+
+The reason for this is that parsed definitions are stored in the order in which they were originally parsed within the slice-based fields of a Schema definition.  If and when this instance is processed using external processes, such as those affored by the [`go-schemax`](https://github.com/JesseCoretta/go-schemax) package, this will almost certainly result in errors.
+
+Therefore users are strongly advised to verify and ensure the proper ordering of the following:
+
+  - "`.schema`" files
+  - Definitions within "`.schema`" files
+
+In either context, the ordering scheme must always favor fundamental elements prior to any and all definitions which reference such elements.
 
