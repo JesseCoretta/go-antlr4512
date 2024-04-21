@@ -38,16 +38,13 @@ func ParseLDAPSyntax(raw string) (ls LDAPSyntax, err error) {
 }
 
 func (r *LDAPSyntax) process(ctx ILDAPSyntaxDescriptionContext) (err error) {
-	if !checkParen(ctx.OpenParen()) || !checkParen(ctx.CloseParen()) {
-		err = errorf("Unbalanced parenthetical state for %T", r)
+	if err = parenContext(ctx.OpenParen(), ctx.CloseParen()); err != nil {
 		return
 	}
 
 	for k, ct := 0, ctx.GetChildCount(); k < ct && err == nil; k++ {
 		switch tv := ctx.GetChild(k).(type) {
-		case *NumericOIDContext,
-			*OpenParenContext,
-			*CloseParenContext:
+		case *NumericOIDContext:
 			err = r.setCritical(tv)
 
 		case *ExtensionsContext,
@@ -85,8 +82,6 @@ func (r *LDAPSyntax) setCritical(ctx any) (err error) {
 	switch tv := ctx.(type) {
 	case *NumericOIDContext:
 		r.OID, _, err = numOIDContext(tv)
-	case *OpenParenContext, *CloseParenContext:
-		err = parenContext(tv)
 	default:
 		err = errorf("Unknown critical context '%T'", ctx)
 	}

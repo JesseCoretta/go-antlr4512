@@ -53,9 +53,7 @@ func (r *MatchingRuleUse) process(ctx IMatchingRuleUseDescriptionContext) (err e
 
 	for k, ct := 0, ctx.GetChildCount(); k < ct && err == nil; k++ {
 		switch tv := ctx.GetChild(k).(type) {
-		case *NumericOIDContext,
-			*OpenParenContext,
-			*CloseParenContext:
+		case *NumericOIDContext:
 			err = r.setCritical(tv)
 
 		case *NameContext,
@@ -104,8 +102,6 @@ func (r *MatchingRuleUse) setCritical(ctx any) (err error) {
 	switch tv := ctx.(type) {
 	case *NumericOIDContext:
 		r.OID, _, err = numOIDContext(tv)
-	case *OpenParenContext, *CloseParenContext:
-		err = parenContext(tv)
 	default:
 		err = errorf("Unknown critical context '%T'", ctx)
 	}
@@ -120,6 +116,9 @@ func (r *MatchingRuleUse) appliesContext(ctx *AppliesContext) (err error) {
 		if x := ctx.OID(); x != nil {
 			n, d, err = oIDContext(x.(*OIDContext))
 		} else if y := ctx.OIDs(); y != nil {
+                        if err = parenContext(y.OpenParen(), y.CloseParen()); err != nil {
+                                return
+                        }
 			n, d, err = oIDsContext(y.(*OIDsContext))
 		}
 
@@ -131,9 +130,9 @@ func (r *MatchingRuleUse) appliesContext(ctx *AppliesContext) (err error) {
 
 		if len(applies) == 0 {
 			if err != nil {
-				err = errorf("No required types found in %T: %v", ctx, err)
+				err = errorf("No applied types found in %T: %v", ctx, err)
 			} else {
-				err = errorf("No required types found in %T", ctx)
+				err = errorf("No applied types found in %T", ctx)
 			}
 		} else {
 			r.Applies = applies

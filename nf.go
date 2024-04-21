@@ -44,9 +44,7 @@ func (r *NameForm) process(ctx INameFormDescriptionContext) (err error) {
 
 	for k, ct := 0, ctx.GetChildCount(); k < ct && err == nil; k++ {
 		switch tv := ctx.GetChild(k).(type) {
-		case *NumericOIDOrMacroContext,
-			*OpenParenContext,
-			*CloseParenContext:
+		case *NumericOIDOrMacroContext:
 			err = r.setCritical(tv)
 
 		case *NameContext,
@@ -103,8 +101,6 @@ func (r *NameForm) setCritical(ctx any) (err error) {
 	switch tv := ctx.(type) {
 	case *NumericOIDOrMacroContext:
 		r.OID, r.Macro, err = numOIDContext(tv)
-	case *OpenParenContext, *CloseParenContext:
-		err = parenContext(tv)
 	default:
 		err = errorf("Unknown critical context '%T'", ctx)
 	}
@@ -119,6 +115,9 @@ func (r *NameForm) mustContext(ctx *MustContext) (err error) {
 		if x := ctx.OID(); x != nil {
 			n, d, err = oIDContext(x.(*OIDContext))
 		} else if y := ctx.OIDs(); y != nil {
+                        if err = parenContext(y.OpenParen(), y.CloseParen()); err != nil {
+                                return
+                        }
 			n, d, err = oIDsContext(y.(*OIDsContext))
 		}
 
@@ -149,6 +148,9 @@ func (r *NameForm) mayContext(ctx *MayContext) (err error) {
 		if x := ctx.OID(); x != nil {
 			n, d, err = oIDContext(x.(*OIDContext))
 		} else if y := ctx.OIDs(); y != nil {
+                        if err = parenContext(y.OpenParen(), y.CloseParen()); err != nil {
+                                return
+                        }
 			n, d, err = oIDsContext(y.(*OIDsContext))
 		}
 

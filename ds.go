@@ -42,9 +42,7 @@ func (r *DITStructureRule) process(ctx IDITStructureRuleDescriptionContext) (err
 
 	for k, ct := 0, ctx.GetChildCount(); k < ct && err == nil; k++ {
 		switch tv := ctx.GetChild(k).(type) {
-		case *StructureRuleContext,
-			*OpenParenContext,
-			*CloseParenContext:
+		case *StructureRuleContext:
 			err = r.setCritical(tv)
 
 		case *NameContext,
@@ -96,8 +94,6 @@ func (r *DITStructureRule) setCritical(ctx any) (err error) {
 	switch tv := ctx.(type) {
 	case *StructureRuleContext:
 		r.ID = tv.GetText()
-	case *OpenParenContext, *CloseParenContext:
-		err = parenContext(tv)
 	default:
 		err = errorf("Unknown critical context '%T'", ctx)
 	}

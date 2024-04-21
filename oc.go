@@ -48,10 +48,6 @@ func (r *ObjectClass) process(ctx IObjectClassDescriptionContext) (err error) {
 		case *NumericOIDOrMacroContext:
 			r.OID, r.Macro, err = numOIDContext(tv)
 
-		case *OpenParenContext,
-			*CloseParenContext:
-			err = r.setCritical(tv)
-
 		case *NameContext,
 			*ExtensionsContext,
 			*DescriptionContext:
@@ -108,8 +104,6 @@ func (r *ObjectClass) setCritical(ctx any) (err error) {
 	switch tv := ctx.(type) {
 	case *NumericOIDOrMacroContext:
 		r.OID, r.Macro, err = numOIDContext(tv)
-	case *OpenParenContext, *CloseParenContext:
-		err = parenContext(tv)
 	default:
 		err = errorf("Unknown critical context '%T'", ctx)
 	}
@@ -124,6 +118,9 @@ func (r *ObjectClass) superClassesContext(ctx *SuperClassesContext) (err error) 
 		if x := ctx.OID(); x != nil {
 			n, d, err = oIDContext(x.(*OIDContext))
 		} else if y := ctx.OIDs(); y != nil {
+                        if err = parenContext(y.OpenParen(), y.CloseParen()); err != nil {
+                                return
+                        }
 			n, d, err = oIDsContext(y.(*OIDsContext))
 		}
 
@@ -154,6 +151,9 @@ func (r *ObjectClass) mustContext(ctx *MustContext) (err error) {
 		if x := ctx.OID(); x != nil {
 			n, d, err = oIDContext(x.(*OIDContext))
 		} else if y := ctx.OIDs(); y != nil {
+                        if err = parenContext(y.OpenParen(), y.CloseParen()); err != nil {
+                                return
+                        }
 			n, d, err = oIDsContext(y.(*OIDsContext))
 		}
 
@@ -184,6 +184,9 @@ func (r *ObjectClass) mayContext(ctx *MayContext) (err error) {
 		if x := ctx.OID(); x != nil {
 			n, d, err = oIDContext(x.(*OIDContext))
 		} else if y := ctx.OIDs(); y != nil {
+                        if err = parenContext(y.OpenParen(), y.CloseParen()); err != nil {
+                                return
+                        }
 			n, d, err = oIDsContext(y.(*OIDsContext))
 		}
 
@@ -195,9 +198,9 @@ func (r *ObjectClass) mayContext(ctx *MayContext) (err error) {
 
 		if len(may) == 0 {
 			if err != nil {
-				err = errorf("No required types found in %T: %v", ctx, err)
+				err = errorf("No permitted types found in %T: %v", ctx, err)
 			} else {
-				err = errorf("No required types found in %T", ctx)
+				err = errorf("No permitted types found in %T", ctx)
 			}
 		} else {
 			r.May = may

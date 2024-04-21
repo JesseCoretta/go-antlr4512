@@ -41,9 +41,7 @@ func (r *MatchingRule) process(ctx IMatchingRuleDescriptionContext) (err error) 
 
 	for k, ct := 0, ctx.GetChildCount(); k < ct && err == nil; k++ {
 		switch tv := ctx.GetChild(k).(type) {
-		case *NumericOIDContext,
-			*OpenParenContext,
-			*CloseParenContext:
+		case *NumericOIDContext:
 			err = r.setCritical(tv)
 
 		case *NameContext,
@@ -95,8 +93,6 @@ func (r *MatchingRule) setCritical(ctx any) (err error) {
 	switch tv := ctx.(type) {
 	case *NumericOIDContext:
 		r.OID, _, err = numOIDContext(tv)
-	case *OpenParenContext, *CloseParenContext:
-		err = parenContext(tv)
 	default:
 		err = errorf("Unknown critical context '%T'", ctx)
 	}

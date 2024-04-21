@@ -433,18 +433,16 @@ parenContext returns an error based on a lack of opening and/or closing
 parenthetical encapsulation.  This applies to any multi-valued attribute
 sequence value, such as MUST ( cn $ sn $ o ) and names ( 'cn' 'commonName' ).
 */
-func parenContext(ctx any) (err error) {
-	if ctx != nil {
-		switch tv := ctx.(type) {
-		case *OpenParenContext:
-			if hasPfx(tv.GetText(), `<missing`) {
-				err = errorf("Missing open parenthesis for definition '%T'", tv)
-			}
-		case *CloseParenContext:
-			if hasPfx(tv.GetText(), `<missing`) {
-				err = errorf("Missing close parenthesis for definition '%T'", tv)
-			}
-		}
+func parenContext(o IOpenParenContext, c ICloseParenContext) (err error) {
+	if o == nil || c == nil {
+		err = errorf("nil parenthetical context")
+		return
+	}
+
+	if hasPfx(o.GetText(), `<missing`) {
+		err = errorf("Missing open parenthesis")
+	} else if hasPfx(c.GetText(), `<missing`) {
+		err = errorf("Missing close parenthesis")
 	}
 
 	return
