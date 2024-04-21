@@ -162,7 +162,7 @@ obsolescence			: SP+ 'OBSOLETE'					;
 minUpperBounds			: MUB							;
 structureRule			: number						;
 
-usages				: userApplication
+usages				: userApplications
 				| directoryOperation
 				| distributedOperation
 				| dSAOperation
@@ -184,7 +184,7 @@ number				: Digit							;
 // attrOptions is a sequence attribute option, per section 2.5
 attrOptions			: ( ';' descriptor )+					;
 
-userApplication			: 'userApplication'					;
+userApplications		: 'userApplications'					;
 directoryOperation		: 'directoryOperation'					;
 distributedOperation		: 'distributedOperation'				;
 dSAOperation			: 'dSAOperation'					;

@@ -28,7 +28,7 @@ null
 'COLLECTIVE'
 'OBSOLETE'
 ';'
-'userApplication'
+'userApplications'
 'directoryOperation'
 'distributedOperation'
 'dSAOperation'
@@ -176,7 +176,7 @@ numericOID
 macroSuffix
 number
 attrOptions
-userApplication
+userApplications
 directoryOperation
 distributedOperation
 dSAOperation

@@ -190,8 +190,8 @@ type RFC4512Listener interface {
 	// EnterAttrOptions is called when entering the attrOptions production.
 	EnterAttrOptions(c *AttrOptionsContext)
 
-	// EnterUserApplication is called when entering the userApplication production.
-	EnterUserApplication(c *UserApplicationContext)
+	// EnterUserApplications is called when entering the userApplications production.
+	EnterUserApplications(c *UserApplicationsContext)
 
 	// EnterDirectoryOperation is called when entering the directoryOperation production.
 	EnterDirectoryOperation(c *DirectoryOperationContext)
@@ -433,8 +433,8 @@ type RFC4512Listener interface {
 	// ExitAttrOptions is called when exiting the attrOptions production.
 	ExitAttrOptions(c *AttrOptionsContext)
 
-	// ExitUserApplication is called when exiting the userApplication production.
-	ExitUserApplication(c *UserApplicationContext)
+	// ExitUserApplications is called when exiting the userApplications production.
+	ExitUserApplications(c *UserApplicationsContext)
 
 	// ExitDirectoryOperation is called when exiting the directoryOperation production.
 	ExitDirectoryOperation(c *DirectoryOperationContext)

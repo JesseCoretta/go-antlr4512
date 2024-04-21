@@ -392,11 +392,11 @@ func (s *BaseRFC4512Listener) EnterAttrOptions(ctx *AttrOptionsContext) {}
 // ExitAttrOptions is called when production attrOptions is exited.
 func (s *BaseRFC4512Listener) ExitAttrOptions(ctx *AttrOptionsContext) {}
 
-// EnterUserApplication is called when production userApplication is entered.
-func (s *BaseRFC4512Listener) EnterUserApplication(ctx *UserApplicationContext) {}
+// EnterUserApplications is called when production userApplications is entered.
+func (s *BaseRFC4512Listener) EnterUserApplications(ctx *UserApplicationsContext) {}
 
-// ExitUserApplication is called when production userApplication is exited.
-func (s *BaseRFC4512Listener) ExitUserApplication(ctx *UserApplicationContext) {}
+// ExitUserApplications is called when production userApplications is exited.
+func (s *BaseRFC4512Listener) ExitUserApplications(ctx *UserApplicationsContext) {}
 
 // EnterDirectoryOperation is called when production directoryOperation is entered.
 func (s *BaseRFC4512Listener) EnterDirectoryOperation(ctx *DirectoryOperationContext) {}

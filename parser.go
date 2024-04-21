@@ -36,7 +36,7 @@ func rfc4512ParserInit() {
 		"'AUXILIARY'", "'APPLIES'", "'MUST'", "'AUX'", "'MAY'", "'NOT'", "'FORM'",
 		"'ORDERING'", "'EQUALITY'", "'OC'", "'SUP'", "'SUBSTR'", "'ING'", "'S'",
 		"'NAME'", "'USAGE'", "'DESC'", "'SYNTAX'", "'SINGLE-VALUE'", "'NO-USER-MODIFICATION'",
-		"'COLLECTIVE'", "'OBSOLETE'", "';'", "'userApplication'", "'directoryOperation'",
+		"'COLLECTIVE'", "'OBSOLETE'", "';'", "'userApplications'", "'directoryOperation'",
 		"'distributedOperation'", "'dSAOperation'",
 	}
 	staticData.SymbolicNames = []string{
@@ -60,7 +60,7 @@ func rfc4512ParserInit() {
 		"collective", "obsolescence", "minUpperBounds", "structureRule", "usages",
 		"quotedDescriptor", "quotedString", "schemaDN", "objectIdentifierOIDOrName",
 		"attributeDescription", "openParen", "closeParen", "numericOIDOrMacro",
-		"macro", "numericOID", "macroSuffix", "number", "attrOptions", "userApplication",
+		"macro", "numericOID", "macroSuffix", "number", "attrOptions", "userApplications",
 		"directoryOperation", "distributedOperation", "dSAOperation", "structureRules",
 		"oID", "oIDs", "extensionValue", "extensions", "extension", "names",
 		"descriptor", "objectClassDescription", "attributeTypeDescription",
@@ -1056,7 +1056,7 @@ const (
 	RFC4512ParserRULE_macroSuffix                  = 58
 	RFC4512ParserRULE_number                       = 59
 	RFC4512ParserRULE_attrOptions                  = 60
-	RFC4512ParserRULE_userApplication              = 61
+	RFC4512ParserRULE_userApplications             = 61
 	RFC4512ParserRULE_directoryOperation           = 62
 	RFC4512ParserRULE_distributedOperation         = 63
 	RFC4512ParserRULE_dSAOperation                 = 64
@@ -9897,7 +9897,7 @@ type IUsagesContext interface {
 	GetParser() antlr.Parser
 
 	// Getter signatures
-	UserApplication() IUserApplicationContext
+	UserApplications() IUserApplicationsContext
 	DirectoryOperation() IDirectoryOperationContext
 	DistributedOperation() IDistributedOperationContext
 	DSAOperation() IDSAOperationContext
@@ -9938,10 +9938,10 @@ func NewUsagesContext(parser antlr.Parser, parent antlr.ParserRuleContext, invok
 
 func (s *UsagesContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *UsagesContext) UserApplication() IUserApplicationContext {
+func (s *UsagesContext) UserApplications() IUserApplicationsContext {
 	var t antlr.RuleContext
 	for _, ctx := range s.GetChildren() {
-		if _, ok := ctx.(IUserApplicationContext); ok {
+		if _, ok := ctx.(IUserApplicationsContext); ok {
 			t = ctx.(antlr.RuleContext)
 			break
 		}
@@ -9951,7 +9951,7 @@ func (s *UsagesContext) UserApplication() IUserApplicationContext {
 		return nil
 	}
 
-	return t.(IUserApplicationContext)
+	return t.(IUserApplicationsContext)
 }
 
 func (s *UsagesContext) DirectoryOperation() IDirectoryOperationContext {
@@ -10036,7 +10036,7 @@ func (p *RFC4512Parser) Usages() (localctx IUsagesContext) {
 		p.EnterOuterAlt(localctx, 1)
 		{
 			p.SetState(671)
-			p.UserApplication()
+			p.UserApplications()
 		}
 
 	case RFC4512ParserT__29:
@@ -11565,70 +11565,70 @@ errorExit:
 	goto errorExit // Trick to prevent compiler error if the label is not used
 }
 
-// IUserApplicationContext is an interface to support dynamic dispatch.
-type IUserApplicationContext interface {
+// IUserApplicationsContext is an interface to support dynamic dispatch.
+type IUserApplicationsContext interface {
 	antlr.ParserRuleContext
 
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
-	// IsUserApplicationContext differentiates from other interfaces.
-	IsUserApplicationContext()
+	// IsUserApplicationsContext differentiates from other interfaces.
+	IsUserApplicationsContext()
 }
 
-type UserApplicationContext struct {
+type UserApplicationsContext struct {
 	antlr.BaseParserRuleContext
 	parser antlr.Parser
 }
 
-func NewEmptyUserApplicationContext() *UserApplicationContext {
-	var p = new(UserApplicationContext)
+func NewEmptyUserApplicationsContext() *UserApplicationsContext {
+	var p = new(UserApplicationsContext)
 	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
-	p.RuleIndex = RFC4512ParserRULE_userApplication
+	p.RuleIndex = RFC4512ParserRULE_userApplications
 	return p
 }
 
-func InitEmptyUserApplicationContext(p *UserApplicationContext) {
+func InitEmptyUserApplicationsContext(p *UserApplicationsContext) {
 	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
-	p.RuleIndex = RFC4512ParserRULE_userApplication
+	p.RuleIndex = RFC4512ParserRULE_userApplications
 }
 
-func (*UserApplicationContext) IsUserApplicationContext() {}
+func (*UserApplicationsContext) IsUserApplicationsContext() {}
 
-func NewUserApplicationContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *UserApplicationContext {
-	var p = new(UserApplicationContext)
+func NewUserApplicationsContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *UserApplicationsContext {
+	var p = new(UserApplicationsContext)
 
 	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, parent, invokingState)
 
 	p.parser = parser
-	p.RuleIndex = RFC4512ParserRULE_userApplication
+	p.RuleIndex = RFC4512ParserRULE_userApplications
 
 	return p
 }
 
-func (s *UserApplicationContext) GetParser() antlr.Parser { return s.parser }
-func (s *UserApplicationContext) GetRuleContext() antlr.RuleContext {
+func (s *UserApplicationsContext) GetParser() antlr.Parser { return s.parser }
+func (s *UserApplicationsContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
 
-func (s *UserApplicationContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+func (s *UserApplicationsContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *UserApplicationContext) EnterRule(listener antlr.ParseTreeListener) {
+func (s *UserApplicationsContext) EnterRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterUserApplication(s)
+		listenerT.EnterUserApplications(s)
 	}
 }
 
-func (s *UserApplicationContext) ExitRule(listener antlr.ParseTreeListener) {
+func (s *UserApplicationsContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitUserApplication(s)
+		listenerT.ExitUserApplications(s)
 	}
 }
 
-func (p *RFC4512Parser) UserApplication() (localctx IUserApplicationContext) {
-	localctx = NewUserApplicationContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 122, RFC4512ParserRULE_userApplication)
+func (p *RFC4512Parser) UserApplications() (localctx IUserApplicationsContext) {
+	localctx = NewUserApplicationsContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 122, RFC4512ParserRULE_userApplications)
 	p.EnterOuterAlt(localctx, 1)
 	{
 		p.SetState(718)
