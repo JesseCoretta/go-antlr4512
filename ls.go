@@ -14,6 +14,12 @@ LDAPSyntaxes is an instance of slices of [LDAPSyntax] instances.
 */
 type LDAPSyntaxes []LDAPSyntax
 
+func newLDAPSyntax() LDAPSyntax {
+	return LDAPSyntax{
+		Extensions: make(map[string][]string, 0),
+	}
+}
+
 /*
 ParseLDAPSyntax processes raw into an instance of [LDAPSyntax],
 which is returned alongside an error.
@@ -23,6 +29,7 @@ func ParseLDAPSyntax(raw string) (ls LDAPSyntax, err error) {
 	if i, err = ParseInstance(raw); err != nil {
 		return
 	}
+	ls = newLDAPSyntax()
 
 	err = ls.process(i.P.LDAPSyntaxDescription())
 
@@ -31,6 +38,10 @@ func ParseLDAPSyntax(raw string) (ls LDAPSyntax, err error) {
 }
 
 func (r *LDAPSyntax) process(ctx ILDAPSyntaxDescriptionContext) (err error) {
+	if !checkParen(ctx.OpenParen()) || !checkParen(ctx.CloseParen()) {
+		err = errorf("Unbalanced parenthetical state for %T", r)
+		return
+	}
 
 	for k, ct := 0, ctx.GetChildCount(); k < ct && err == nil; k++ {
 		switch tv := ctx.GetChild(k).(type) {

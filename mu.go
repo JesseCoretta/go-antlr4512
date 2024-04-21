@@ -46,9 +46,8 @@ func ParseMatchingRuleUse(raw string) (mu MatchingRuleUse, err error) {
 }
 
 func (r *MatchingRuleUse) process(ctx IMatchingRuleUseDescriptionContext) (err error) {
-
-	if ctx.OpenParen() == nil || ctx.CloseParen() == nil {
-		err = errorf("Definition encapsulation error; missing parenthesis?")
+	if !checkParen(ctx.OpenParen()) || !checkParen(ctx.CloseParen()) {
+		err = errorf("Unbalanced parenthetical state for %T", r)
 		return
 	}
 

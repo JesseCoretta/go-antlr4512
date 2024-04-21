@@ -35,6 +35,10 @@ func ParseDITStructureRule(raw string) (oc DITStructureRule, err error) {
 }
 
 func (r *DITStructureRule) process(ctx IDITStructureRuleDescriptionContext) (err error) {
+	if !checkParen(ctx.OpenParen()) || !checkParen(ctx.CloseParen()) {
+		err = errorf("Unbalanced parenthetical state for %T", r)
+		return
+	}
 
 	for k, ct := 0, ctx.GetChildCount(); k < ct && err == nil; k++ {
 		switch tv := ctx.GetChild(k).(type) {

@@ -314,16 +314,16 @@ func nameContext(ctx INamesContext) (names []string, err error) {
 		err = errorf("No names parsed from %T", ctx)
 	default:
 		var ct int
-		if ctx.OpenParen() != nil {
+		if checkParen(ctx.OpenParen()) {
 			ct++
 		}
-		if ctx.CloseParen() != nil {
+		if checkParen(ctx.CloseParen()) {
 			ct++
 		}
 
 		if ct%2 != 0 {
 			// odd number of parentheticals is bad in any scenario.
-			err = errorf("Missing open or close parenthesis in %T", ctx)
+			err = errorf("Unbalanced parenthetical state for %T", ctx)
 		} else if ct != 2 && l > 1 {
 			// A multi-valued NAME MUST be parenthetical.
 			err = errorf("Multi-valued NAME must be parenthetical")
@@ -602,4 +602,16 @@ func strInSlice(str string, sl []string) bool {
 	}
 
 	return false
+}
+
+func checkParen(ctx any) (ok bool) {
+	switch tv := ctx.(type) {
+	case *OpenParenContext:
+		ok = !hasPfx(tv.GetText(), `<missing`)
+
+	case *CloseParenContext:
+		ok = !hasPfx(tv.GetText(), `<missing`)
+	}
+
+	return
 }
