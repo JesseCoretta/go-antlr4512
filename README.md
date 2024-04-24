@@ -145,10 +145,9 @@ objectidentifier nisAttrs nisSchema:1
 
 Use of nesting requires dependency macros are defined prior to being referenced by other subordinate macros.
 
-If using macros as shown in [RFC 2307](https://datatracker.ietf.org/doc/html/rfc2307) for definitions such as `ldapSyntax` or `matchingRule`, OR if using macros in "piecemeal" definitions -- in other words, definitions NOT parsed from a file or directory -- macros are NOT resolvable.  Rather, the definition will be released without an error but lacking a literal OID. The definition will, however, bear a Macro field value which the user may resolve (or not) using their own means after-the-fact.  In this case, users MAY simply edit the returned instances directly, or they may simply transfer the non-zero contents elsewhere for further handling.
+If using macros as shown in [RFC 2307](https://datatracker.ietf.org/doc/html/rfc2307) for definitions such as `ldapSyntax` or `matchingRule`, OR if using macros in "piecemeal" definitions -- in other words, definitions NOT parsed from a file or directory -- macros are NOT auto-resolvable.  Rather, the definition will be released **without an error** but lacking a literal OID. Instead, the definition will bear a Macro field value which the user may resolve (or not) using their own means after-the-fact. In this scenario, users may simply edit the returned instances directly to set an OID manually, or alternatively just transfer the non-zero contents elsewhere for further handling.
 
-Regardless of the form of macro OID resolution used, users may specify either a dot (".") or colon (":") for the macro name/oid delimiter. In other words, either `nisSchema:0` or `nisSchema.0` would be acceptable.
-
+Regardless of the form of macro OID resolution used, users may specify either a dot (".") or colon (":") for the macro name/oid delimiter. In other words, either `nisSchema:0` or `nisSchema.0` would be acceptable, syntactically speaking.
 
 ## Minimal Verification
 
@@ -165,16 +164,26 @@ The only restrictions imposed during the parsing process come from ANTLR itself;
 
 If it is desirable to enhance the capabilities of a parser solution, the user is advised to consider manual implementation of the necessary checks and balances, or use an external solution such as [`go-schemax`](https://github.com/JesseCoretta/go-schemax).
 
+## No built-in definitions
+
+This package does not make any "schema library" available for end-user consumption. This package is a tokenizing parser, and expects users to _provide_ the very definitions needing to be parsed in textual form, such as from an RFC or ID.
+
+Users interested in a more comprehensive "schema suite" should take a look at [`go-schemax`](https://github.com/JesseCoretta/go-schemax), which offers an extensive manifest of official schema definitions in addition to the features of _this_ package.
+
 ## File and Definition Parsing Order
 
 Although this package does not perform in-depth verification on individual references, it is important that files -- and more importantly, their contents -- are parsed in a manner that honors reference dependencies, such as those used for super types, super classes and super rules.
 
-The reason for this is that parsed definitions are stored in the order in which they were originally parsed within the slice-based fields of a Schema definition.  If and when this instance is processed using external processes, such as those affored by the [`go-schemax`](https://github.com/JesseCoretta/go-schemax) package, this will almost certainly result in errors.
+The reason for this is that parsed definitions are stored in the order in which they were originally parsed within the slice-based fields of a Schema definition.  Introduction of bad ordering schemes will almost certainly result in errors.
 
-Therefore users are strongly advised to verify and ensure the proper ordering of the following:
+Therefore users are strongly advised to verify and ensure the proper ordering of all of the following:
 
-  - "`.schema`" files
-  - Definitions within "`.schema`" files
+  - ".schema" files
+  - Definitions _within_ ".schema" files
 
 In either context, the ordering scheme must always favor fundamental elements prior to any and all definitions which reference such elements.
+
+Additionally, only files ending in ".schema" will be parsed. This allows directory structures which contains other files, such as README.MDs, to remain in place without interfering with a large scale directory structure parsing operation.
+
+Directory names are _not_ significant and are traversed whenever encountered during a directory structure parsing operation.
 
