@@ -46,10 +46,9 @@ func ParseMatchingRuleUse(raw string) (mu MatchingRuleUse, err error) {
 }
 
 func (r *MatchingRuleUse) process(ctx IMatchingRuleUseDescriptionContext) (err error) {
-	if !checkParen(ctx.OpenParen()) || !checkParen(ctx.CloseParen()) {
-		err = errorf("Unbalanced parenthetical state for %T", r)
-		return
-	}
+        if err = parenContext(ctx.OpenParen(), ctx.CloseParen()); err != nil {
+                return                                                  
+        }
 
 	for k, ct := 0, ctx.GetChildCount(); k < ct && err == nil; k++ {
 		switch tv := ctx.GetChild(k).(type) {

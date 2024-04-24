@@ -170,7 +170,7 @@ func (r *AttributeType) setSyntaxContexts(ctx any) (err error) {
 	case *MinUpperBoundsContext:
 		var m int
 		m, err = atoi(trimS(trim(tv.GetText(), `{}`)))
-		if err != nil {
+		if err != nil || m < 0 {
 			break
 		}
 		r.MUB = uint(m)
