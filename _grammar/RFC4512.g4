@@ -270,7 +270,7 @@ attributeTypeDescription        : openParen SP* LineComment? NEWLINE?
 				;
 
 matchingRuleDescription		: openParen SP* LineComment? NEWLINE?
-                                        SP* numericOID SP* LineComment? NEWLINE?
+                                        SP* numericOIDOrMacro SP* LineComment? NEWLINE?
                                         (( name
 					 | description
 					 | obsolescence
@@ -290,7 +290,7 @@ matchingRuleUseDescription	: openParen SP* LineComment? NEWLINE?
 				;
 
 lDAPSyntaxDescription		: openParen SP* LineComment? NEWLINE?
-                                        SP* numericOID SP* LineComment? NEWLINE?
+                                        SP* numericOIDOrMacro SP* LineComment? NEWLINE?
 					description? SP* LineComment? NEWLINE?
                                         extensions? NEWLINE? closeParen LineComment?
 				;

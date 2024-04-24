@@ -38,10 +38,12 @@ func ParseObjectClass(raw string) (oc ObjectClass, err error) {
 }
 
 func (r *ObjectClass) process(ctx IObjectClassDescriptionContext) (err error) {
+	/*
 	if !checkParen(ctx.OpenParen()) || !checkParen(ctx.CloseParen()) {
 		err = errorf("Unbalanced parenthetical state for %T", r)
 		return
 	}
+	*/
 
 	for k, ct := 0, ctx.GetChildCount(); k < ct && err == nil; k++ {
 		switch tv := ctx.GetChild(k).(type) {
@@ -78,7 +80,7 @@ func (r *ObjectClass) process(ctx IObjectClassDescriptionContext) (err error) {
 	}
 
 	if len(r.OID) == 0 && len(r.Macro) == 0 {
-		err = errorf("No macro or OID literal for %T", r)
+                err = errorf("Neither OID nor Macro literals found in %T", r)
 	}
 
 	return

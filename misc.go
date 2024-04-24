@@ -300,7 +300,7 @@ func nameContext(ctx INamesContext) (names []string, err error) {
 	_names := ctx.AllQuotedDescriptor()
 	for i := 0; i < len(_names); i++ {
 		if sym := _names[i].GetText(); len(sym) > 0 {
-			names = append(names, trim(sym, `''`))
+			names = append(names, trim(sym, `'`))
 		}
 	}
 
@@ -369,7 +369,7 @@ func extVContext(ctx []IExtensionValueContext) (extv []string) {
 			} else if qd := ctx[i].QuotedDescriptor(); qd != nil {
 				ev = qd.GetText()
 			}
-			if ev = trimS(trim(ev, `''`)); len(ev) > 0 {
+			if ev = trimS(trim(ev, `'`)); len(ev) > 0 {
 				extv = append(extv, ev)
 			}
 		}
@@ -385,9 +385,9 @@ text from the ctx instance, returning it via desc.
 func descContext(ctx *DescriptionContext) (desc string, err error) {
 	if ctx != nil {
 		if qs := ctx.QuotedString(); qs != nil {
-			desc = trimS(trim(qs.GetText(), `''`))
+			desc = trimS(trim(qs.GetText(), `'`))
 		} else if qd := ctx.QuotedDescriptor(); qd != nil {
-			desc = trimS(trim(qd.GetText(), `''`))
+			desc = trimS(trim(qd.GetText(), `'`))
 		}
 	}
 
@@ -435,14 +435,14 @@ sequence value, such as MUST ( cn $ sn $ o ) and names ( 'cn' 'commonName' ).
 */
 func parenContext(o IOpenParenContext, c ICloseParenContext) (err error) {
 	if o == nil || c == nil {
-		err = errorf("nil parenthetical context")
+		err = errorf("nil or unbalanced parenthetical context, or bogus definition")
 		return
 	}
 
 	if hasPfx(o.GetText(), `<missing`) {
-		err = errorf("Missing open parenthesis")
+		err = errorf("Missing opening parenthesis")
 	} else if hasPfx(c.GetText(), `<missing`) {
-		err = errorf("Missing close parenthesis")
+		err = errorf("Missing closing parenthesis")
 	}
 
 	return
@@ -503,7 +503,7 @@ func oIDContext(ctx *OIDContext) (n, d []string, err error) {
 		return
 	}
 
-	if x = trimS(trim(x, `''`)); len(x) > 0 {
+	if x = trimS(trim(x, `'`)); len(x) > 0 {
 		if noid {
 			n = append(n, x)
 		} else {
@@ -553,10 +553,13 @@ matchingRule definitions.
 func syntaxContext(ctx *SyntaxContext) (soid string, err error) {
 	if ctx != nil {
 		_soid := ctx.NumericOID()
-		if pfx := _soid.GetText(); hasPfx(pfx, `<missing`) {
-			err = errorf("Missing numeric OID for definition syntax")
+		_qdscr := ctx.QuotedDescriptor()
+		if pfx := _soid.GetText(); !hasPfx(pfx, `<missing`) {
+			soid = pfx
+		} else if qfx := _qdscr.GetText(); !hasPfx(qfx, `<missing`) {
+			soid = trim(qfx,`'`)
 		} else {
-			soid = _soid.GetText()
+			err = errorf("Found neither numeric OID nor quotedDescriptor for definition syntax")
 		}
 	}
 

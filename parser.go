@@ -690,7 +690,7 @@ func rfc4512ParserInit() {
 		1, 0, 0, 0, 1200, 1201, 1, 0, 0, 0, 1201, 1205, 1, 0, 0, 0, 1202, 1204,
 		5, 53, 0, 0, 1203, 1202, 1, 0, 0, 0, 1204, 1207, 1, 0, 0, 0, 1205, 1203,
 		1, 0, 0, 0, 1205, 1206, 1, 0, 0, 0, 1206, 1208, 1, 0, 0, 0, 1207, 1205,
-		1, 0, 0, 0, 1208, 1212, 3, 114, 57, 0, 1209, 1211, 5, 53, 0, 0, 1210, 1209,
+		1, 0, 0, 0, 1208, 1212, 3, 110, 55, 0, 1209, 1211, 5, 53, 0, 0, 1210, 1209,
 		1, 0, 0, 0, 1211, 1214, 1, 0, 0, 0, 1212, 1210, 1, 0, 0, 0, 1212, 1213,
 		1, 0, 0, 0, 1213, 1216, 1, 0, 0, 0, 1214, 1212, 1, 0, 0, 0, 1215, 1217,
 		5, 55, 0, 0, 1216, 1215, 1, 0, 0, 0, 1216, 1217, 1, 0, 0, 0, 1217, 1219,
@@ -751,7 +751,7 @@ func rfc4512ParserInit() {
 		5, 54, 0, 0, 1348, 1347, 1, 0, 0, 0, 1348, 1349, 1, 0, 0, 0, 1349, 1353,
 		1, 0, 0, 0, 1350, 1352, 5, 53, 0, 0, 1351, 1350, 1, 0, 0, 0, 1352, 1355,
 		1, 0, 0, 0, 1353, 1351, 1, 0, 0, 0, 1353, 1354, 1, 0, 0, 0, 1354, 1356,
-		1, 0, 0, 0, 1355, 1353, 1, 0, 0, 0, 1356, 1360, 3, 114, 57, 0, 1357, 1359,
+		1, 0, 0, 0, 1355, 1353, 1, 0, 0, 0, 1356, 1360, 3, 110, 55, 0, 1357, 1359,
 		5, 53, 0, 0, 1358, 1357, 1, 0, 0, 0, 1359, 1362, 1, 0, 0, 0, 1360, 1358,
 		1, 0, 0, 0, 1360, 1361, 1, 0, 0, 0, 1361, 1364, 1, 0, 0, 0, 1362, 1360,
 		1, 0, 0, 0, 1363, 1365, 5, 55, 0, 0, 1364, 1363, 1, 0, 0, 0, 1364, 1365,
@@ -1178,18 +1178,6 @@ func (s *FileparseContext) GetRuleContext() antlr.RuleContext {
 
 func (s *FileparseContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
-}
-
-func (s *FileparseContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterFileparse(s)
-	}
-}
-
-func (s *FileparseContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitFileparse(s)
-	}
 }
 
 func (p *RFC4512Parser) Fileparse() (localctx IFileparseContext) {
@@ -1722,18 +1710,6 @@ func (s *DefinitionsContext) ToStringTree(ruleNames []string, recog antlr.Recogn
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *DefinitionsContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterDefinitions(s)
-	}
-}
-
-func (s *DefinitionsContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitDefinitions(s)
-	}
-}
-
 func (p *RFC4512Parser) Definitions() (localctx IDefinitionsContext) {
 	localctx = NewDefinitionsContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 2, RFC4512ParserRULE_definitions)
@@ -2014,18 +1990,6 @@ func (s *ObjectClassDescriptionsContext) ToStringTree(ruleNames []string, recog 
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *ObjectClassDescriptionsContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterObjectClassDescriptions(s)
-	}
-}
-
-func (s *ObjectClassDescriptionsContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitObjectClassDescriptions(s)
-	}
-}
-
 func (p *RFC4512Parser) ObjectClassDescriptions() (localctx IObjectClassDescriptionsContext) {
 	localctx = NewObjectClassDescriptionsContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 4, RFC4512ParserRULE_objectClassDescriptions)
@@ -2280,18 +2244,6 @@ func (s *AttributeTypeDescriptionsContext) GetRuleContext() antlr.RuleContext {
 
 func (s *AttributeTypeDescriptionsContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
-}
-
-func (s *AttributeTypeDescriptionsContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterAttributeTypeDescriptions(s)
-	}
-}
-
-func (s *AttributeTypeDescriptionsContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitAttributeTypeDescriptions(s)
-	}
 }
 
 func (p *RFC4512Parser) AttributeTypeDescriptions() (localctx IAttributeTypeDescriptionsContext) {
@@ -2550,18 +2502,6 @@ func (s *MatchingRuleDescriptionsContext) ToStringTree(ruleNames []string, recog
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *MatchingRuleDescriptionsContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterMatchingRuleDescriptions(s)
-	}
-}
-
-func (s *MatchingRuleDescriptionsContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitMatchingRuleDescriptions(s)
-	}
-}
-
 func (p *RFC4512Parser) MatchingRuleDescriptions() (localctx IMatchingRuleDescriptionsContext) {
 	localctx = NewMatchingRuleDescriptionsContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 8, RFC4512ParserRULE_matchingRuleDescriptions)
@@ -2816,18 +2756,6 @@ func (s *MatchingRuleUseDescriptionsContext) GetRuleContext() antlr.RuleContext 
 
 func (s *MatchingRuleUseDescriptionsContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
-}
-
-func (s *MatchingRuleUseDescriptionsContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterMatchingRuleUseDescriptions(s)
-	}
-}
-
-func (s *MatchingRuleUseDescriptionsContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitMatchingRuleUseDescriptions(s)
-	}
 }
 
 func (p *RFC4512Parser) MatchingRuleUseDescriptions() (localctx IMatchingRuleUseDescriptionsContext) {
@@ -3086,18 +3014,6 @@ func (s *LDAPSyntaxDescriptionsContext) ToStringTree(ruleNames []string, recog a
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *LDAPSyntaxDescriptionsContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterLDAPSyntaxDescriptions(s)
-	}
-}
-
-func (s *LDAPSyntaxDescriptionsContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitLDAPSyntaxDescriptions(s)
-	}
-}
-
 func (p *RFC4512Parser) LDAPSyntaxDescriptions() (localctx ILDAPSyntaxDescriptionsContext) {
 	localctx = NewLDAPSyntaxDescriptionsContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 12, RFC4512ParserRULE_lDAPSyntaxDescriptions)
@@ -3352,18 +3268,6 @@ func (s *DITStructureRuleDescriptionsContext) GetRuleContext() antlr.RuleContext
 
 func (s *DITStructureRuleDescriptionsContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
-}
-
-func (s *DITStructureRuleDescriptionsContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterDITStructureRuleDescriptions(s)
-	}
-}
-
-func (s *DITStructureRuleDescriptionsContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitDITStructureRuleDescriptions(s)
-	}
 }
 
 func (p *RFC4512Parser) DITStructureRuleDescriptions() (localctx IDITStructureRuleDescriptionsContext) {
@@ -3622,18 +3526,6 @@ func (s *NameFormDescriptionsContext) ToStringTree(ruleNames []string, recog ant
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *NameFormDescriptionsContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterNameFormDescriptions(s)
-	}
-}
-
-func (s *NameFormDescriptionsContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitNameFormDescriptions(s)
-	}
-}
-
 func (p *RFC4512Parser) NameFormDescriptions() (localctx INameFormDescriptionsContext) {
 	localctx = NewNameFormDescriptionsContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 16, RFC4512ParserRULE_nameFormDescriptions)
@@ -3890,18 +3782,6 @@ func (s *DITContentRuleDescriptionsContext) ToStringTree(ruleNames []string, rec
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *DITContentRuleDescriptionsContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterDITContentRuleDescriptions(s)
-	}
-}
-
-func (s *DITContentRuleDescriptionsContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitDITContentRuleDescriptions(s)
-	}
-}
-
 func (p *RFC4512Parser) DITContentRuleDescriptions() (localctx IDITContentRuleDescriptionsContext) {
 	localctx = NewDITContentRuleDescriptionsContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 18, RFC4512ParserRULE_dITContentRuleDescriptions)
@@ -4115,18 +3995,6 @@ func (s *ObjectIdentifierContext) ToStringTree(ruleNames []string, recog antlr.R
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *ObjectIdentifierContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterObjectIdentifier(s)
-	}
-}
-
-func (s *ObjectIdentifierContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitObjectIdentifier(s)
-	}
-}
-
 func (p *RFC4512Parser) ObjectIdentifier() (localctx IObjectIdentifierContext) {
 	localctx = NewObjectIdentifierContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 20, RFC4512ParserRULE_objectIdentifier)
@@ -4317,18 +4185,6 @@ func (s *ObjectClassLabelContext) ToStringTree(ruleNames []string, recog antlr.R
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *ObjectClassLabelContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterObjectClassLabel(s)
-	}
-}
-
-func (s *ObjectClassLabelContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitObjectClassLabel(s)
-	}
-}
-
 func (p *RFC4512Parser) ObjectClassLabel() (localctx IObjectClassLabelContext) {
 	localctx = NewObjectClassLabelContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 22, RFC4512ParserRULE_objectClassLabel)
@@ -4432,18 +4288,6 @@ func (s *MatchingRuleLabelContext) GetRuleContext() antlr.RuleContext {
 
 func (s *MatchingRuleLabelContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
-}
-
-func (s *MatchingRuleLabelContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterMatchingRuleLabel(s)
-	}
-}
-
-func (s *MatchingRuleLabelContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitMatchingRuleLabel(s)
-	}
 }
 
 func (p *RFC4512Parser) MatchingRuleLabel() (localctx IMatchingRuleLabelContext) {
@@ -4551,18 +4395,6 @@ func (s *MatchingRuleUseLabelContext) ToStringTree(ruleNames []string, recog ant
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *MatchingRuleUseLabelContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterMatchingRuleUseLabel(s)
-	}
-}
-
-func (s *MatchingRuleUseLabelContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitMatchingRuleUseLabel(s)
-	}
-}
-
 func (p *RFC4512Parser) MatchingRuleUseLabel() (localctx IMatchingRuleUseLabelContext) {
 	localctx = NewMatchingRuleUseLabelContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 26, RFC4512ParserRULE_matchingRuleUseLabel)
@@ -4666,18 +4498,6 @@ func (s *LDAPSyntaxLabelContext) GetRuleContext() antlr.RuleContext {
 
 func (s *LDAPSyntaxLabelContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
-}
-
-func (s *LDAPSyntaxLabelContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterLDAPSyntaxLabel(s)
-	}
-}
-
-func (s *LDAPSyntaxLabelContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitLDAPSyntaxLabel(s)
-	}
 }
 
 func (p *RFC4512Parser) LDAPSyntaxLabel() (localctx ILDAPSyntaxLabelContext) {
@@ -4785,18 +4605,6 @@ func (s *DITContentRuleLabelContext) ToStringTree(ruleNames []string, recog antl
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *DITContentRuleLabelContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterDITContentRuleLabel(s)
-	}
-}
-
-func (s *DITContentRuleLabelContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitDITContentRuleLabel(s)
-	}
-}
-
 func (p *RFC4512Parser) DITContentRuleLabel() (localctx IDITContentRuleLabelContext) {
 	localctx = NewDITContentRuleLabelContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 30, RFC4512ParserRULE_dITContentRuleLabel)
@@ -4900,18 +4708,6 @@ func (s *DITStructureRuleLabelContext) GetRuleContext() antlr.RuleContext {
 
 func (s *DITStructureRuleLabelContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
-}
-
-func (s *DITStructureRuleLabelContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterDITStructureRuleLabel(s)
-	}
-}
-
-func (s *DITStructureRuleLabelContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitDITStructureRuleLabel(s)
-	}
 }
 
 func (p *RFC4512Parser) DITStructureRuleLabel() (localctx IDITStructureRuleLabelContext) {
@@ -5019,18 +4815,6 @@ func (s *AttributeTypeLabelContext) ToStringTree(ruleNames []string, recog antlr
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *AttributeTypeLabelContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterAttributeTypeLabel(s)
-	}
-}
-
-func (s *AttributeTypeLabelContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitAttributeTypeLabel(s)
-	}
-}
-
 func (p *RFC4512Parser) AttributeTypeLabel() (localctx IAttributeTypeLabelContext) {
 	localctx = NewAttributeTypeLabelContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 34, RFC4512ParserRULE_attributeTypeLabel)
@@ -5136,18 +4920,6 @@ func (s *NameFormLabelContext) ToStringTree(ruleNames []string, recog antlr.Reco
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *NameFormLabelContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterNameFormLabel(s)
-	}
-}
-
-func (s *NameFormLabelContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitNameFormLabel(s)
-	}
-}
-
 func (p *RFC4512Parser) NameFormLabel() (localctx INameFormLabelContext) {
 	localctx = NewNameFormLabelContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 36, RFC4512ParserRULE_nameFormLabel)
@@ -5239,18 +5011,6 @@ func (s *DefinitionLabelDelimContext) GetRuleContext() antlr.RuleContext {
 
 func (s *DefinitionLabelDelimContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
-}
-
-func (s *DefinitionLabelDelimContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterDefinitionLabelDelim(s)
-	}
-}
-
-func (s *DefinitionLabelDelimContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitDefinitionLabelDelim(s)
-	}
 }
 
 func (p *RFC4512Parser) DefinitionLabelDelim() (localctx IDefinitionLabelDelimContext) {
@@ -5551,18 +5311,6 @@ func (s *KindContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) s
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *KindContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterKind(s)
-	}
-}
-
-func (s *KindContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitKind(s)
-	}
-}
-
 func (p *RFC4512Parser) Kind() (localctx IKindContext) {
 	localctx = NewKindContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 40, RFC4512ParserRULE_kind)
@@ -5685,18 +5433,6 @@ func (s *AbstractKindContext) ToStringTree(ruleNames []string, recog antlr.Recog
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *AbstractKindContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterAbstractKind(s)
-	}
-}
-
-func (s *AbstractKindContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitAbstractKind(s)
-	}
-}
-
 func (p *RFC4512Parser) AbstractKind() (localctx IAbstractKindContext) {
 	localctx = NewAbstractKindContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 42, RFC4512ParserRULE_abstractKind)
@@ -5772,18 +5508,6 @@ func (s *StructuralKindContext) ToStringTree(ruleNames []string, recog antlr.Rec
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *StructuralKindContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterStructuralKind(s)
-	}
-}
-
-func (s *StructuralKindContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitStructuralKind(s)
-	}
-}
-
 func (p *RFC4512Parser) StructuralKind() (localctx IStructuralKindContext) {
 	localctx = NewStructuralKindContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 44, RFC4512ParserRULE_structuralKind)
@@ -5857,18 +5581,6 @@ func (s *AuxiliaryKindContext) GetRuleContext() antlr.RuleContext {
 
 func (s *AuxiliaryKindContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
-}
-
-func (s *AuxiliaryKindContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterAuxiliaryKind(s)
-	}
-}
-
-func (s *AuxiliaryKindContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitAuxiliaryKind(s)
-	}
 }
 
 func (p *RFC4512Parser) AuxiliaryKind() (localctx IAuxiliaryKindContext) {
@@ -5992,18 +5704,6 @@ func (s *AppliesContext) GetRuleContext() antlr.RuleContext {
 
 func (s *AppliesContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
-}
-
-func (s *AppliesContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterApplies(s)
-	}
-}
-
-func (s *AppliesContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitApplies(s)
-	}
 }
 
 func (p *RFC4512Parser) Applies() (localctx IAppliesContext) {
@@ -6202,18 +5902,6 @@ func (s *MustContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) s
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *MustContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterMust(s)
-	}
-}
-
-func (s *MustContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitMust(s)
-	}
-}
-
 func (p *RFC4512Parser) Must() (localctx IMustContext) {
 	localctx = NewMustContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 50, RFC4512ParserRULE_must)
@@ -6408,18 +6096,6 @@ func (s *AuxContext) GetRuleContext() antlr.RuleContext {
 
 func (s *AuxContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
-}
-
-func (s *AuxContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterAux(s)
-	}
-}
-
-func (s *AuxContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitAux(s)
-	}
 }
 
 func (p *RFC4512Parser) Aux() (localctx IAuxContext) {
@@ -6618,18 +6294,6 @@ func (s *MayContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) st
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *MayContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterMay(s)
-	}
-}
-
-func (s *MayContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitMay(s)
-	}
-}
-
 func (p *RFC4512Parser) May() (localctx IMayContext) {
 	localctx = NewMayContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 54, RFC4512ParserRULE_may)
@@ -6826,18 +6490,6 @@ func (s *NotContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) st
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *NotContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterNot(s)
-	}
-}
-
-func (s *NotContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitNot(s)
-	}
-}
-
 func (p *RFC4512Parser) Not() (localctx INotContext) {
 	localctx = NewNotContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 56, RFC4512ParserRULE_not)
@@ -7017,18 +6669,6 @@ func (s *FormContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) s
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *FormContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterForm(s)
-	}
-}
-
-func (s *FormContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitForm(s)
-	}
-}
-
 func (p *RFC4512Parser) Form() (localctx IFormContext) {
 	localctx = NewFormContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 58, RFC4512ParserRULE_form)
@@ -7187,18 +6827,6 @@ func (s *OrderingContext) GetRuleContext() antlr.RuleContext {
 
 func (s *OrderingContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
-}
-
-func (s *OrderingContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterOrdering(s)
-	}
-}
-
-func (s *OrderingContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitOrdering(s)
-	}
 }
 
 func (p *RFC4512Parser) Ordering() (localctx IOrderingContext) {
@@ -7361,18 +6989,6 @@ func (s *EqualityContext) ToStringTree(ruleNames []string, recog antlr.Recognize
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *EqualityContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterEquality(s)
-	}
-}
-
-func (s *EqualityContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitEquality(s)
-	}
-}
-
 func (p *RFC4512Parser) Equality() (localctx IEqualityContext) {
 	localctx = NewEqualityContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 62, RFC4512ParserRULE_equality)
@@ -7533,18 +7149,6 @@ func (s *StructuralClassContext) ToStringTree(ruleNames []string, recog antlr.Re
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *StructuralClassContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterStructuralClass(s)
-	}
-}
-
-func (s *StructuralClassContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitStructuralClass(s)
-	}
-}
-
 func (p *RFC4512Parser) StructuralClass() (localctx IStructuralClassContext) {
 	localctx = NewStructuralClassContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 64, RFC4512ParserRULE_structuralClass)
@@ -7703,18 +7307,6 @@ func (s *SuperTypeContext) GetRuleContext() antlr.RuleContext {
 
 func (s *SuperTypeContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
-}
-
-func (s *SuperTypeContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterSuperType(s)
-	}
-}
-
-func (s *SuperTypeContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitSuperType(s)
-	}
 }
 
 func (p *RFC4512Parser) SuperType() (localctx ISuperTypeContext) {
@@ -7892,18 +7484,6 @@ func (s *SuperClassesContext) GetRuleContext() antlr.RuleContext {
 
 func (s *SuperClassesContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
-}
-
-func (s *SuperClassesContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterSuperClasses(s)
-	}
-}
-
-func (s *SuperClassesContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitSuperClasses(s)
-	}
 }
 
 func (p *RFC4512Parser) SuperClasses() (localctx ISuperClassesContext) {
@@ -8102,18 +7682,6 @@ func (s *SuperRulesContext) ToStringTree(ruleNames []string, recog antlr.Recogni
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *SuperRulesContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterSuperRules(s)
-	}
-}
-
-func (s *SuperRulesContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitSuperRules(s)
-	}
-}
-
 func (p *RFC4512Parser) SuperRules() (localctx ISuperRulesContext) {
 	localctx = NewSuperRulesContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 70, RFC4512ParserRULE_superRules)
@@ -8291,18 +7859,6 @@ func (s *SubstrContext) GetRuleContext() antlr.RuleContext {
 
 func (s *SubstrContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
-}
-
-func (s *SubstrContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterSubstr(s)
-	}
-}
-
-func (s *SubstrContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitSubstr(s)
-	}
 }
 
 func (p *RFC4512Parser) Substr() (localctx ISubstrContext) {
@@ -8501,18 +8057,6 @@ func (s *NameContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) s
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *NameContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterName(s)
-	}
-}
-
-func (s *NameContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitName(s)
-	}
-}
-
 func (p *RFC4512Parser) Name() (localctx INameContext) {
 	localctx = NewNameContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 74, RFC4512ParserRULE_name)
@@ -8671,18 +8215,6 @@ func (s *UsageContext) GetRuleContext() antlr.RuleContext {
 
 func (s *UsageContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
-}
-
-func (s *UsageContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterUsage(s)
-	}
-}
-
-func (s *UsageContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitUsage(s)
-	}
 }
 
 func (p *RFC4512Parser) Usage() (localctx IUsageContext) {
@@ -8860,18 +8392,6 @@ func (s *DescriptionContext) GetRuleContext() antlr.RuleContext {
 
 func (s *DescriptionContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
-}
-
-func (s *DescriptionContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterDescription(s)
-	}
-}
-
-func (s *DescriptionContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitDescription(s)
-	}
 }
 
 func (p *RFC4512Parser) Description() (localctx IDescriptionContext) {
@@ -9070,18 +8590,6 @@ func (s *SyntaxContext) ToStringTree(ruleNames []string, recog antlr.Recognizer)
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *SyntaxContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterSyntax(s)
-	}
-}
-
-func (s *SyntaxContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitSyntax(s)
-	}
-}
-
 func (p *RFC4512Parser) Syntax() (localctx ISyntaxContext) {
 	localctx = NewSyntaxContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 80, RFC4512ParserRULE_syntax)
@@ -9244,18 +8752,6 @@ func (s *SingleValueContext) ToStringTree(ruleNames []string, recog antlr.Recogn
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *SingleValueContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterSingleValue(s)
-	}
-}
-
-func (s *SingleValueContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitSingleValue(s)
-	}
-}
-
 func (p *RFC4512Parser) SingleValue() (localctx ISingleValueContext) {
 	localctx = NewSingleValueContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 82, RFC4512ParserRULE_singleValue)
@@ -9369,18 +8865,6 @@ func (s *ImmutabilityContext) GetRuleContext() antlr.RuleContext {
 
 func (s *ImmutabilityContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
-}
-
-func (s *ImmutabilityContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterImmutability(s)
-	}
-}
-
-func (s *ImmutabilityContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitImmutability(s)
-	}
 }
 
 func (p *RFC4512Parser) Immutability() (localctx IImmutabilityContext) {
@@ -9498,18 +8982,6 @@ func (s *CollectiveContext) ToStringTree(ruleNames []string, recog antlr.Recogni
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *CollectiveContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterCollective(s)
-	}
-}
-
-func (s *CollectiveContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitCollective(s)
-	}
-}
-
 func (p *RFC4512Parser) Collective() (localctx ICollectiveContext) {
 	localctx = NewCollectiveContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 86, RFC4512ParserRULE_collective)
@@ -9625,18 +9097,6 @@ func (s *ObsolescenceContext) ToStringTree(ruleNames []string, recog antlr.Recog
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *ObsolescenceContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterObsolescence(s)
-	}
-}
-
-func (s *ObsolescenceContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitObsolescence(s)
-	}
-}
-
 func (p *RFC4512Parser) Obsolescence() (localctx IObsolescenceContext) {
 	localctx = NewObsolescenceContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 88, RFC4512ParserRULE_obsolescence)
@@ -9747,18 +9207,6 @@ func (s *MinUpperBoundsContext) ToStringTree(ruleNames []string, recog antlr.Rec
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *MinUpperBoundsContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterMinUpperBounds(s)
-	}
-}
-
-func (s *MinUpperBoundsContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitMinUpperBounds(s)
-	}
-}
-
 func (p *RFC4512Parser) MinUpperBounds() (localctx IMinUpperBoundsContext) {
 	localctx = NewMinUpperBoundsContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 90, RFC4512ParserRULE_minUpperBounds)
@@ -9853,18 +9301,6 @@ func (s *StructureRuleContext) GetRuleContext() antlr.RuleContext {
 
 func (s *StructureRuleContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
-}
-
-func (s *StructureRuleContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterStructureRule(s)
-	}
-}
-
-func (s *StructureRuleContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitStructureRule(s)
-	}
 }
 
 func (p *RFC4512Parser) StructureRule() (localctx IStructureRuleContext) {
@@ -10010,18 +9446,6 @@ func (s *UsagesContext) ToStringTree(ruleNames []string, recog antlr.Recognizer)
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *UsagesContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterUsages(s)
-	}
-}
-
-func (s *UsagesContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitUsages(s)
-	}
-}
-
 func (p *RFC4512Parser) Usages() (localctx IUsagesContext) {
 	localctx = NewUsagesContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 94, RFC4512ParserRULE_usages)
@@ -10136,18 +9560,6 @@ func (s *QuotedDescriptorContext) ToStringTree(ruleNames []string, recog antlr.R
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *QuotedDescriptorContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterQuotedDescriptor(s)
-	}
-}
-
-func (s *QuotedDescriptorContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitQuotedDescriptor(s)
-	}
-}
-
 func (p *RFC4512Parser) QuotedDescriptor() (localctx IQuotedDescriptorContext) {
 	localctx = NewQuotedDescriptorContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 96, RFC4512ParserRULE_quotedDescriptor)
@@ -10232,18 +9644,6 @@ func (s *QuotedStringContext) ToStringTree(ruleNames []string, recog antlr.Recog
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *QuotedStringContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterQuotedString(s)
-	}
-}
-
-func (s *QuotedStringContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitQuotedString(s)
-	}
-}
-
 func (p *RFC4512Parser) QuotedString() (localctx IQuotedStringContext) {
 	localctx = NewQuotedStringContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 98, RFC4512ParserRULE_quotedString)
@@ -10326,18 +9726,6 @@ func (s *SchemaDNContext) GetRuleContext() antlr.RuleContext {
 
 func (s *SchemaDNContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
-}
-
-func (s *SchemaDNContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterSchemaDN(s)
-	}
-}
-
-func (s *SchemaDNContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitSchemaDN(s)
-	}
 }
 
 func (p *RFC4512Parser) SchemaDN() (localctx ISchemaDNContext) {
@@ -10461,18 +9849,6 @@ func (s *ObjectIdentifierOIDOrNameContext) GetRuleContext() antlr.RuleContext {
 
 func (s *ObjectIdentifierOIDOrNameContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
-}
-
-func (s *ObjectIdentifierOIDOrNameContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterObjectIdentifierOIDOrName(s)
-	}
-}
-
-func (s *ObjectIdentifierOIDOrNameContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitObjectIdentifierOIDOrName(s)
-	}
 }
 
 func (p *RFC4512Parser) ObjectIdentifierOIDOrName() (localctx IObjectIdentifierOIDOrNameContext) {
@@ -10614,18 +9990,6 @@ func (s *AttributeDescriptionContext) ToStringTree(ruleNames []string, recog ant
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *AttributeDescriptionContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterAttributeDescription(s)
-	}
-}
-
-func (s *AttributeDescriptionContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitAttributeDescription(s)
-	}
-}
-
 func (p *RFC4512Parser) AttributeDescription() (localctx IAttributeDescriptionContext) {
 	localctx = NewAttributeDescriptionContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 104, RFC4512ParserRULE_attributeDescription)
@@ -10722,18 +10086,6 @@ func (s *OpenParenContext) ToStringTree(ruleNames []string, recog antlr.Recogniz
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *OpenParenContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterOpenParen(s)
-	}
-}
-
-func (s *OpenParenContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitOpenParen(s)
-	}
-}
-
 func (p *RFC4512Parser) OpenParen() (localctx IOpenParenContext) {
 	localctx = NewOpenParenContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 106, RFC4512ParserRULE_openParen)
@@ -10816,18 +10168,6 @@ func (s *CloseParenContext) GetRuleContext() antlr.RuleContext {
 
 func (s *CloseParenContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
-}
-
-func (s *CloseParenContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterCloseParen(s)
-	}
-}
-
-func (s *CloseParenContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitCloseParen(s)
-	}
 }
 
 func (p *RFC4512Parser) CloseParen() (localctx ICloseParenContext) {
@@ -10941,18 +10281,6 @@ func (s *NumericOIDOrMacroContext) GetRuleContext() antlr.RuleContext {
 
 func (s *NumericOIDOrMacroContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
-}
-
-func (s *NumericOIDOrMacroContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterNumericOIDOrMacro(s)
-	}
-}
-
-func (s *NumericOIDOrMacroContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitNumericOIDOrMacro(s)
-	}
 }
 
 func (p *RFC4512Parser) NumericOIDOrMacro() (localctx INumericOIDOrMacroContext) {
@@ -11083,18 +10411,6 @@ func (s *MacroContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) 
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *MacroContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterMacro(s)
-	}
-}
-
-func (s *MacroContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitMacro(s)
-	}
-}
-
 func (p *RFC4512Parser) Macro() (localctx IMacroContext) {
 	localctx = NewMacroContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 112, RFC4512ParserRULE_macro)
@@ -11177,18 +10493,6 @@ func (s *NumericOIDContext) GetRuleContext() antlr.RuleContext {
 
 func (s *NumericOIDContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
-}
-
-func (s *NumericOIDContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterNumericOID(s)
-	}
-}
-
-func (s *NumericOIDContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitNumericOID(s)
-	}
 }
 
 func (p *RFC4512Parser) NumericOID() (localctx INumericOIDContext) {
@@ -11275,18 +10579,6 @@ func (s *MacroSuffixContext) ToStringTree(ruleNames []string, recog antlr.Recogn
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *MacroSuffixContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterMacroSuffix(s)
-	}
-}
-
-func (s *MacroSuffixContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitMacroSuffix(s)
-	}
-}
-
 func (p *RFC4512Parser) MacroSuffix() (localctx IMacroSuffixContext) {
 	localctx = NewMacroSuffixContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 116, RFC4512ParserRULE_macroSuffix)
@@ -11369,18 +10661,6 @@ func (s *NumberContext) GetRuleContext() antlr.RuleContext {
 
 func (s *NumberContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
-}
-
-func (s *NumberContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterNumber(s)
-	}
-}
-
-func (s *NumberContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitNumber(s)
-	}
 }
 
 func (p *RFC4512Parser) Number() (localctx INumberContext) {
@@ -11505,18 +10785,6 @@ func (s *AttrOptionsContext) ToStringTree(ruleNames []string, recog antlr.Recogn
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *AttrOptionsContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterAttrOptions(s)
-	}
-}
-
-func (s *AttrOptionsContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitAttrOptions(s)
-	}
-}
-
 func (p *RFC4512Parser) AttrOptions() (localctx IAttrOptionsContext) {
 	localctx = NewAttrOptionsContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 120, RFC4512ParserRULE_attrOptions)
@@ -11614,18 +10882,6 @@ func (s *UserApplicationsContext) ToStringTree(ruleNames []string, recog antlr.R
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *UserApplicationsContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterUserApplications(s)
-	}
-}
-
-func (s *UserApplicationsContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitUserApplications(s)
-	}
-}
-
 func (p *RFC4512Parser) UserApplications() (localctx IUserApplicationsContext) {
 	localctx = NewUserApplicationsContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 122, RFC4512ParserRULE_userApplications)
@@ -11699,18 +10955,6 @@ func (s *DirectoryOperationContext) GetRuleContext() antlr.RuleContext {
 
 func (s *DirectoryOperationContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
-}
-
-func (s *DirectoryOperationContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterDirectoryOperation(s)
-	}
-}
-
-func (s *DirectoryOperationContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitDirectoryOperation(s)
-	}
 }
 
 func (p *RFC4512Parser) DirectoryOperation() (localctx IDirectoryOperationContext) {
@@ -11788,18 +11032,6 @@ func (s *DistributedOperationContext) ToStringTree(ruleNames []string, recog ant
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *DistributedOperationContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterDistributedOperation(s)
-	}
-}
-
-func (s *DistributedOperationContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitDistributedOperation(s)
-	}
-}
-
 func (p *RFC4512Parser) DistributedOperation() (localctx IDistributedOperationContext) {
 	localctx = NewDistributedOperationContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 126, RFC4512ParserRULE_distributedOperation)
@@ -11873,18 +11105,6 @@ func (s *DSAOperationContext) GetRuleContext() antlr.RuleContext {
 
 func (s *DSAOperationContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
-}
-
-func (s *DSAOperationContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterDSAOperation(s)
-	}
-}
-
-func (s *DSAOperationContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitDSAOperation(s)
-	}
 }
 
 func (p *RFC4512Parser) DSAOperation() (localctx IDSAOperationContext) {
@@ -12071,18 +11291,6 @@ func (s *StructureRulesContext) GetRuleContext() antlr.RuleContext {
 
 func (s *StructureRulesContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
-}
-
-func (s *StructureRulesContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterStructureRules(s)
-	}
-}
-
-func (s *StructureRulesContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitStructureRules(s)
-	}
 }
 
 func (p *RFC4512Parser) StructureRules() (localctx IStructureRulesContext) {
@@ -12565,18 +11773,6 @@ func (s *OIDContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) st
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *OIDContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterOID(s)
-	}
-}
-
-func (s *OIDContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitOID(s)
-	}
-}
-
 func (p *RFC4512Parser) OID() (localctx IOIDContext) {
 	localctx = NewOIDContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 132, RFC4512ParserRULE_oID)
@@ -12786,18 +11982,6 @@ func (s *OIDsContext) GetRuleContext() antlr.RuleContext {
 
 func (s *OIDsContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
-}
-
-func (s *OIDsContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterOIDs(s)
-	}
-}
-
-func (s *OIDsContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitOIDs(s)
-	}
 }
 
 func (p *RFC4512Parser) OIDs() (localctx IOIDsContext) {
@@ -13281,18 +12465,6 @@ func (s *ExtensionValueContext) ToStringTree(ruleNames []string, recog antlr.Rec
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *ExtensionValueContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterExtensionValue(s)
-	}
-}
-
-func (s *ExtensionValueContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitExtensionValue(s)
-	}
-}
-
 func (p *RFC4512Parser) ExtensionValue() (localctx IExtensionValueContext) {
 	localctx = NewExtensionValueContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 136, RFC4512ParserRULE_extensionValue)
@@ -13428,18 +12600,6 @@ func (s *ExtensionsContext) GetRuleContext() antlr.RuleContext {
 
 func (s *ExtensionsContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
-}
-
-func (s *ExtensionsContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterExtensions(s)
-	}
-}
-
-func (s *ExtensionsContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitExtensions(s)
-	}
 }
 
 func (p *RFC4512Parser) Extensions() (localctx IExtensionsContext) {
@@ -13651,18 +12811,6 @@ func (s *ExtensionContext) GetRuleContext() antlr.RuleContext {
 
 func (s *ExtensionContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
-}
-
-func (s *ExtensionContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterExtension(s)
-	}
-}
-
-func (s *ExtensionContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitExtension(s)
-	}
 }
 
 func (p *RFC4512Parser) Extension() (localctx IExtensionContext) {
@@ -14258,18 +13406,6 @@ func (s *NamesContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) 
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *NamesContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterNames(s)
-	}
-}
-
-func (s *NamesContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitNames(s)
-	}
-}
-
 func (p *RFC4512Parser) Names() (localctx INamesContext) {
 	localctx = NewNamesContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 142, RFC4512ParserRULE_names)
@@ -14780,18 +13916,6 @@ func (s *DescriptorContext) ToStringTree(ruleNames []string, recog antlr.Recogni
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *DescriptorContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterDescriptor(s)
-	}
-}
-
-func (s *DescriptorContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitDescriptor(s)
-	}
-}
-
 func (p *RFC4512Parser) Descriptor() (localctx IDescriptorContext) {
 	localctx = NewDescriptorContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 144, RFC4512ParserRULE_descriptor)
@@ -15273,18 +14397,6 @@ func (s *ObjectClassDescriptionContext) GetRuleContext() antlr.RuleContext {
 
 func (s *ObjectClassDescriptionContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
-}
-
-func (s *ObjectClassDescriptionContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterObjectClassDescription(s)
-	}
-}
-
-func (s *ObjectClassDescriptionContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitObjectClassDescription(s)
-	}
 }
 
 func (p *RFC4512Parser) ObjectClassDescription() (localctx IObjectClassDescriptionContext) {
@@ -16352,18 +15464,6 @@ func (s *AttributeTypeDescriptionContext) ToStringTree(ruleNames []string, recog
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *AttributeTypeDescriptionContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterAttributeTypeDescription(s)
-	}
-}
-
-func (s *AttributeTypeDescriptionContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitAttributeTypeDescription(s)
-	}
-}
-
 func (p *RFC4512Parser) AttributeTypeDescription() (localctx IAttributeTypeDescriptionContext) {
 	localctx = NewAttributeTypeDescriptionContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 148, RFC4512ParserRULE_attributeTypeDescription)
@@ -16784,7 +15884,7 @@ type IMatchingRuleDescriptionContext interface {
 
 	// Getter signatures
 	OpenParen() IOpenParenContext
-	NumericOID() INumericOIDContext
+	NumericOIDOrMacro() INumericOIDOrMacroContext
 	Syntax() ISyntaxContext
 	CloseParen() ICloseParenContext
 	AllSP() []antlr.TerminalNode
@@ -16853,10 +15953,10 @@ func (s *MatchingRuleDescriptionContext) OpenParen() IOpenParenContext {
 	return t.(IOpenParenContext)
 }
 
-func (s *MatchingRuleDescriptionContext) NumericOID() INumericOIDContext {
+func (s *MatchingRuleDescriptionContext) NumericOIDOrMacro() INumericOIDOrMacroContext {
 	var t antlr.RuleContext
 	for _, ctx := range s.GetChildren() {
-		if _, ok := ctx.(INumericOIDContext); ok {
+		if _, ok := ctx.(INumericOIDOrMacroContext); ok {
 			t = ctx.(antlr.RuleContext)
 			break
 		}
@@ -16866,7 +15966,7 @@ func (s *MatchingRuleDescriptionContext) NumericOID() INumericOIDContext {
 		return nil
 	}
 
-	return t.(INumericOIDContext)
+	return t.(INumericOIDOrMacroContext)
 }
 
 func (s *MatchingRuleDescriptionContext) Syntax() ISyntaxContext {
@@ -17072,18 +16172,6 @@ func (s *MatchingRuleDescriptionContext) ToStringTree(ruleNames []string, recog 
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *MatchingRuleDescriptionContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterMatchingRuleDescription(s)
-	}
-}
-
-func (s *MatchingRuleDescriptionContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitMatchingRuleDescription(s)
-	}
-}
-
 func (p *RFC4512Parser) MatchingRuleDescription() (localctx IMatchingRuleDescriptionContext) {
 	localctx = NewMatchingRuleDescriptionContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 150, RFC4512ParserRULE_matchingRuleDescription)
@@ -17189,7 +16277,7 @@ func (p *RFC4512Parser) MatchingRuleDescription() (localctx IMatchingRuleDescrip
 	}
 	{
 		p.SetState(1208)
-		p.NumericOID()
+		p.NumericOIDOrMacro()
 	}
 	p.SetState(1212)
 	p.GetErrorHandler().Sync(p)
@@ -17785,18 +16873,6 @@ func (s *MatchingRuleUseDescriptionContext) ToStringTree(ruleNames []string, rec
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *MatchingRuleUseDescriptionContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterMatchingRuleUseDescription(s)
-	}
-}
-
-func (s *MatchingRuleUseDescriptionContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitMatchingRuleUseDescription(s)
-	}
-}
-
 func (p *RFC4512Parser) MatchingRuleUseDescription() (localctx IMatchingRuleUseDescriptionContext) {
 	localctx = NewMatchingRuleUseDescriptionContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 152, RFC4512ParserRULE_matchingRuleUseDescription)
@@ -18210,7 +17286,7 @@ type ILDAPSyntaxDescriptionContext interface {
 
 	// Getter signatures
 	OpenParen() IOpenParenContext
-	NumericOID() INumericOIDContext
+	NumericOIDOrMacro() INumericOIDOrMacroContext
 	CloseParen() ICloseParenContext
 	AllSP() []antlr.TerminalNode
 	SP(i int) antlr.TerminalNode
@@ -18273,10 +17349,10 @@ func (s *LDAPSyntaxDescriptionContext) OpenParen() IOpenParenContext {
 	return t.(IOpenParenContext)
 }
 
-func (s *LDAPSyntaxDescriptionContext) NumericOID() INumericOIDContext {
+func (s *LDAPSyntaxDescriptionContext) NumericOIDOrMacro() INumericOIDOrMacroContext {
 	var t antlr.RuleContext
 	for _, ctx := range s.GetChildren() {
-		if _, ok := ctx.(INumericOIDContext); ok {
+		if _, ok := ctx.(INumericOIDOrMacroContext); ok {
 			t = ctx.(antlr.RuleContext)
 			break
 		}
@@ -18286,7 +17362,7 @@ func (s *LDAPSyntaxDescriptionContext) NumericOID() INumericOIDContext {
 		return nil
 	}
 
-	return t.(INumericOIDContext)
+	return t.(INumericOIDOrMacroContext)
 }
 
 func (s *LDAPSyntaxDescriptionContext) CloseParen() ICloseParenContext {
@@ -18367,18 +17443,6 @@ func (s *LDAPSyntaxDescriptionContext) GetRuleContext() antlr.RuleContext {
 
 func (s *LDAPSyntaxDescriptionContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
-}
-
-func (s *LDAPSyntaxDescriptionContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterLDAPSyntaxDescription(s)
-	}
-}
-
-func (s *LDAPSyntaxDescriptionContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitLDAPSyntaxDescription(s)
-	}
 }
 
 func (p *RFC4512Parser) LDAPSyntaxDescription() (localctx ILDAPSyntaxDescriptionContext) {
@@ -18486,7 +17550,7 @@ func (p *RFC4512Parser) LDAPSyntaxDescription() (localctx ILDAPSyntaxDescription
 	}
 	{
 		p.SetState(1356)
-		p.NumericOID()
+		p.NumericOIDOrMacro()
 	}
 	p.SetState(1360)
 	p.GetErrorHandler().Sync(p)
@@ -19137,18 +18201,6 @@ func (s *DITContentRuleDescriptionContext) GetRuleContext() antlr.RuleContext {
 
 func (s *DITContentRuleDescriptionContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
-}
-
-func (s *DITContentRuleDescriptionContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterDITContentRuleDescription(s)
-	}
-}
-
-func (s *DITContentRuleDescriptionContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitDITContentRuleDescription(s)
-	}
 }
 
 func (p *RFC4512Parser) DITContentRuleDescription() (localctx IDITContentRuleDescriptionContext) {
@@ -19818,18 +18870,6 @@ func (s *DITStructureRuleDescriptionContext) GetRuleContext() antlr.RuleContext 
 
 func (s *DITStructureRuleDescriptionContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
-}
-
-func (s *DITStructureRuleDescriptionContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterDITStructureRuleDescription(s)
-	}
-}
-
-func (s *DITStructureRuleDescriptionContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitDITStructureRuleDescription(s)
-	}
 }
 
 func (p *RFC4512Parser) DITStructureRuleDescription() (localctx IDITStructureRuleDescriptionContext) {
@@ -20646,18 +19686,6 @@ func (s *NameFormDescriptionContext) GetRuleContext() antlr.RuleContext {
 
 func (s *NameFormDescriptionContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
-}
-
-func (s *NameFormDescriptionContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.EnterNameFormDescription(s)
-	}
-}
-
-func (s *NameFormDescriptionContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(RFC4512Listener); ok {
-		listenerT.ExitNameFormDescription(s)
-	}
 }
 
 func (p *RFC4512Parser) NameFormDescription() (localctx INameFormDescriptionContext) {

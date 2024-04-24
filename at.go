@@ -86,7 +86,7 @@ func (r *AttributeType) process(ctx IAttributeTypeDescriptionContext) (err error
 	}
 
 	if len(r.OID) == 0 && len(r.Macro) == 0 {
-		err = errorf("No macro or OID literal for %T", r)
+                err = errorf("Neither OID nor Macro literals found in %T", r)
 	}
 
 	return

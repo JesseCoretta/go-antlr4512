@@ -1,10 +1,13 @@
 package antlr4512
 
+//import "fmt"
+
 /*
 LDAPSyntax implements RFC 4512 Section 4.1.5.
 */
 type LDAPSyntax struct {
 	OID        string
+	Macro	   []string
 	Desc       string
 	Extensions map[string][]string
 }
@@ -44,8 +47,8 @@ func (r *LDAPSyntax) process(ctx ILDAPSyntaxDescriptionContext) (err error) {
 
 	for k, ct := 0, ctx.GetChildCount(); k < ct && err == nil; k++ {
 		switch tv := ctx.GetChild(k).(type) {
-		case *NumericOIDContext:
-			err = r.setCritical(tv)
+		case *NumericOIDOrMacroContext:
+			r.OID, r.Macro, err = numOIDContext(tv)
 
 		case *ExtensionsContext,
 			*DescriptionContext:
@@ -56,8 +59,8 @@ func (r *LDAPSyntax) process(ctx ILDAPSyntaxDescriptionContext) (err error) {
 		}
 	}
 
-	if len(r.OID) == 0 {
-		err = errorf("No OID literal for %T", r)
+	if len(r.OID) == 0 && len(r.Macro) == 0 {
+		err = errorf("Neither OID nor Macro literals found in %T", r)
 	}
 
 	return
@@ -77,14 +80,3 @@ func (r *LDAPSyntax) setMisc(ctx any) (err error) {
 	return
 }
 
-func (r *LDAPSyntax) setCritical(ctx any) (err error) {
-
-	switch tv := ctx.(type) {
-	case *NumericOIDContext:
-		r.OID, _, err = numOIDContext(tv)
-	default:
-		err = errorf("Unknown critical context '%T'", ctx)
-	}
-
-	return
-}
