@@ -554,13 +554,19 @@ func syntaxContext(ctx *SyntaxContext) (soid string, err error) {
 	if ctx != nil {
 		_soid := ctx.NumericOID()
 		_qdscr := ctx.QuotedDescriptor()
-		if pfx := _soid.GetText(); !hasPfx(pfx, `<missing`) {
-			soid = pfx
-		} else if qfx := _qdscr.GetText(); !hasPfx(qfx, `<missing`) {
-			soid = trim(qfx,`'`)
-		} else {
-			err = errorf("Found neither numeric OID nor quotedDescriptor for definition syntax")
+		if _soid != nil {
+			if pfx := _soid.GetText(); !hasPfx(pfx, `<missing`) {
+				soid = pfx
+			}
+		} else if _qdscr != nil {
+			if qfx := _qdscr.GetText(); !hasPfx(qfx, `<missing`) {
+				soid = trim(qfx, `'`)
+			}
 		}
+	}
+
+	if len(soid) == 0 {
+		err = errorf("Found neither numeric OID nor quotedDescriptor for definition syntax")
 	}
 
 	return
