@@ -721,7 +721,7 @@ func rfc4512ParserInit() {
 		1, 0, 0, 0, 1275, 1279, 1, 0, 0, 0, 1276, 1278, 5, 53, 0, 0, 1277, 1276,
 		1, 0, 0, 0, 1278, 1281, 1, 0, 0, 0, 1279, 1277, 1, 0, 0, 0, 1279, 1280,
 		1, 0, 0, 0, 1280, 1282, 1, 0, 0, 0, 1281, 1279, 1, 0, 0, 0, 1282, 1286,
-		3, 114, 57, 0, 1283, 1285, 5, 53, 0, 0, 1284, 1283, 1, 0, 0, 0, 1285, 1288,
+		3, 110, 55, 0, 1283, 1285, 5, 53, 0, 0, 1284, 1283, 1, 0, 0, 0, 1285, 1288,
 		1, 0, 0, 0, 1286, 1284, 1, 0, 0, 0, 1286, 1287, 1, 0, 0, 0, 1287, 1290,
 		1, 0, 0, 0, 1288, 1286, 1, 0, 0, 0, 1289, 1291, 5, 55, 0, 0, 1290, 1289,
 		1, 0, 0, 0, 1290, 1291, 1, 0, 0, 0, 1291, 1293, 1, 0, 0, 0, 1292, 1294,
@@ -16585,7 +16585,7 @@ type IMatchingRuleUseDescriptionContext interface {
 
 	// Getter signatures
 	OpenParen() IOpenParenContext
-	NumericOID() INumericOIDContext
+	NumericOIDOrMacro() INumericOIDOrMacroContext
 	Applies() IAppliesContext
 	CloseParen() ICloseParenContext
 	AllSP() []antlr.TerminalNode
@@ -16654,10 +16654,10 @@ func (s *MatchingRuleUseDescriptionContext) OpenParen() IOpenParenContext {
 	return t.(IOpenParenContext)
 }
 
-func (s *MatchingRuleUseDescriptionContext) NumericOID() INumericOIDContext {
+func (s *MatchingRuleUseDescriptionContext) NumericOIDOrMacro() INumericOIDOrMacroContext {
 	var t antlr.RuleContext
 	for _, ctx := range s.GetChildren() {
-		if _, ok := ctx.(INumericOIDContext); ok {
+		if _, ok := ctx.(INumericOIDOrMacroContext); ok {
 			t = ctx.(antlr.RuleContext)
 			break
 		}
@@ -16667,7 +16667,7 @@ func (s *MatchingRuleUseDescriptionContext) NumericOID() INumericOIDContext {
 		return nil
 	}
 
-	return t.(INumericOIDContext)
+	return t.(INumericOIDOrMacroContext)
 }
 
 func (s *MatchingRuleUseDescriptionContext) Applies() IAppliesContext {
@@ -16978,7 +16978,7 @@ func (p *RFC4512Parser) MatchingRuleUseDescription() (localctx IMatchingRuleUseD
 	}
 	{
 		p.SetState(1282)
-		p.NumericOID()
+		p.NumericOIDOrMacro()
 	}
 	p.SetState(1286)
 	p.GetErrorHandler().Sync(p)

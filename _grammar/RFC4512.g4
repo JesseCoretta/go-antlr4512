@@ -280,7 +280,7 @@ matchingRuleDescription		: openParen SP* LineComment? NEWLINE?
 				;
 
 matchingRuleUseDescription	: openParen SP* LineComment? NEWLINE?
-                                        SP* numericOID SP* LineComment? NEWLINE?
+                                        SP* numericOIDOrMacro SP* LineComment? NEWLINE?
                                         (( name
 					 | description
 					 | obsolescence
@@ -387,8 +387,8 @@ fragment QUTF1		: ( '\u0000' .. '\u0026' )
                         | ( '\u005d' .. '\u007f' )
 			;
 
-fragment QQ		: '\u005c' '\u0032' '\u0037'			; // ESC \27
-fragment QS		: '\u005c' '\u0035' ('\u0043'|'\u0063')		; // ESC 5[C|c]
+fragment QQ		: '\u005c' '\u0027'				; // ESC \27
+fragment QS		: '\u005c' '\u005c'				; // ESC 5[C|c]
 
 fragment UTF0		: ( '\u0080' .. '\u00bf' )			; // UTF 0 production
 
