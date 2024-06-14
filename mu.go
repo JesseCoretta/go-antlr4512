@@ -5,6 +5,7 @@ MatchingRuleUse implements RFC 4512 Section 4.1.4.
 */
 type MatchingRuleUse struct {
 	OID        string
+	Macro	   []string
 	Name       []string
 	Desc       string
 	Obsolete   bool
@@ -46,14 +47,14 @@ func ParseMatchingRuleUse(raw string) (mu MatchingRuleUse, err error) {
 }
 
 func (r *MatchingRuleUse) process(ctx IMatchingRuleUseDescriptionContext) (err error) {
-        if err = parenContext(ctx.OpenParen(), ctx.CloseParen()); err != nil {
-                return                                                  
-        }
+	if err = parenContext(ctx.OpenParen(), ctx.CloseParen()); err != nil {
+		return
+	}
 
 	for k, ct := 0, ctx.GetChildCount(); k < ct && err == nil; k++ {
 		switch tv := ctx.GetChild(k).(type) {
-		case *NumericOIDContext:
-			err = r.setCritical(tv)
+                case *NumericOIDOrMacroContext:                         
+                        r.OID, r.Macro, err = numOIDContext(tv)  
 
 		case *NameContext,
 			*ExtensionsContext,
@@ -115,9 +116,9 @@ func (r *MatchingRuleUse) appliesContext(ctx *AppliesContext) (err error) {
 		if x := ctx.OID(); x != nil {
 			n, d, err = oIDContext(x.(*OIDContext))
 		} else if y := ctx.OIDs(); y != nil {
-                        if err = parenContext(y.OpenParen(), y.CloseParen()); err != nil {
-                                return
-                        }
+			if err = parenContext(y.OpenParen(), y.CloseParen()); err != nil {
+				return
+			}
 			n, d, err = oIDsContext(y.(*OIDsContext))
 		}
 
