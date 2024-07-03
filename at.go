@@ -98,7 +98,7 @@ func (r *AttributeType) setMisc(ctx any) (err error) {
 	case *NameContext:
 		r.Name, err = nameContext(tv.Names())
 	case *UsageContext:
-		r.Usage = tv.GetText()
+		r.Usage = trimL(tv.GetText(),` USAGE `)
 	case *DescriptionContext:
 		r.Desc, err = descContext(tv)
 	case *ExtensionsContext:
