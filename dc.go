@@ -25,14 +25,20 @@ type DITContentRules []DITContentRule
 ParseDITContentRule processes raw into an instance of [DITContentRule],
 which is returned alongside an error.
 */
-func ParseDITContentRule(raw string) (oc DITContentRule, err error) {
+func ParseDITContentRule(raw string) (dc DITContentRule, err error) {
 	var i Instance
 	if i, err = ParseInstance(raw); err != nil {
 		return
 	}
 
-	err = oc.process(i.P.DITContentRuleDescription())
-
+	// Ensure what went in matches precisely what came out
+	x := i.P.DITContentRuleDescription()
+	if err = dc.process(x); err == nil {
+		ptext := x.GetText()
+		if raw != ptext {
+			err = errorf("Inconsistent %T parse results or bad content", dc)
+		}
+	}
 	return
 
 }

@@ -30,16 +30,23 @@ func ParseNameForm(raw string) (nf NameForm, err error) {
 		return
 	}
 
-	err = nf.process(i.P.NameFormDescription())
+	// Ensure what went in matches precisely what came out
+	x := i.P.NameFormDescription()
+	if err = nf.process(x); err == nil {
+		ptext := x.GetText()
+		if raw != ptext {
+			err = errorf("Inconsistent %T parse results or bad content", nf)
+		}
+	}
 
 	return
 
 }
 
 func (r *NameForm) process(ctx INameFormDescriptionContext) (err error) {
-        if err = parenContext(ctx.OpenParen(), ctx.CloseParen()); err != nil {
-                return                                                  
-        }
+	if err = parenContext(ctx.OpenParen(), ctx.CloseParen()); err != nil {
+		return
+	}
 
 	for k, ct := 0, ctx.GetChildCount(); k < ct && err == nil; k++ {
 		switch tv := ctx.GetChild(k).(type) {
@@ -114,9 +121,9 @@ func (r *NameForm) mustContext(ctx *MustContext) (err error) {
 		if x := ctx.OID(); x != nil {
 			n, d, err = oIDContext(x.(*OIDContext))
 		} else if y := ctx.OIDs(); y != nil {
-                        if err = parenContext(y.OpenParen(), y.CloseParen()); err != nil {
-                                return
-                        }
+			if err = parenContext(y.OpenParen(), y.CloseParen()); err != nil {
+				return
+			}
 			n, d, err = oIDsContext(y.(*OIDsContext))
 		}
 
@@ -147,9 +154,9 @@ func (r *NameForm) mayContext(ctx *MayContext) (err error) {
 		if x := ctx.OID(); x != nil {
 			n, d, err = oIDContext(x.(*OIDContext))
 		} else if y := ctx.OIDs(); y != nil {
-                        if err = parenContext(y.OpenParen(), y.CloseParen()); err != nil {
-                                return
-                        }
+			if err = parenContext(y.OpenParen(), y.CloseParen()); err != nil {
+				return
+			}
 			n, d, err = oIDsContext(y.(*OIDsContext))
 		}
 

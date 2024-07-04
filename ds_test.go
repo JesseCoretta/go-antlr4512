@@ -18,3 +18,17 @@ func TestDITStructureRule(t *testing.T) {
 		}
 	}
 }
+
+func TestDITStructureRule_bogus(t *testing.T) {
+	crap := `( -1
+		NAME 'bogusRule'
+		FORM someForm
+		X-ORIGIN 'NOWHERE' )`
+
+	_, err := ParseDITStructureRule(crap)
+	if err == nil {
+		t.Errorf("%s failed: expected error, got nothing", t.Name())
+		return
+	}
+	//t.Logf("%#v\n", z)
+}

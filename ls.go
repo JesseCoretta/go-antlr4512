@@ -7,7 +7,7 @@ LDAPSyntax implements RFC 4512 Section 4.1.5.
 */
 type LDAPSyntax struct {
 	OID        string
-	Macro	   []string
+	Macro      []string
 	Desc       string
 	Extensions map[string][]string
 }
@@ -34,7 +34,14 @@ func ParseLDAPSyntax(raw string) (ls LDAPSyntax, err error) {
 	}
 	ls = newLDAPSyntax()
 
-	err = ls.process(i.P.LDAPSyntaxDescription())
+	// Ensure what went in matches precisely what came out
+	x := i.P.LDAPSyntaxDescription()
+	if err = ls.process(x); err == nil {
+		ptext := x.GetText()
+		if raw != ptext {
+			err = errorf("Inconsistent %T parse results or bad content", ls)
+		}
+	}
 
 	return
 
@@ -79,4 +86,3 @@ func (r *LDAPSyntax) setMisc(ctx any) (err error) {
 
 	return
 }
-

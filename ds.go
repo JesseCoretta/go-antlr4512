@@ -22,22 +22,29 @@ type DITStructureRules []DITStructureRule
 ParseDITStructureRule processes raw into an instance of [DITStructureRule],
 which is returned alongside an error.
 */
-func ParseDITStructureRule(raw string) (oc DITStructureRule, err error) {
+func ParseDITStructureRule(raw string) (ds DITStructureRule, err error) {
 	var i Instance
 	if i, err = ParseInstance(raw); err != nil {
 		return
 	}
 
-	err = oc.process(i.P.DITStructureRuleDescription())
+	// Ensure what went in matches precisely what came out
+	x := i.P.DITStructureRuleDescription()
+	if err = ds.process(x); err == nil {
+		ptext := x.GetText()
+		if raw != ptext {
+			err = errorf("Inconsistent %T parse results or bad content", ds)
+		}
+	}
 
 	return
 
 }
 
 func (r *DITStructureRule) process(ctx IDITStructureRuleDescriptionContext) (err error) {
-        if err = parenContext(ctx.OpenParen(), ctx.CloseParen()); err != nil {
-                return                                                  
-        }
+	if err = parenContext(ctx.OpenParen(), ctx.CloseParen()); err != nil {
+		return
+	}
 
 	for k, ct := 0, ctx.GetChildCount(); k < ct && err == nil; k++ {
 		switch tv := ctx.GetChild(k).(type) {
@@ -92,7 +99,12 @@ func (r *DITStructureRule) setCritical(ctx any) (err error) {
 
 	switch tv := ctx.(type) {
 	case *StructureRuleContext:
-		r.ID = tv.GetText()
+		if hasPfx(tv.GetText(), `-`) {
+			panic("HERE")
+		}
+		if m, err := ruleIDContext(tv); err == nil {
+			r.ID = m
+		}
 	default:
 		err = errorf("Unknown critical context '%T'", ctx)
 	}
@@ -121,7 +133,7 @@ func (r *DITStructureRule) superRulesContext(ctx *SuperRulesContext) (err error)
 	return
 }
 
-// Use of single-valued OIDs applies to attributeType, dITStructureRule
+// Use of single-valued IDs applies to attributeType, dITStructureRule
 // and nameForm definitions.
 func ruleIDContext(ctx *StructureRuleContext) (id string, err error) {
 

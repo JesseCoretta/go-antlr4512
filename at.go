@@ -37,7 +37,14 @@ func ParseAttributeType(raw string) (at AttributeType, err error) {
 		return
 	}
 
-	err = at.process(i.P.AttributeTypeDescription())
+	// Ensure what went in matches precisely what came out
+	x := i.P.AttributeTypeDescription()
+	if err = at.process(x); err == nil {
+		ptext := x.GetText()
+		if raw != ptext {
+			err = errorf("Inconsistent %T parse results or bad content", at)
+		}
+	}
 
 	return
 
@@ -86,7 +93,7 @@ func (r *AttributeType) process(ctx IAttributeTypeDescriptionContext) (err error
 	}
 
 	if len(r.OID) == 0 && len(r.Macro) == 0 {
-                err = errorf("Neither OID nor Macro literals found in %T", r)
+		err = errorf("Neither OID nor Macro literals found in %T", r)
 	}
 
 	return
@@ -98,7 +105,7 @@ func (r *AttributeType) setMisc(ctx any) (err error) {
 	case *NameContext:
 		r.Name, err = nameContext(tv.Names())
 	case *UsageContext:
-		r.Usage = trimL(tv.GetText(),` USAGE `)
+		r.Usage = trimL(tv.GetText(), ` USAGE `)
 	case *DescriptionContext:
 		r.Desc, err = descContext(tv)
 	case *ExtensionsContext:
