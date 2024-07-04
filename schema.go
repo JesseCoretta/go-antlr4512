@@ -119,30 +119,30 @@ func (r *Schema) ParseRaw(raw []byte) (err error) {
 		return
 	}
 
-        var i Instance                                                  
-        if i, err = ParseInstance(string(raw)); err != nil {        
-                return                                                  
-        }                                                               
-                                                                        
-        fp := i.P.Fileparse()                                           
-                                                                        
-        defs := fp.Definitions()                                        
-        if defs == nil {                                                
-                err = errorf("No definitions found in %T", defs)        
-                return                                                  
-        }                                                               
-                                                                        
-        r.processObjectIdentifiers(defs.AllObjectIdentifier())          
-                                                                        
-        if dn := fp.SchemaDN(); dn != nil && len(r.DN) == 0 {           
-                r.DN = trimS(trimL(dn.GetText(), `dn:`))                
-        }                                                               
-                                                                        
-        if err = r.processSchemaDefinitions(defs); err == nil {         
-                r.UpdateMatchingRuleUses()                              
-        }                                                               
-                                                                        
-        return
+	var i Instance
+	if i, err = ParseInstance(string(raw)); err != nil {
+		return
+	}
+
+	fp := i.P.Fileparse()
+
+	defs := fp.Definitions()
+	if defs == nil {
+		err = errorf("No definitions found in %T", defs)
+		return
+	}
+
+	r.processObjectIdentifiers(defs.AllObjectIdentifier())
+
+	if dn := fp.SchemaDN(); dn != nil && len(r.DN) == 0 {
+		r.DN = trimS(trimL(dn.GetText(), `dn:`))
+	}
+
+	if err = r.processSchemaDefinitions(defs); err == nil {
+		r.UpdateMatchingRuleUses()
+	}
+
+	return
 }
 
 /*

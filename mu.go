@@ -5,7 +5,7 @@ MatchingRuleUse implements RFC 4512 Section 4.1.4.
 */
 type MatchingRuleUse struct {
 	OID        string
-	Macro	   []string
+	Macro      []string
 	Name       []string
 	Desc       string
 	Obsolete   bool
@@ -40,7 +40,14 @@ func ParseMatchingRuleUse(raw string) (mu MatchingRuleUse, err error) {
 		return
 	}
 
-	err = mu.process(i.P.MatchingRuleUseDescription())
+	// Ensure what went in matches precisely what came out
+	x := i.P.MatchingRuleUseDescription()
+	if err = mu.process(x); err == nil {
+		ptext := x.GetText()
+		if raw != ptext {
+			err = errorf("Inconsistent %T parse results or bad content", mu)
+		}
+	}
 
 	return
 
@@ -53,8 +60,8 @@ func (r *MatchingRuleUse) process(ctx IMatchingRuleUseDescriptionContext) (err e
 
 	for k, ct := 0, ctx.GetChildCount(); k < ct && err == nil; k++ {
 		switch tv := ctx.GetChild(k).(type) {
-                case *NumericOIDOrMacroContext:                         
-                        r.OID, r.Macro, err = numOIDContext(tv)  
+		case *NumericOIDOrMacroContext:
+			r.OID, r.Macro, err = numOIDContext(tv)
 
 		case *NameContext,
 			*ExtensionsContext,

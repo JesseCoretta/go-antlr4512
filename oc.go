@@ -31,16 +31,23 @@ func ParseObjectClass(raw string) (oc ObjectClass, err error) {
 		return
 	}
 
-	err = oc.process(i.P.ObjectClassDescription())
+	// Ensure what went in matches precisely what came out
+	x := i.P.ObjectClassDescription()
+	if err = oc.process(x); err == nil {
+		ptext := x.GetText()
+		if raw != ptext {
+			err = errorf("Inconsistent %T parse results or bad content", oc)
+		}
+	}
 
 	return
 
 }
 
 func (r *ObjectClass) process(ctx IObjectClassDescriptionContext) (err error) {
-        if err = parenContext(ctx.OpenParen(), ctx.CloseParen()); err != nil {
-                return                                                  
-        }
+	if err = parenContext(ctx.OpenParen(), ctx.CloseParen()); err != nil {
+		return
+	}
 
 	for k, ct := 0, ctx.GetChildCount(); k < ct && err == nil; k++ {
 		switch tv := ctx.GetChild(k).(type) {
@@ -77,7 +84,7 @@ func (r *ObjectClass) process(ctx IObjectClassDescriptionContext) (err error) {
 	}
 
 	if len(r.OID) == 0 && len(r.Macro) == 0 {
-                err = errorf("Neither OID nor Macro literals found in %T", r)
+		err = errorf("Neither OID nor Macro literals found in %T", r)
 	}
 
 	return
@@ -117,9 +124,9 @@ func (r *ObjectClass) superClassesContext(ctx *SuperClassesContext) (err error) 
 		if x := ctx.OID(); x != nil {
 			n, d, err = oIDContext(x.(*OIDContext))
 		} else if y := ctx.OIDs(); y != nil {
-                        if err = parenContext(y.OpenParen(), y.CloseParen()); err != nil {
-                                return
-                        }
+			if err = parenContext(y.OpenParen(), y.CloseParen()); err != nil {
+				return
+			}
 			n, d, err = oIDsContext(y.(*OIDsContext))
 		}
 
@@ -150,9 +157,9 @@ func (r *ObjectClass) mustContext(ctx *MustContext) (err error) {
 		if x := ctx.OID(); x != nil {
 			n, d, err = oIDContext(x.(*OIDContext))
 		} else if y := ctx.OIDs(); y != nil {
-                        if err = parenContext(y.OpenParen(), y.CloseParen()); err != nil {
-                                return
-                        }
+			if err = parenContext(y.OpenParen(), y.CloseParen()); err != nil {
+				return
+			}
 			n, d, err = oIDsContext(y.(*OIDsContext))
 		}
 
@@ -183,9 +190,9 @@ func (r *ObjectClass) mayContext(ctx *MayContext) (err error) {
 		if x := ctx.OID(); x != nil {
 			n, d, err = oIDContext(x.(*OIDContext))
 		} else if y := ctx.OIDs(); y != nil {
-                        if err = parenContext(y.OpenParen(), y.CloseParen()); err != nil {
-                                return
-                        }
+			if err = parenContext(y.OpenParen(), y.CloseParen()); err != nil {
+				return
+			}
 			n, d, err = oIDsContext(y.(*OIDsContext))
 		}
 
