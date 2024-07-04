@@ -103,6 +103,49 @@ func (r *Schema) UpdateMatchingRuleUses() {
 }
 
 /*
+ParseRaw returns an error following an attempt to parse the input raw
+bytes into the receiver instance. Both the [Schema.ParseFile] method
+and the [Schema.ParseDirectory] method are dependents of this method.
+
+The raw input value must be non-nil, and must contain valid schema
+definitions with optional bash comments.
+*/
+func (r *Schema) ParseRaw(raw []byte) (err error) {
+	if r.IsZero() {
+		err = errorf("%T instance is not initialized", r)
+		return
+	} else if len(raw) == 0 {
+		err = errorf("No raw content to parse")
+		return
+	}
+
+        var i Instance                                                  
+        if i, err = ParseInstance(string(raw)); err != nil {        
+                return                                                  
+        }                                                               
+                                                                        
+        fp := i.P.Fileparse()                                           
+                                                                        
+        defs := fp.Definitions()                                        
+        if defs == nil {                                                
+                err = errorf("No definitions found in %T", defs)        
+                return                                                  
+        }                                                               
+                                                                        
+        r.processObjectIdentifiers(defs.AllObjectIdentifier())          
+                                                                        
+        if dn := fp.SchemaDN(); dn != nil && len(r.DN) == 0 {           
+                r.DN = trimS(trimL(dn.GetText(), `dn:`))                
+        }                                                               
+                                                                        
+        if err = r.processSchemaDefinitions(defs); err == nil {         
+                r.UpdateMatchingRuleUses()                              
+        }                                                               
+                                                                        
+        return
+}
+
+/*
 ParseFile returns an error following an attempt to parse file. Only
 files ending in ".schema" will be considered, however submission of
 non-qualifying files shall not produce an error.
@@ -118,28 +161,7 @@ func (r *Schema) ParseFile(file string) (err error) {
 		return
 	}
 
-	var i Instance
-	if i, err = ParseInstance(string(content)); err != nil {
-		return
-	}
-
-	fp := i.P.Fileparse()
-
-	defs := fp.Definitions()
-	if defs == nil {
-		err = errorf("No definitions found in %T", defs)
-		return
-	}
-
-	r.processObjectIdentifiers(defs.AllObjectIdentifier())
-
-	if dn := fp.SchemaDN(); dn != nil && len(r.DN) == 0 {
-		r.DN = trimS(trimL(dn.GetText(), `dn:`))
-	}
-
-	if err = r.processSchemaDefinitions(defs); err == nil {
-		r.UpdateMatchingRuleUses()
-	}
+	err = r.ParseRaw(content)
 
 	return
 }
@@ -162,28 +184,7 @@ func (r *Schema) ParseDirectory(dir string) (err error) {
 		return
 	}
 
-	var i Instance
-	if i, err = ParseInstance(string(content)); err != nil {
-		return
-	}
-
-	fp := i.P.Fileparse()
-
-	defs := fp.Definitions()
-	if defs == nil {
-		err = errorf("No definitions found in %T", defs)
-		return
-	}
-
-	r.processObjectIdentifiers(defs.AllObjectIdentifier())
-
-	if dn := fp.SchemaDN(); dn != nil && len(r.DN) == 0 {
-		r.DN = trimS(trimL(dn.GetText(), `dn:`))
-	}
-
-	if err = r.processSchemaDefinitions(defs); err == nil {
-		r.UpdateMatchingRuleUses()
-	}
+	err = r.ParseRaw(content)
 
 	return
 }
