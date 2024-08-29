@@ -21,7 +21,7 @@ If alterations are desired -- such as the introduction of bonafide listeners or 
   - Compliant
     - [RFC 4512](https://tools.ietf.org/html/rfc4512) syntax implementation honors relevant Augmented Backus-Naur Form (ABNF) productions
   - Compatible
-    - 389DS and OpenLDAP style schema formats supported
+    - 389DS and OpenLDAP style schema formats fully supported, and OpenDJ with minor adjustments to the input file
     - Auto-resolving OpenLDAP `objectidentifier` macro support
     - Unresolvable macros accepted silently, allowing user remediation during the post-parsing stage
   - Flexible -- all of the following are supported:
@@ -187,3 +187,21 @@ Additionally, only files ending in ".schema" will be parsed. This allows directo
 
 Directory names are _not_ significant and are traversed whenever encountered during a directory structure parsing operation.
 
+## A note on OpenDJ
+
+OpenDJ's schema format, which you can see within its `config/schema` directory on any typical install, is vaguely similar to 389DS in that a schema DN is used in the header of the file (`cn=schema`).  But OpenDJ also requires `objectClass` directives in schema files:
+
+```
+objectClass: top
+objectClass: ldapSubentry
+objectClass: subschema
+```
+
+These `objectClass`  directives MUST be removed (or commented-out) when used as input for parsing with this package, or its sister package [`go-schemax`](https://github.com/JesseCoretta/go-schemax).  ANTLR will not match `objectClass` correctly in this fashion, as this keyword is special in that:
+
+  - `objectClass` (and `objectClasses`) are actually defined (and fundamental) RFC 4512 attribute types, and ...
+  - `objectClass` is a distinct schema definition type
+
+Due to these two conditions, it was not possible to implement a third condition which allowed use of this keyword in the header as OpenDJ requires without introducing ambiguity into the grammar. Attempt to do so resulted in ANTLR matching unit tests failing en masse due to grammar conflicts.
+
+TLDR: Remove or comment-out the above `objectClass` values from any OpenDJ schema file(s) you intend to parse.
