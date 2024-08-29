@@ -99,9 +99,6 @@ func (r *DITStructureRule) setCritical(ctx any) (err error) {
 
 	switch tv := ctx.(type) {
 	case *StructureRuleContext:
-		if hasPfx(tv.GetText(), `-`) {
-			panic("HERE")
-		}
 		if m, err := ruleIDContext(tv); err == nil {
 			r.ID = m
 		}
