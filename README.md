@@ -197,11 +197,11 @@ objectClass: ldapSubentry
 objectClass: subschema
 ```
 
-These `objectClass`  directives MUST be removed (or commented-out) when used as input for parsing with this package, or its sister package [`go-schemax`](https://github.com/JesseCoretta/go-schemax).  ANTLR will not match `objectClass` correctly in this fashion, as this keyword is special in that:
+These `objectClass`  directives MUST be removed (or commented-out) when used as input for parsing with this package, or its sister package [`go-schemax`](https://github.com/JesseCoretta/go-schemax).  ANTLR will not match `objectClass` correctly in this fashion, as this grammar keyword is special in that:
 
   - `objectClass` (and `objectClasses`) are actually defined (and fundamental) RFC 4512 attribute types, and ...
   - `objectClass` is a distinct schema definition type
 
-Due to these two conditions, it was not possible to implement a third condition which allowed use of this keyword in the header as OpenDJ requires without introducing ambiguity into the grammar. Attempt to do so resulted in ANTLR matching unit tests failing en masse due to grammar conflicts.
+Due to these two conditions, it was not possible to implement a third condition which allowed use of this keyword in the header as OpenDJ requires without introducing ambiguity into the grammar. Attempts to do so resulted in ANTLR matching unit tests failing en masse due to grammar conflicts.
 
 TLDR: Remove or comment-out the above `objectClass` values from any OpenDJ schema file(s) you intend to parse.
