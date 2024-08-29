@@ -86,6 +86,11 @@ Adopters may wish to severely modify this grammar file -- for example,
 to enforce strict formatting rules without newlines -- and regenerate
 the codebase in the preferred language if cyclomatic complexity is
 a problem.
+
+OpenDJ users: Be advised that in its present state, this grammar file
+cannot tolerate the `objectClass:` values within the header of OpenDJ
+schema files. These must be commented out prior to parser input. See
+the README.md file in the repository root for details.
 */
 
 // BEGIN GRAMMAR ------------------------------------------------------
