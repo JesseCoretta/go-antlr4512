@@ -1,7 +1,7 @@
 package antlr4512
 
 /*
-DITStructureRule implements RFC 4512 Section 4.1.1.
+DITStructureRule implements RFC 4512 Section 4.1.7.1.
 */
 type DITStructureRule struct {
 	ID         string
