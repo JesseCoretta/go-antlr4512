@@ -204,4 +204,10 @@ These `objectClass`  directives MUST be removed (or commented-out) when used as 
 
 Due to these two conditions, it was not possible to implement a third condition which allowed use of this keyword in the header as OpenDJ requires without introducing ambiguity into the grammar. Attempts to do so resulted in ANTLR matching unit tests failing en masse due to grammar conflicts.
 
+The error that is likely to appear is a sort of fall-back error for fundamental issues is as follows:
+
+```
+nil or unbalanced parenthetical context, or bogus definition
+```
+
 TLDR: Remove or comment-out the above `objectClass` values from any OpenDJ schema file(s) you intend to parse.
