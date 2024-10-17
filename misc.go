@@ -103,9 +103,9 @@ func readDirectory(dir string) (content []byte, err error) {
 
 	// avoid panicking if the directory does not exist during
 	// the "walking" process.
-        if _, err = os.Stat(dir); errors.Is(err, os.ErrNotExist) {      
-                return                                                  
-        }
+	if _, err = os.Stat(dir); errors.Is(err, os.ErrNotExist) {
+		return
+	}
 
 	// recurse dir path
 	err = filepath.Walk(dir, func(p string, d fs.FileInfo, err error) error {

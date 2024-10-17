@@ -209,7 +209,7 @@ oIDs				: openParen SP* LineComment? NEWLINE? SP* oID SP*
 
 extensionValue			: (quotedString|quotedDescriptor)			;
 extensions			: extension+						;
-extension			: NEWLINE? XString (extensionValue|                       
+extension			: NEWLINE? XString (extensionValue|
                         	        openParen SP* LineComment? NEWLINE? SP*
 					LineComment? extensionValue SP* LineComment?
 					NEWLINE? ( SP+ extensionValue )* SP*
@@ -347,9 +347,9 @@ ODelim			: NEWLINE? SP* '$' SP* NEWLINE?			;
 MacroSuffix		: ( ':' | '.' ) Digit ( '.' Digit )*		;
 NumOID			: ('0'|'1'|'2') ( '.' Digit )+  		;
 XString			: SP+ 'X-' ALPHA (('-'|'_')? ALPHA+)* SP+	;
-DistinguishedName	: 'dn:' SP* Descr '=' Descr SP* NEWLINE		; 
+DistinguishedName	: 'dn:' SP* Descr '=' Descr SP* NEWLINE		;
 QDescr			: '\'' Descr '\''				;
-QString			: '\'' ().+? '\''				;
+QString			: '\'' (Descr|().+?) '\''			;
 MUB			: '{' Digit '}'					;
 Digit			: [0-9]
 		        | [1-9][0-9]+
