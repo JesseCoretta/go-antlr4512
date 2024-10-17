@@ -76,7 +76,7 @@ var testSyntaxes []string = []string{
 	`( 1.3.6.1.4.1.56521.101.2.1.7 DESC 'X.680, cl. 12.3: Identifier' X-PATTERN '^[a-z](-?[A-Za-z0-9]+)*$' )`,
 	`( 1.3.6.1.4.1.56521.101.2.1.18 DESC 'X.660, cl. A.2-A.3: StandardizedNameForm' X-PATTERN '^\{(([a-z](-?[A-Za-z0-9]+)*)|\d+)+\}$' )`,
 	`( 1.3.6.1.4.1.56521.101.2.1.19 DESC 'X.680, cl. 32.3: NameAndNumberForm' X-PATTERN '^[a-z](-?[A-Za-z0-9]+)*(\(\d+\))$' )`,
-	`( 1.3.6.1.4.1.56521.101.2.1.20 DESC 'X.660, cl. A.7: Long Arc' X-PATTERN '^\/([A-Za-z0-9\-._~]+|[\uA0000-\uD7FF]+|[\uF900}-\uFDCF]+|[\uFDF0}-\uFFEF]+|[\u10000}-\u1FFFD]+|[\u20000}-\u2FFFD]+|[\u30000}-\u3FFFD]+|[\u40000}-\u4FFFD]+|[\u50000}-\u5FFFD]+|[\u60000}-\u6FFFD]+|[\u70000}-\u7FFFD]+|[\u80000}-\u8FFFD]+|[\u90000}-\u9FFFD]+|[\uA0000}-\uAFFFD]+|[\uB0000}-\uBFFFD]+|[\uC0000}-\uCFFFD]+|[\uD0000}-\uDFFFD]+|[\uE1000}-\uEFFFD]+)+$' )`,
+	`( 1.3.6.1.4.1.56521.101.2.1.20 DESC 'X.660, cl. A.7; something\'s quoted: Long Arc' X-PATTERN '^\/([A-Za-z0-9\-._~]+|[\uA0000-\uD7FF]+|[\uF900}-\uFDCF]+|[\uFDF0}-\uFFEF]+|[\u10000}-\u1FFFD]+|[\u20000}-\u2FFFD]+|[\u30000}-\u3FFFD]+|[\u40000}-\u4FFFD]+|[\u50000}-\u5FFFD]+|[\u60000}-\u6FFFD]+|[\u70000}-\u7FFFD]+|[\u80000}-\u8FFFD]+|[\u90000}-\u9FFFD]+|[\uA0000}-\uAFFFD]+|[\uB0000}-\uBFFFD]+|[\uC0000}-\uCFFFD]+|[\uD0000}-\uDFFFD]+|[\uE1000}-\uEFFFD]+)+$' )`,
 }
 
 func TestParseLDAPSyntax(t *testing.T) {

@@ -349,7 +349,7 @@ NumOID			: ('0'|'1'|'2') ( '.' Digit )+  		;
 XString			: SP+ 'X-' ALPHA (('-'|'_')? ALPHA+)* SP+	;
 DistinguishedName	: 'dn:' SP* Descr '=' Descr SP* NEWLINE		;
 QDescr			: '\'' Descr '\''				;
-QString			: '\'' (Descr|().+?) '\''			;
+QString			: '\'' (Descr|DSTR+|().+?) '\''			;
 MUB			: '{' Digit '}'					;
 Digit			: [0-9]
 		        | [1-9][0-9]+
